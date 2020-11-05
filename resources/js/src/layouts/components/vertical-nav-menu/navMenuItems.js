@@ -68,21 +68,21 @@ export default [
         icon: 'MessageSquareIcon',
         i18n: 'Chat'
       },
-      {
-        url: '/todo',
-        name: 'Todo',
-        slug: 'todo',
-        icon: 'CheckSquareIcon',
-        i18n: 'Todo'
-      },
-      {
-        url: '/calendar',
-        name: 'Calendar',
-        slug: 'calendar-simple-calendar',
-        icon: 'CalendarIcon',
-        tagColor: 'success',
-        i18n: 'Calendar'
-      },
+      // {
+      //   url: '/todo',
+      //   name: 'Todo',
+      //   slug: 'todo',
+      //   icon: 'CheckSquareIcon',
+      //   i18n: 'Todo'
+      // },
+      // {
+      //   url: '/calendar',
+      //   name: 'Calendar',
+      //   slug: 'calendar-simple-calendar',
+      //   icon: 'CalendarIcon',
+      //   tagColor: 'success',
+      //   i18n: 'Calendar'
+      // },
       {
         url: '/contact',
         name: 'Contact',
@@ -97,13 +97,13 @@ export default [
         icon: 'SettingsIcon',
         i18n: 'UserSettings'
       },
-      {
-        url: '/faq',
-        slug: 'page-faq',
-        name: 'FAQ',
-        icon: 'HelpCircleIcon',
-        i18n: 'FAQ'
-      },
+      // {
+      //   url: '/faq',
+      //   slug: 'page-faq',
+      //   name: 'FAQ',
+      //   icon: 'HelpCircleIcon',
+      //   i18n: 'FAQ'
+      // },
       // {
       //   url: null,
       //   name: 'eCommerce',
