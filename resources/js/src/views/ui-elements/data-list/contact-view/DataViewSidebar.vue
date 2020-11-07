@@ -20,40 +20,42 @@
 
       <div class="p-6">
 
-        <!-- Product Image -->
-        <template v-if="dataImg">
-
-          <!-- Image Container -->
-          <div class="img-container w-64 mx-auto flex items-center justify-center">
-            <img :src="dataImg" alt="img" class="responsive">
-          </div>
-
-          <!-- Image upload Buttons -->
-          <div class="modify-img flex justify-between mt-5">
-            <input type="file" class="hidden" ref="updateImgInput" @change="updateCurrImg" accept="image/*">
-            <vs-button class="mr-4" type="flat" @click="$refs.updateImgInput.click()">Update Image</vs-button>
-            <vs-button type="flat" color="#999" @click="dataImg = null">Remove Image</vs-button>
-          </div>
-        </template>
-
         <!-- NAME -->
         <vs-input label="Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
 
-         <!-- EMAIL -->
-        <vs-input label="Email" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
+        <!-- EMAIL1 -->
+        <vs-input label="Email1" v-model="dataEmail1" class="mt-5 w-full" name="item-email1" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-email1')">{{ errors.first('item-email1') }}</span>
+
+        <!-- EMAIL2 -->
+        <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-email2')">{{ errors.first('item-email2') }}</span>
 
          <!-- PHONE NUMBER -->
-        <vs-input label="Phone Number" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
+        <vs-input label="Phone Number1" v-model="dataPN1" class="mt-5 w-full" name="item-pn1" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-pn1')">{{ errors.first('item-pn1') }}</span>
+
+         <!-- PHONE NUMBER -->
+        <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-pn2')">{{ errors.first('item-pn2') }}</span>
+
+         <!-- PHONE NUMBER -->
+        <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
 
         <!-- CATEGORY -->
-        <vs-select v-model="dataCategory" label="Group" class="mt-5 w-full" name="item-category" v-validate="'required'">
-          <vs-select-item :key="item.value" :value="item.value" :text="item.text" v-for="item in category_choices" />
+        <vs-select v-model="dataGroup" label="Group" class="mt-5 w-full" name="item-group" v-validate="'required'">
+          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in group_choices" />
         </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('item-category')">{{ errors.first('item-category') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-group')">{{ errors.first('item-group') }}</span>
 
+        <!-- CATEGORY -->
+        <vs-select v-model="dataLocation" label="Location" class="mt-5 w-full" name="item-location" v-validate="'required'">
+          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in location_choices" />
+        </vs-select>
+        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
+        
       </div>
     </component>
 
@@ -85,15 +87,26 @@ export default {
     return {
       dataId: null,
       dataName: '',
-      dataCategory: null,
-      dataImg: null,
-      dataOrder_status: 'pending',
-      dataPrice: 0,
+      dataEmail1: '',
+      dataEmail2: '',
+      dataPN1: '',
+      dataPN2: '',
+      dataPN3: '',
+      dataGroup: null,
+      dataLocation: null,
 
-      category_choices: [
-        {text:'Office', value:'office'},
-        {text:'Home', value:'home'},
-        {text:'AGroup', value:'agroup'},
+      group_choices: [
+        { label: 'IT Department',  value: '1'  },
+        { label: 'Sales Team',     value: '2'  },
+        { label: 'Management Team',  value: '3'  },
+        { label: 'Broadcast',      value: '4'  },
+      ],
+
+      location_choices: [
+        { label: '1st Floot meeting room',  value: '1'  },
+        { label: 'Main office ',     value: '2'     },
+        { label: 'CE office ',    value: '3'    },
+        { label: 'IT senior Manager office',      value: '4'     },
       ],
 
       settings: { // perfectscrollbar settings
@@ -109,16 +122,18 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { category, id, img, name, order_status, price } = JSON.parse(JSON.stringify(this.data))
+        const { id, group, location, email1, email2, name, phonenumber1, phonenumber2, phonenumber3 } = JSON.parse(JSON.stringify(this.data))        
         this.dataId = id
-        this.dataCategory = category
-        this.dataImg = img
+        this.dataGroup = group
+        this.dataLocation = location
+        this.dataEmail1 = email1
+        this.dataEmail2 = email2
         this.dataName = name
-        this.dataOrder_status = order_status
-        this.dataPrice = price
+        this.dataPN1 = phonenumber1
+        this.dataPN2 = phonenumber2
+        this.dataPN3 = phonenumber3
         this.initValues()
       }
-      // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
   computed: {
@@ -129,13 +144,12 @@ export default {
       set (val) {
         if (!val) {
           this.$emit('closeSidebar')
-          // this.$validator.reset()
-          // this.initValues()
         }
       }
     },
     isFormValid () {
-      return !this.errors.any() && this.dataName && this.dataCategory && this.dataPrice > 0
+      // return !this.errors.any() && this.dataName && this.dataCategory && this.dataPrice > 0
+      return true;
     },
     scrollbarTag () { return this.$store.getters.scrollbarTag }
   },
@@ -143,11 +157,14 @@ export default {
     initValues () {
       if (this.data.id) return
       this.dataId = null
+      this.dataGroup = ''
+      this.dataLocation = ''
+      this.dataEmail1 = ''
+      this.dataEmail2 = ''
       this.dataName = ''
-      this.dataCategory = null
-      this.dataOrder_status = 'pending'
-      this.dataPrice = 0
-      this.dataImg = null
+      this.dataPN1 = ''
+      this.dataPN2 = ''
+      this.dataPN3 = ''
     },
     submitData () {
       this.$validator.validateAll().then(result => {
@@ -155,10 +172,13 @@ export default {
           const obj = {
             id: this.dataId,
             name: this.dataName,
-            img: this.dataImg,
-            category: this.dataCategory,
-            order_status: this.dataOrder_status,
-            price: this.dataPrice
+            group: this.dataGroup, 
+            location: this.dataLocation, 
+            email1: this.dataEmail1,
+            email2: this.dataEmail2, 
+            phonenumber1: this.dataPN1,
+            phonenumber2: this.dataPN2,
+            phonenumber3: this.dataPN3,
           }
 
           if (this.dataId !== null && this.dataId >= 0) {
@@ -173,15 +193,6 @@ export default {
           this.initValues()
         }
       })
-    },
-    updateCurrImg (input) {
-      if (input.target.files && input.target.files[0]) {
-        const reader = new FileReader()
-        reader.onload = e => {
-          this.dataImg = e.target.result
-        }
-        reader.readAsDataURL(input.target.files[0])
-      }
     }
   }
 }

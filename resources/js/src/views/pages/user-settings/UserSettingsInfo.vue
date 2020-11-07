@@ -27,26 +27,6 @@
       <v-select v-model="lang_known" multiple :closeOnSelect="false" :options="langOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
     </div>
 
-
-    <!-- Location -->
-    <!-- <vs-input class="w-full mt-8" label-placeholder="Location" v-model="location" /> -->
-
-    <!-- Mobile Number -->
-    <!-- <vs-input class="w-full mt-8" type="number" label-placeholder="Mobile" v-model="mobile" /> -->
-
-    <!-- Website  -->
-    <!-- <vs-input class="w-full mt-8" label-placeholder="Website" v-model="website" /> -->
-
-    <!-- Gender -->
-    <!-- <div class="mt-8 mb-base">
-      <label class="text-sm">Gender</label>
-      <div class="mt-2">
-        <vs-radio v-model="gender" vs-value="male" class="mr-4">Male</vs-radio>
-        <vs-radio v-model="gender" vs-value="female" class="mr-4">Female</vs-radio>
-        <vs-radio v-model="gender" vs-value="other">Other</vs-radio>
-      </div>
-    </div> -->
-
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end mt-8">
       <vs-button class="ml-auto mt-2">Save Changes</vs-button>

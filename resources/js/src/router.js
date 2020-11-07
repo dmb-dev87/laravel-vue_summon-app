@@ -234,7 +234,33 @@ const router = new Router({
         {
           path: '/contact',
           name: 'Contact List',
-          component: () => import('@/views/ui-elements/data-list/list-view/DataListListView.vue'),
+          component: () => import('@/views/ui-elements/data-list/contact-view/DataListListView.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: 'Contact List', active: true }
+            ],
+            pageTitle: 'Contact List',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/location',
+          name: 'Contact List',
+          component: () => import('@/views/ui-elements/data-list/location-view/DataListListView.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: 'Contact List', active: true }
+            ],
+            pageTitle: 'Contact List',
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/group',
+          name: 'Contact List',
+          component: () => import('@/views/ui-elements/data-list/group-view/DataListListView.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
