@@ -54,19 +54,19 @@ export default [
     icon: 'PackageIcon',
     i18n: 'Apps',
     items: [
+      // {
+      //   url: '/email',
+      //   name: 'Email',
+      //   slug: 'email',
+      //   icon: 'MailIcon',
+      //   i18n: 'Email'
+      // },
       {
-        url: '/email',
-        name: 'Email',
-        slug: 'email',
-        icon: 'MailIcon',
-        i18n: 'Email'
-      },
-      {
-        url: '/chat',
-        name: 'Chat',
-        slug: 'chat',
+        url: '/summon',
+        name: 'Summon',
+        slug: 'Summon',
         icon: 'MessageSquareIcon',
-        i18n: 'Chat'
+        i18n: 'Summon'
       },
       // {
       //   url: '/todo',
@@ -616,6 +616,13 @@ export default [
     icon: 'FileIcon',
     i18n: 'Admin',
     items: [
+      {
+        url: '/user-list',
+        name: 'List',
+        slug: 'app-user-list',
+        icon: 'UsersIcon',
+        i18n: 'List'
+      },
       // {
       //   url: '/pages/profile',
       //   slug: 'page-profile',
@@ -623,32 +630,33 @@ export default [
       //   icon: 'UserIcon',
       //   i18n: 'Profile'
       // },
-      {
-        url: null,
-        name: 'User',
-        icon: 'UserIcon',
-        i18n: 'User',
-        submenu: [
-          {
-            url: '/user/user-list',
-            name: 'List',
-            slug: 'app-user-list',
-            i18n: 'List'
-          },
-          {
-            url: '/user/user-view/268',
-            name: 'View',
-            slug: 'app-user-view',
-            i18n: 'View'
-          },
-          {
-            url: '/user/user-edit/268',
-            name: 'Edit',
-            slug: 'app-user-edit',
-            i18n: 'Edit'
-          }
-        ]
-      }
+      // {
+        
+      //   url: null,
+      //   name: 'User',
+      //   icon: 'UserIcon',
+      //   i18n: 'User',
+      //   submenu: [
+      //     {
+      //       url: '/user/user-list',
+      //       name: 'List',
+      //       slug: 'app-user-list',
+      //       i18n: 'List'
+      //     },
+      //     {
+      //       url: '/user/user-view/268',
+      //       name: 'View',
+      //       slug: 'app-user-view',
+      //       i18n: 'View'
+      //     },
+      //     {
+      //       url: '/user/user-edit/268',
+      //       name: 'Edit',
+      //       slug: 'app-user-edit',
+      //       i18n: 'Edit'
+      //     }
+      //   ]
+      // }
       // {
       //   url: '/pages/knowledge-base',
       //   slug: 'page-knowledge-base',

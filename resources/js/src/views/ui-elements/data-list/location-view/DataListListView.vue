@@ -41,34 +41,14 @@
                   <span>Archive</span>
                 </span>
               </vs-dropdown-item>
-<!-- 
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="FileIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Print</span>
-                </span>
-              </vs-dropdown-item>
-
-              <vs-dropdown-item>
-                <span class="flex items-center">
-                  <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Another Action</span>
-                </span>
-              </vs-dropdown-item> -->
 
             </vs-dropdown-menu>
           </vs-dropdown>
 
-          <!-- ADD NEW -->
-          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
-              <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add New</span>
-          </div>
-
           <!-- ADD NEW GROUP-->
           <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add GROUP</span>
+              <span class="ml-2 text-base text-primary">Add LOCATION</span>
           </div>
         </div>
 
@@ -98,10 +78,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="group">Group</vs-th>
-        <vs-th sort-key="email">Email</vs-th>
-        <vs-th sort-key="phonenumber">Phone Number</vs-th>
+        <vs-th sort-key="name">LOCATION</vs-th>
         
         <vs-th>Action</vs-th>
       </template>
@@ -112,26 +89,6 @@
 
               <vs-td>
                 <p class="product-name font-medium truncate">{{ tr.name }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-group">{{ tr.group }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-email">{{ tr.email }}</p>
-              </vs-td>
-
-              <!-- <vs-td>
-                <vs-progress :percent="Number(tr.popularity)" :color="getPopularityColor(Number(tr.popularity))" class="shadow-md" />
-              </vs-td>
-
-              <vs-td>
-                <vs-chip :color="getOrderStatusColor(tr.order_status)" class="product-order-status">{{ tr.order_status | title }}</vs-chip>
-              </vs-td> -->
-
-              <vs-td>
-                <p class="product-phonenumber">{{ tr.phonenumber }}</p>
               </vs-td>
 
               <vs-td class="whitespace-no-wrap">
@@ -147,7 +104,7 @@
 </template>
 
 <script>
-import DataViewSidebar from '../DataViewSidebar.vue'
+import DataViewSidebar from './DataViewSidebar.vue'
 import moduleDataList from '@/store/data-list/moduleDataList.js'
 
 export default {

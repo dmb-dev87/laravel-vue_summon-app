@@ -1,5 +1,5 @@
 <template>
-  <div class="the-navbar__user-meta flex items-center" v-if="activeUserInfo.displayName">
+  <div class="the-navbar__user-meta flex items-center pl-5" v-if="activeUserInfo.displayName">
 
     
 
@@ -23,11 +23,11 @@
             <span class="ml-2">Profile</span>
           </li> -->
 
-          <li
+          <!-- <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="$router.push('/email').catch(() => {})">
             <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Inbox</span>
+            <span class="ml-2">Summon</span>
           </li>
 
           <li
@@ -35,13 +35,13 @@
             @click="$router.push('/todo').catch(() => {})">
             <feather-icon icon="CheckSquareIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Tasks</span>
-          </li>
+          </li> -->
 
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/chat').catch(() => {})">
+            @click="$router.push('/summon').catch(() => {})">
             <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Chat</span>
+            <span class="ml-2">Summon</span>
           </li>
 
           <!-- <li

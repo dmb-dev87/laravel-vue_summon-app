@@ -17,54 +17,92 @@
 
             <div class="chat__profile-search flex p-4">
                 <div class="relative inline-flex">
-                    <vs-avatar v-if="activeUser.photoURL" class="m-0 border-2 border-solid border-white" :src="activeUser.photoURL" size="40px" @click="showProfileSidebar(Number(activeUser.uid), true)" />
-                    <div class="h-3 w-3 border-white border border-solid rounded-full absolute right-0 bottom-0" :class="'bg-' + getStatusColor(true)"></div>
+                    <!-- <vs-avatar v-if="activeUser.photoURL" class="m-0 border-2 border-solid border-white" :src="activeUser.photoURL" size="40px" /> -->
+                    <!-- <div class="h-3 w-3 border-white border border-solid rounded-full absolute right-0 bottom-0" :class="'bg-' + getStatusColor(true)"></div> -->
                 </div>
-                <vs-input icon-no-border icon="icon-search" icon-pack="feather" class="w-full mx-5 input-rounded-full" placeholder="Search or start a new chat" v-model="searchQuery"/>
+                <vs-input icon-no-border icon="icon-search" icon-pack="feather" class="w-full mx-5 input-rounded-full" placeholder="Select staff to send summon" v-model="searchQuery"/>
 
                 <feather-icon class="md:inline-flex lg:hidden -ml-3 cursor-pointer" icon="XIcon" @click="toggleChatSidebar(false)" />
             </div>
 
             <vs-divider class="d-theme-border-grey-light m-0" />
-            <component :is="scrollbarTag" class="chat-scroll-area pt-4" :settings="settings" :key="$vs.rtl">
+            <component :is="scrollbarTag" class="chat-scroll-area" style="padding: 10px;" :settings="settings" :key="$vs.rtl">
 
-                <!-- ACTIVE CHATS LIST -->
-                <div class="chat__chats-list mb-8">
-                    <h3 class="text-primary mb-5 px-4">Chats</h3>
-                    <ul class="chat__active-chats bordered-items">
-                        <li class="cursor-pointer" v-for="(contact, index) in chatContacts" :key="index" @click="updateActiveChatUser(contact.uid)">
-                            <chat-contact showLastMsg :contact="contact" :lastMessaged="chatLastMessaged(contact.uid).time" :unseenMsg="chatUnseenMessages(contact.uid)" :isActiveChatUser="isActiveChatUser(contact.uid)"></chat-contact>
-                        </li>
-                    </ul>
-                </div>
+                <vs-list-header title="Contact"></vs-list-header>
 
+                <vs-list-item title="Felecia Rower">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Joaquina Weisenborn">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Sapporo Haru">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Verla Morgano">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Sal Piggee">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Miguel Guelff">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Mauro Elenbaas">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Bridgett Omohundro">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
 
-                <!-- CONTACTS LIST -->
-                <div class="chat__contacts">
-                    <h3 class="text-primary mb-5 px-4">Contacts</h3>
-                    <ul class="chat__contacts bordered-items">
-                        <li class="cursor-pointer" v-for="contact in contacts" :key="contact.uid" @click="updateActiveChatUser(contact.uid)">
-                            <chat-contact :contact="contact"></chat-contact>
-                        </li>
-                    </ul>
-                </div>
+                <vs-list-header title="Location"></vs-list-header>
+
+                <vs-list-item title="1st Floot meeting roomss">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Main office">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="CE office">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="IT senior Manager office">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+
+                <vs-list-header title="Group"></vs-list-header>
+
+                <vs-list-item title="IT Department">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Sales Team">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Management Team">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
+                <vs-list-item title="Broadcast">
+                  <vs-checkbox color="primary"/>
+                </vs-list-item>
             </component>
         </vs-sidebar>
 
         <!-- RIGHT COLUMN -->
         <div class="chat__bg no-scroll-content chat-content-area border border-solid d-theme-border-grey-light border-t-0 border-r-0 border-b-0" :class="{'sidebar-spacer--wide': clickNotClose, 'flex items-center justify-center': activeChatUser === null}">
             <template v-if="activeChatUser">
-                <div class="chat__navbar">
+                <!-- <div class="chat__navbar">
                     <chat-navbar :isSidebarCollapsed="!clickNotClose" :user-id="activeChatUser" :isPinnedProp="isChatPinned" @openContactsSidebar="toggleChatSidebar(true)" @showProfileSidebar="showProfileSidebar" @toggleIsChatPinned="toggleIsChatPinned"></chat-navbar>
-                </div>
+                </div> -->
                 <component :is="scrollbarTag" class="chat-content-scroll-area border border-solid d-theme-border-grey-light" :settings="settings" ref="chatLogPS" :key="$vs.rtl">
                     <div class="chat__log" ref="chatLog">
                         <chat-log :userId="activeChatUser" v-if="activeChatUser"></chat-log>
                     </div>
                 </component>
-                <div class="chat__input flex p-4 bg-white">                    
-                    <vs-input class="flex-1" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />
-                    <vs-button class="ml-4" radius color="primary" type="border" icon-pack="feather" icon="icon-voicemail"></vs-button>
+                
+                <div class="chat__input flex p-4 bg-white">
+                    <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
+                    <vs-input class="flex-1" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />
+                    <vs-button class="ml-4" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
                     <vs-button class="bg-primary-gradient ml-4" type="filled" @click="sendMsg">Send</vs-button>
                 </div>
             </template>
@@ -93,7 +131,7 @@ export default {
       isHidden             : false,
       searchContact        : '',
       activeProfileSidebar : false,
-      activeChatUser       : null,
+      activeChatUser       : true,
       userProfileId        : -1,
       typedMessage         : '',
       isChatPinned         : false,
@@ -103,7 +141,8 @@ export default {
       },
       clickNotClose        : true,
       isChatSidebarActive  : true,
-      isLoggedInUserProfileView: false
+      isLoggedInUserProfileView: false,
+      messageType: true,
     }
   },
   watch: {
@@ -205,6 +244,9 @@ export default {
       const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
       scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
     },
+    changemethod () { 
+      this.messageType = !  this.messageType
+    },
     toggleIsChatPinned (value) {
       this.isChatPinned = value
     },
@@ -232,6 +274,7 @@ export default {
     this.$store.dispatch('chat/fetchContacts')
     this.$store.dispatch('chat/fetchChatContacts')
     this.$store.dispatch('chat/fetchChats')
+    this.updateActiveChatUser(1);
     this.setSidebarWidth()
   },
   beforeDestroy () {

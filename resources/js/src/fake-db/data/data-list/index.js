@@ -12,6 +12,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Admin',
     },
     {
       'id': 2,
@@ -23,6 +24,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     {
       'id': 3,
@@ -34,6 +36,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Admin',
     },
     {
       'id': 4,
@@ -45,6 +48,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     {
       'id': 5,
@@ -56,6 +60,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Admin',
     },
     {
       'id': 6,
@@ -67,6 +72,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     {
       'id': 7,
@@ -78,6 +84,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     {
       'id': 8,
@@ -89,6 +96,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     {
       'id': 9,
@@ -100,11 +108,12 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
+      'role': 'Staff',
     },
     // {
     //   'id': 10,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Altec Lansing - Mini H2O Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 64,
@@ -113,7 +122,7 @@ const data = {
     // {
     //   'id': 11,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Altec Lansing - Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 93,
@@ -122,7 +131,7 @@ const data = {
     // {
     //   'id': 12,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Altec Lansing - Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 75,
@@ -131,7 +140,7 @@ const data = {
     // {
     //   'id': 13,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Altec Lansing - Bluetooth Speaker',
     //   'order_status': 'delivered',
     //   'popularity': 88,
@@ -140,7 +149,7 @@ const data = {
     // {
     //   'id': 14,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Altec Lansing - Bluetooth Speaker',
     //   'order_status': 'delivered',
     //   'popularity': 86,
@@ -149,7 +158,7 @@ const data = {
     // {
     //   'id': 15,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Aluratek - Bluetooth Audio Receiver',
     //   'order_status': 'on_hold',
     //   'popularity': 62,
@@ -158,7 +167,7 @@ const data = {
     // {
     //   'id': 16,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Aluratek - Bluetooth Audio Transmitter',
     //   'order_status': 'canceled',
     //   'popularity': 51,
@@ -167,7 +176,7 @@ const data = {
     // {
     //   'id': 17,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Aluratek - iStream Bluetooth Audio Receiver',
     //   'order_status': 'pending',
     //   'popularity': 51,
@@ -176,7 +185,7 @@ const data = {
     // {
     //   'id': 18,
     //   'category': 'computers',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Antec - Nano Diamond Thermal Compound',
     //   'order_status': 'on_hold',
     //   'popularity': 65,
@@ -185,7 +194,7 @@ const data = {
     // {
     //   'id': 19,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Antec - SmartBean Bluetooth Adapter',
     //   'order_status': 'on_hold',
     //   'popularity': 63,
@@ -194,7 +203,7 @@ const data = {
     // {
     //   'id': 20,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Basis - Peak Fitness and Sleep Tracker',
     //   'order_status': 'on_hold',
     //   'popularity': 72,
@@ -203,7 +212,7 @@ const data = {
     // {
     //   'id': 21,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Basis - Peak Fitness and Sleep Tracker',
     //   'order_status': 'canceled',
     //   'popularity': 77,
@@ -212,7 +221,7 @@ const data = {
     // {
     //   'id': 22,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Beats by Dr. Dre - 3\' USB-to-Micro USB Cable',
     //   'order_status': 'delivered',
     //   'popularity': 65,
@@ -221,7 +230,7 @@ const data = {
     // {
     //   'id': 23,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'Beats by Dr. Dre - Bike Mount for Pill Speakers',
     //   'order_status': 'delivered',
     //   'popularity': 60,
@@ -230,7 +239,7 @@ const data = {
     // {
     //   'id': 24,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'Beats by Dr. Dre - Support Stand for Speakers',
     //   'order_status': 'on_hold',
     //   'popularity': 59,
@@ -239,7 +248,7 @@ const data = {
     // {
     //   'id': 25,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Beats by Dr. Dre - Support Stand for Pill Speakers',
     //   'order_status': 'on_hold',
     //   'popularity': 87,
@@ -248,7 +257,7 @@ const data = {
     // {
     //   'id': 26,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Beats by Dr. Dre - Support Stand for Pill Speakers',
     //   'order_status': 'delivered',
     //   'popularity': 95,
@@ -257,7 +266,7 @@ const data = {
     // {
     //   'id': 27,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Beats by Dr. Dre - Support Stand for Speakers',
     //   'order_status': 'canceled',
     //   'popularity': 98,
@@ -266,7 +275,7 @@ const data = {
     // {
     //   'id': 28,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Beats by Dr. Dre - Support Stand',
     //   'order_status': 'delivered',
     //   'popularity': 75,
@@ -275,7 +284,7 @@ const data = {
     // {
     //   'id': 29,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'Beats by Dr. Dre - Pill 2.0 Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 81,
@@ -284,7 +293,7 @@ const data = {
     // {
     //   'id': 30,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Beats by Dr. Dre - Pill 2.0 Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 91,
@@ -293,7 +302,7 @@ const data = {
     // {
     //   'id': 31,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Beats by Dr. Dre - Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 79,
@@ -302,7 +311,7 @@ const data = {
     // {
     //   'id': 32,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Beats by Dr. Dre - Portable Speaker + Headphones',
     //   'order_status': 'on_hold',
     //   'popularity': 95,
@@ -311,7 +320,7 @@ const data = {
     // {
     //   'id': 33,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Beats by Dr. Dre - Pill 2.0 Portable Stereo Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 90,
@@ -320,7 +329,7 @@ const data = {
     // {
     //   'id': 34,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Bose® - SoundLink® III Cover',
     //   'order_status': 'delivered',
     //   'popularity': 81,
@@ -329,7 +338,7 @@ const data = {
     // {
     //   'id': 35,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Bose® - Bose® SoundLink® III Cover',
     //   'order_status': 'delivered',
     //   'popularity': 81,
@@ -338,7 +347,7 @@ const data = {
     // {
     //   'id': 36,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Bose® - SoundLink® III Cover',
     //   'order_status': 'on_hold',
     //   'popularity': 69,
@@ -347,7 +356,7 @@ const data = {
     // {
     //   'id': 37,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - SoundLink® Mini Soft Cover',
     //   'order_status': 'canceled',
     //   'popularity': 95,
@@ -356,7 +365,7 @@ const data = {
     // {
     //   'id': 38,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Bose® - SoundLink® Color Bluetooth Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 100,
@@ -365,7 +374,7 @@ const data = {
     // {
     //   'id': 39,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Bose® - SoundLink® Color Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 89,
@@ -374,7 +383,7 @@ const data = {
     // {
     //   'id': 40,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Bose® - SoundLink® Color Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 75,
@@ -383,7 +392,7 @@ const data = {
     // {
     //   'id': 41,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'Bose® - SoundLink® Color Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 54,
@@ -392,7 +401,7 @@ const data = {
     // {
     //   'id': 42,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Bose® - SoundLink® Color Bluetooth Speaker',
     //   'order_status': 'delivered',
     //   'popularity': 98,
@@ -401,7 +410,7 @@ const data = {
     // {
     //   'id': 43,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - SoundLink® Color Carry Case',
     //   'order_status': 'pending',
     //   'popularity': 95,
@@ -410,7 +419,7 @@ const data = {
     // {
     //   'id': 44,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'Bose® - SoundLink® III Cover',
     //   'order_status': 'on_hold',
     //   'popularity': 76,
@@ -419,7 +428,7 @@ const data = {
     // {
     //   'id': 45,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Bose® - SoundLink® III Cover',
     //   'order_status': 'canceled',
     //   'popularity': 98,
@@ -428,7 +437,7 @@ const data = {
     // {
     //   'id': 46,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Bose® - SoundLink® III Cover',
     //   'order_status': 'pending',
     //   'popularity': 70,
@@ -437,7 +446,7 @@ const data = {
     // {
     //   'id': 47,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Bose® - Mini Bluetooth Speaker II',
     //   'order_status': 'pending',
     //   'popularity': 62,
@@ -446,7 +455,7 @@ const data = {
     // {
     //   'id': 48,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'Bose® - Bluetooth Speaker II',
     //   'order_status': 'canceled',
     //   'popularity': 63,
@@ -455,7 +464,7 @@ const data = {
     // {
     //   'id': 49,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Bose® - SoundLink® Mini Bluetooth Speaker Soft Cover',
     //   'order_status': 'on_hold',
     //   'popularity': 90,
@@ -464,7 +473,7 @@ const data = {
     // {
     //   'id': 50,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Bose® - Bluetooth Speaker Soft Cover',
     //   'order_status': 'canceled',
     //   'popularity': 98,
@@ -473,7 +482,7 @@ const data = {
     // {
     //   'id': 51,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - Bluetooth Speaker Soft Cover',
     //   'order_status': 'on_hold',
     //   'popularity': 55,
@@ -482,7 +491,7 @@ const data = {
     // {
     //   'id': 52,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 53,
@@ -491,7 +500,7 @@ const data = {
     // {
     //   'id': 53,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - SoundLink® Mini Bluetooth Speaker Soft Cover',
     //   'order_status': 'pending',
     //   'popularity': 82,
@@ -500,7 +509,7 @@ const data = {
     // {
     //   'id': 54,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Bose® - Bluetooth Speaker Travel Bag',
     //   'order_status': 'on_hold',
     //   'popularity': 78,
@@ -509,7 +518,7 @@ const data = {
     // {
     //   'id': 55,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Bose® - SoundLink® Mini Soft Cover',
     //   'order_status': 'canceled',
     //   'popularity': 81,
@@ -518,7 +527,7 @@ const data = {
     // {
     //   'id': 56,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Bose® - SoundLink® Mini Soft Cover',
     //   'order_status': 'pending',
     //   'popularity': 94,
@@ -527,7 +536,7 @@ const data = {
     // {
     //   'id': 57,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Bose® - Bluetooth Speaker III',
     //   'order_status': 'pending',
     //   'popularity': 97,
@@ -536,7 +545,7 @@ const data = {
     // {
     //   'id': 58,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Bose® - SoundLink® Soft Cover',
     //   'order_status': 'delivered',
     //   'popularity': 89,
@@ -545,7 +554,7 @@ const data = {
     // {
     //   'id': 59,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'Bose® - Bluetooth Music Adapter',
     //   'order_status': 'on_hold',
     //   'popularity': 53,
@@ -554,7 +563,7 @@ const data = {
     // {
     //   'id': 60,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Bowers & Wilkins - Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 79,
@@ -563,7 +572,7 @@ const data = {
     // {
     //   'id': 61,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'BRAVEN - Balance Portable Bluetooth Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 82,
@@ -572,7 +581,7 @@ const data = {
     // {
     //   'id': 62,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'BRAVEN - Balance Portable Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 80,
@@ -581,7 +590,7 @@ const data = {
     // {
     //   'id': 63,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'BRAVEN - Outdoor Speaker',
     //   'order_status': 'pending',
     //   'popularity': 86,
@@ -590,7 +599,7 @@ const data = {
     // {
     //   'id': 64,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'BRAVEN - BRV-X Outdoor Speaker',
     //   'order_status': 'pending',
     //   'popularity': 61,
@@ -599,7 +608,7 @@ const data = {
     // {
     //   'id': 65,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'BRAVEN - Portable Bluetooth Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 85,
@@ -608,7 +617,7 @@ const data = {
     // {
     //   'id': 66,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'BRAVEN - Portable Bluetooth Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 81,
@@ -617,7 +626,7 @@ const data = {
     // {
     //   'id': 67,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'BRAVEN - Wireless Bluetooth Speaker',
     //   'order_status': 'on_hold',
     //   'popularity': 50,
@@ -626,7 +635,7 @@ const data = {
     // {
     //   'id': 68,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'BRAVEN - Wireless Bluetooth Speaker',
     //   'order_status': 'delivered',
     //   'popularity': 93,
@@ -635,7 +644,7 @@ const data = {
     // {
     //   'id': 69,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'BRAVEN - Wireless Bluetooth Speaker',
     //   'order_status': 'pending',
     //   'popularity': 51,
@@ -644,7 +653,7 @@ const data = {
     // {
     //   'id': 70,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Craig - Tower Speaker',
     //   'order_status': 'pending',
     //   'popularity': 77,
@@ -653,7 +662,7 @@ const data = {
     // {
     //   'id': 71,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Craig - Portable Wireless Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 89,
@@ -662,7 +671,7 @@ const data = {
     // {
     //   'id': 72,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Definitive Technology - Wireless Speaker',
     //   'order_status': 'pending',
     //   'popularity': 81,
@@ -671,7 +680,7 @@ const data = {
     // {
     //   'id': 73,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Definitive Technology - Wireless Speaker',
     //   'order_status': 'pending',
     //   'popularity': 76,
@@ -680,7 +689,7 @@ const data = {
     // {
     //   'id': 74,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/08.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/08.png',
     //   'name': 'Denon - Wireless Speaker',
     //   'order_status': 'pending',
     //   'popularity': 88,
@@ -689,7 +698,7 @@ const data = {
     // {
     //   'id': 75,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Denon - HEOS 7 Wireless Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 100,
@@ -698,7 +707,7 @@ const data = {
     // {
     //   'id': 76,
     //   'category': 'audio',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'ECOXGEAR - Waterproof Bluetooth Speaker',
     //   'order_status': 'canceled',
     //   'popularity': 52,
@@ -707,7 +716,7 @@ const data = {
     // {
     //   'id': 77,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Fitbit - Charge HR Activity Tracker + Heart Rate (Large)',
     //   'order_status': 'pending',
     //   'popularity': 66,
@@ -716,7 +725,7 @@ const data = {
     // {
     //   'id': 78,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Fitbit - Charge HR Activity Tracker + Heart Rate (Large)',
     //   'order_status': 'delivered',
     //   'popularity': 66,
@@ -725,7 +734,7 @@ const data = {
     // {
     //   'id': 79,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Fitbit - Activity Tracker + Heart Rate (Large)',
     //   'order_status': 'canceled',
     //   'popularity': 96,
@@ -734,7 +743,7 @@ const data = {
     // {
     //   'id': 80,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Fitbit - Charge HR Activity Tracker + Heart Rate (Small)',
     //   'order_status': 'on_hold',
     //   'popularity': 92,
@@ -743,7 +752,7 @@ const data = {
     // {
     //   'id': 81,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Fitbit - Charge HR Activity Tracker + Heart Rate (Small)',
     //   'order_status': 'delivered',
     //   'popularity': 82,
@@ -752,7 +761,7 @@ const data = {
     // {
     //   'id': 82,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Fitbit - Activity Tracker + Heart Rate (Small)',
     //   'order_status': 'pending',
     //   'popularity': 100,
@@ -761,7 +770,7 @@ const data = {
     // {
     //   'id': 83,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/01.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/01.png',
     //   'name': 'Fitbit - Activity Tracker + Sleep Wristband',
     //   'order_status': 'pending',
     //   'popularity': 100,
@@ -770,7 +779,7 @@ const data = {
     // {
     //   'id': 84,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'Fitbit - Activity Tracker (Large)',
     //   'order_status': 'pending',
     //   'popularity': 52,
@@ -779,7 +788,7 @@ const data = {
     // {
     //   'id': 85,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Fitbit - Charge Wireless Activity Tracker (Large)',
     //   'order_status': 'on_hold',
     //   'popularity': 51,
@@ -788,7 +797,7 @@ const data = {
     // {
     //   'id': 86,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/04.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/04.png',
     //   'name': 'Fitbit - Charge Wireless Activity Tracker (Large)',
     //   'order_status': 'pending',
     //   'popularity': 80,
@@ -797,7 +806,7 @@ const data = {
     // {
     //   'id': 87,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/02.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/02.png',
     //   'name': 'Fitbit - Charge Wireless Activity Tracker (Small)',
     //   'order_status': 'on_hold',
     //   'popularity': 99,
@@ -806,7 +815,7 @@ const data = {
     // {
     //   'id': 88,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Fitbit - Activity Tracker (Small)',
     //   'order_status': 'on_hold',
     //   'popularity': 75,
@@ -815,7 +824,7 @@ const data = {
     // {
     //   'id': 89,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Fitbit - Charge Wireless Activity Tracker (Small)',
     //   'order_status': 'pending',
     //   'popularity': 80,
@@ -824,7 +833,7 @@ const data = {
     // {
     //   'id': 90,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Fitbit - Charging Cable for Activity Trackers',
     //   'order_status': 'delivered',
     //   'popularity': 50,
@@ -833,7 +842,7 @@ const data = {
     // {
     //   'id': 91,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Fitbit - Clip for Activity and Sleep Trackers',
     //   'order_status': 'delivered',
     //   'popularity': 57,
@@ -842,7 +851,7 @@ const data = {
     // {
     //   'id': 92,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Fitbit - Clip for Wireless Activity and Sleep Trackers',
     //   'order_status': 'on_hold',
     //   'popularity': 80,
@@ -851,7 +860,7 @@ const data = {
     // {
     //   'id': 93,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Fitbit - Clip for Zip Wireless Activity Trackers',
     //   'order_status': 'canceled',
     //   'popularity': 78,
@@ -860,7 +869,7 @@ const data = {
     // {
     //   'id': 94,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/05.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/05.png',
     //   'name': 'Fitbit - Flex 1" USB Charging Cable',
     //   'order_status': 'on_hold',
     //   'popularity': 81,
@@ -869,7 +878,7 @@ const data = {
     // {
     //   'id': 95,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Fitbit - Flex 1" USB Charging Cable',
     //   'order_status': 'canceled',
     //   'popularity': 51,
@@ -878,7 +887,7 @@ const data = {
     // {
     //   'id': 96,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/03.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/03.png',
     //   'name': 'Fitbit - Flex Clasp for Activity Trackers',
     //   'order_status': 'canceled',
     //   'popularity': 56,
@@ -887,7 +896,7 @@ const data = {
     // {
     //   'id': 97,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/07.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/07.png',
     //   'name': 'Fitbit - Sleep Wristband',
     //   'order_status': 'on_hold',
     //   'popularity': 95,
@@ -896,7 +905,7 @@ const data = {
     // {
     //   'id': 98,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Fitbit - Sleep Tracker Wristband',
     //   'order_status': 'delivered',
     //   'popularity': 85,
@@ -905,7 +914,7 @@ const data = {
     // {
     //   'id': 99,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/09.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/09.png',
     //   'name': 'Fitbit - Flex Wireless Activity',
     //   'order_status': 'pending',
     //   'popularity': 50,
@@ -914,7 +923,7 @@ const data = {
     // {
     //   'id': 100,
     //   'category': 'fitness',
-    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/products/06.png',
+    //   'img': 'https://pixinvent.com/demo/vuexy-vuejs-Admin-dashboard-template/products/06.png',
     //   'name': 'Fitbit - Activity Tracker',
     //   'order_status': 'delivered',
     //   'popularity': 72,

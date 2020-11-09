@@ -10,7 +10,8 @@
 <template>
   <div id="data-list-list-view" class="data-list-container">
 
-    <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
+    <data-view-sidebar :isSidebarActive="addNewDataSidebar1" @closeSidebar="toggleDataSidebar1" :data="sidebarData1" />
+    <data-outlook-sidebar :isSidebarActive="addNewDataSidebar2" @closeSidebar="toggleDataSidebar2" :data="sidebarData2" />
 
     <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
 
@@ -51,11 +52,6 @@
               <span class="ml-2 text-base text-primary">Add New</span>
           </div>
 
-          <!-- ADD NEW From Outlook -->
-          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewContactOutlook">
-              <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Outlook Contact</span>
-          </div>
         </div>
 
         <!-- ITEMS PER PAGE -->
@@ -140,16 +136,19 @@
           </tbody>
         </template>
     </vs-table>
-  </div>
+  </div>  
 </template>
+
 
 <script>
 import DataViewSidebar from './DataViewSidebar.vue'
+import DataOutlookSidebar from './DataOutlookSidebar.vue'
 import moduleDataList from '@/store/data-list/moduleDataList.js'
 
 export default {
   components: {
-    DataViewSidebar
+    DataViewSidebar,
+    DataOutlookSidebar
   },
   data () {
     return {
@@ -159,8 +158,12 @@ export default {
       isMounted: false,
 
       // Data Sidebar
-      addNewDataSidebar: false,
-      sidebarData: {}
+      addNewDataSidebar1: false,
+      addNewDataSidebar2: false,
+      sidebarData1: {},
+      sidebarData2: {},
+      popupActive1: false,
+      popupActive2: false
     }
   },
   computed: {
@@ -179,26 +182,20 @@ export default {
   },
   methods: {
     addNewContact () {
-      this.sidebarData = {}
-      this.toggleDataSidebar(true)
+      this.sidebarData1 = {}
+      this.toggleDataSidebar1(true)
     },
     addNewContactOutlook () {
-      this.sidebarData = {}
-      this.toggleDataSidebar(true)
+      this.sidebarData2 = {}
+      this.toggleDataSidebar2(true)
     },
     deleteData (id) {
       this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
     },
     editData (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.sidebarData = data
-      this.toggleDataSidebar(true)
-    },
-    getOrderStatusColor (status) {
-      if (status === 'on_hold')   return 'warning'
-      if (status === 'delivered') return 'success'
-      if (status === 'canceled')  return 'danger'
-      return 'primary'
+      this.sidebarData1 = data
+      this.toggleDataSidebar1(true)
     },
     getPopularityColor (num) {
       if (num > 90)  return 'success'
@@ -207,8 +204,11 @@ export default {
       if (num < 50)  return 'danger'
       return 'primary'
     },
-    toggleDataSidebar (val = false) {
-      this.addNewDataSidebar = val
+    toggleDataSidebar1 (val = false) {
+      this.addNewDataSidebar1 = val
+    },
+    toggleDataSidebar2 (val = false) {
+      this.addNewDataSidebar2 = val
     }
   },
   created () {

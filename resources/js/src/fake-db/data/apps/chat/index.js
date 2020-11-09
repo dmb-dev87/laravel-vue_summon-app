@@ -79,64 +79,28 @@ const data = {
       isPinned: true,
       msg: [
         {
-          textContent: 'How can we help? We\'re here for you!',
+          textContent: 'We have meeting today',
           time: 'Mon Dec 10 2018 07:45:00 GMT+0000 (GMT)',
           isSent: true,
           isSeen: true
         },
         {
-          textContent: 'Hey John, I am looking for the best admin template. Could you please help me to find it out?',
-          time: 'Mon Dec 10 2018 07:45:23 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: 'It should be Bootstrap 4 compatible.',
-          time: 'Mon Dec 10 2018 07:45:55 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: 'Absolutely!',
+          textContent: 'Lets confirm work today!',
           time: 'Mon Dec 10 2018 07:46:00 GMT+0000 (GMT)',
           isSent: true,
           isSeen: true
         },
         {
-          textContent: 'Modern admin is the responsive bootstrap 4 admin template.!',
+          textContent: 'Send me schedule today',
           time: 'Mon Dec 10 2018 07:46:05 GMT+0000 (GMT)',
           isSent: true,
           isSeen: true
         },
         {
-          textContent: 'Looks clean and fresh UI.',
-          time: 'Mon Dec 10 2018 07:46:23 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: 'It\'s perfect for my next project.',
-          time: 'Mon Dec 10 2018 07:46:33 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: 'How can I purchase it?',
-          time: 'Mon Dec 10 2018 07:46:43 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: true
-        },
-        {
-          textContent: 'Thanks, from ThemeForest.',
+          textContent: 'I would like to have meeting today!',
           time: 'Mon Dec 10 2018 07:46:53 GMT+0000 (GMT)',
           isSent: true,
           isSeen: true
-        },
-        {
-          textContent: 'I will purchase it for sure. 👍',
-          time: 'Mon Dec 10 2018 07:47:00 GMT+0000 (GMT)',
-          isSent: false,
-          isSeen: false
         }
       ]
     },

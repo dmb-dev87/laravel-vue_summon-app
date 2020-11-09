@@ -8,9 +8,9 @@
 ========================================================================================== -->
 
 <template>
-    <vx-card class="overflow-hidden">
+    <vx-card class="overflow-hidden" style="background: linear-gradient(118deg, rgba(var(--vs-primary), 1), rgba(var(--vs-primary), 0.7)) !important;">
         <div slot="no-body">
-            <div class="p-6" :class="{
+            <div class="p-3" :class="{
               'flex justify-between flex-row-reverse items-center': iconRight,
               'text-center': !iconRight && hideChart,
               'pb-0': !hideChart
@@ -18,7 +18,7 @@
                 <feather-icon :icon="icon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon>
                 <div class="truncate">
                     <h2 class="mb-1 font-bold">{{ statistic }}</h2>
-                    <span>{{ statisticTitle }}</span>
+                    <span style="color:white;">{{ statisticTitle }}</span>
                 </div>
             </div>
 

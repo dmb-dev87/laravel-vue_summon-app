@@ -21,30 +21,73 @@
 
             <div class="flex items-start" :class="[{'flex-row-reverse' : msg.isSent}]">
 
-                <template v-if="chatData.msg[index-1]">
+                <!-- <template v-if="chatData.msg[index-1]">
                     <template v-if="(!hasSentPreviousMsg(chatData.msg[index-1].isSent, msg.isSent) || !isSameDay(msg.time, chatData.msg[index-1].time))">
                         <vs-avatar size="40px" class="border-2 shadow border-solid border-white m-0 flex-shrink-0" :class="msg.isSent ? 'sm:ml-5 ml-3' : 'sm:mr-5 mr-3'" :src="senderImg(msg.isSent)"></vs-avatar>
                     </template>
+                </template> -->
+
+                <template v-if="index==1">
+                    <vs-navbar collapse class="p-2">
+                      <div slot="title">
+                        <vs-navbar-title>
+                          <span> (2 people unread) </span>
+                          <span>Sent To</span>
+                        </vs-navbar-title>
+                      </div>
+
+                      <vs-navbar-item index="0">
+                        <a href="#">Felecia Rower</a>
+                      </vs-navbar-item>
+
+                      <vs-navbar-item index="1">
+                        <a href="#">Joaquina Weisenborn</a>
+                      </vs-navbar-item>
+
+                      <vs-navbar-item index="2">
+                        <a href="#">Group: IT Department</a>
+                      </vs-navbar-item>
+                    </vs-navbar>
+
+                    <div class="msg break-words relative rounded rounded-lg max-w-sm mb-2" style="min-width: 300px; min-height: 60px;">
+                        <statistics-card-line
+                          hideChart
+                          icon="ActivityIcon"
+                          icon-right
+                          statisticTitle="1:45"
+                          color="danger" />
+                    </div>
                 </template>
 
-                <template v-if="index == 0">
-                    <vs-avatar size="40px" class="border-2 shadow border-solid border-white m-0 flex-shrink-0" :class="msg.isSent ? 'sm:ml-5 ml-3' : 'sm:mr-5 mr-3'" :src="senderImg(msg.isSent)"></vs-avatar>
-                </template>
+                <template v-if="index!=1">
+                    <vs-navbar collapse  class="p-2">
+                      <div slot="title">
+                        <vs-navbar-title>
+                          <span> (All Read) </span>
+                          <span>Sent To</span>
+                        </vs-navbar-title>
+                      </div>
 
-                <template v-if="chatData.msg[index-1]">
-                    <div class="mr-16" v-if="!(!hasSentPreviousMsg(chatData.msg[index-1].isSent, msg.isSent) || !isSameDay(msg.time, chatData.msg[index-1].time))"></div>
-                </template>
+                      <vs-navbar-item index="2">
+                        <a href="#">Location: CE office</a>
+                      </vs-navbar-item>
+                    </vs-navbar>
 
-                <div class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" :class="{'bg-primary-gradient text-white': msg.isSent, 'border border-solid border-transparent bg-white': !msg.isSent}">
-                    <span>{{ msg.textContent }}</span>
-                </div>
+                    <div style="min-width: 300px; min-height: 60px;" class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" :class="{'bg-primary-gradient text-white': msg.isSent, 'border border-solid border-transparent bg-white': !msg.isSent}">
+                        <span>{{ msg.textContent }}</span>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 export default{
+  components: {
+    StatisticsCardLine
+  },
   props: {
     userId: {
       type: Number,

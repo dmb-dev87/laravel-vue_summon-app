@@ -10,7 +10,7 @@
 <template>
   <div id="data-list-list-view" class="data-list-container">
 
-    <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
+    <data-view-sidebar :isSidebarActive="addNewDataSidebar1" @closeSidebar="toggleDataSidebar1" :data="sidebarData1" />
 
     <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
 
@@ -41,15 +41,15 @@
                   <span>Archive</span>
                 </span>
               </vs-dropdown-item>
-              
+
             </vs-dropdown-menu>
           </vs-dropdown>
 
           <!-- ADD NEW -->
-          <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewData">
+          <!-- <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewContact">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add GROUP</span>
-          </div>
+              <span class="ml-2 text-base text-primary">Add New</span>
+          </div> -->
 
         </div>
 
@@ -79,7 +79,16 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="group">Group</vs-th>        
+        <vs-th sort-key="name">Name</vs-th>
+        <vs-th sort-key="group">Group</vs-th>
+        <vs-th sort-key="location">Location</vs-th>
+        <vs-th sort-key="email1">Email1</vs-th>
+        <vs-th sort-key="email2">Email2</vs-th>
+        <vs-th sort-key="phonenumber1">Phone Number1</vs-th>
+        <vs-th sort-key="phonenumber2">Phone Number2</vs-th>
+        <vs-th sort-key="phonenumber3">Phone Number3</vs-th>
+        <vs-th sort-key="role">Role</vs-th>
+        
         <vs-th>Action</vs-th>
       </template>
 
@@ -91,17 +100,49 @@
                 <p class="product-name font-medium truncate">{{ tr.name }}</p>
               </vs-td>
 
+              <vs-td>
+                <p class="product-group">{{ tr.group }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-group">{{ tr.location }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-email">{{ tr.email1 }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-email">{{ tr.email2 }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-phonenumber">{{ tr.phonenumber1 }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-phonenumber">{{ tr.phonenumber2 }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-phonenumber">{{ tr.phonenumber3 }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-role">{{ tr.role }}</p>
+              </vs-td>
+
               <vs-td class="whitespace-no-wrap">
                 <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
                 <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
               </vs-td>
-
             </vs-tr>
           </tbody>
         </template>
     </vs-table>
-  </div>
+  </div>  
 </template>
+
 
 <script>
 import DataViewSidebar from './DataViewSidebar.vue'
@@ -119,8 +160,12 @@ export default {
       isMounted: false,
 
       // Data Sidebar
-      addNewDataSidebar: false,
-      sidebarData: {}
+      addNewDataSidebar1: false,
+      addNewDataSidebar2: false,
+      sidebarData1: {},
+      sidebarData2: {},
+      popupActive1: false,
+      popupActive2: false
     }
   },
   computed: {
@@ -138,23 +183,21 @@ export default {
     }
   },
   methods: {
-    addNewData () {
-      this.sidebarData = {}
-      this.toggleDataSidebar(true)
+    addNewContact () {
+      this.sidebarData1 = {}
+      this.toggleDataSidebar1(true)
+    },
+    addNewContactOutlook () {
+      this.sidebarData2 = {}
+      this.toggleDataSidebar2(true)
     },
     deleteData (id) {
       this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
     },
     editData (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.sidebarData = data
-      this.toggleDataSidebar(true)
-    },
-    getOrderStatusColor (status) {
-      if (status === 'on_hold')   return 'warning'
-      if (status === 'delivered') return 'success'
-      if (status === 'canceled')  return 'danger'
-      return 'primary'
+      this.sidebarData1 = data
+      this.toggleDataSidebar1(true)
     },
     getPopularityColor (num) {
       if (num > 90)  return 'success'
@@ -163,8 +206,11 @@ export default {
       if (num < 50)  return 'danger'
       return 'primary'
     },
-    toggleDataSidebar (val = false) {
-      this.addNewDataSidebar = val
+    toggleDataSidebar1 (val = false) {
+      this.addNewDataSidebar1 = val
+    },
+    toggleDataSidebar2 (val = false) {
+      this.addNewDataSidebar2 = val
     }
   },
   created () {

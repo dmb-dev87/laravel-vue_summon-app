@@ -46,7 +46,7 @@ const router = new Router({
         // =============================================================================
         {
           path: '/',
-          redirect: '/email/inbox'
+          redirect: '/summon'
         },
         {
           path: '/dashboard/analytics',
@@ -84,7 +84,7 @@ const router = new Router({
           }
         },
         {
-          path: '/chat',
+          path: '/summon',
           name: 'chat',
           component: () => import('./views/apps/chat/Chat.vue'),
           meta: {
@@ -187,9 +187,9 @@ const router = new Router({
           }
         },
         {
-          path: '/user/user-list',
+          path: '/user-list',
           name: 'app-user-list',
-          component: () => import('@/views/apps/user/user-list/UserList.vue'),
+          component: () => import('@/views/ui-elements/data-list/admin-view/DataListListView.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
