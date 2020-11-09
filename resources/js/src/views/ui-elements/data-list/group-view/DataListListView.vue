@@ -41,7 +41,7 @@
                   <span>Archive</span>
                 </span>
               </vs-dropdown-item>
-              
+
             </vs-dropdown-menu>
           </vs-dropdown>
 
@@ -114,7 +114,28 @@ export default {
   data () {
     return {
       selected: [],
-      // products: [],
+      products: [ 
+        {
+          id: 1, 
+          name: 'IT Department',
+          included_contact: '1,2,3'      
+        },
+        {
+          id: 2, 
+          name: 'Sales Team',
+          included_contact: '1,2,3'      
+        },
+        {
+          id: 3, 
+          name: 'Management Team',
+          included_contact: '1,2,3'      
+        },
+        {
+          id: 4, 
+          name: 'Broadcast',
+          included_contact: '1,2,3'      
+        }
+      ],
       itemsPerPage: 4,
       isMounted: false,
 
@@ -149,19 +170,6 @@ export default {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.sidebarData = data
       this.toggleDataSidebar(true)
-    },
-    getOrderStatusColor (status) {
-      if (status === 'on_hold')   return 'warning'
-      if (status === 'delivered') return 'success'
-      if (status === 'canceled')  return 'danger'
-      return 'primary'
-    },
-    getPopularityColor (num) {
-      if (num > 90)  return 'success'
-      if (num > 70)  return 'primary'
-      if (num >= 50) return 'warning'
-      if (num < 50)  return 'danger'
-      return 'primary'
     },
     toggleDataSidebar (val = false) {
       this.addNewDataSidebar = val

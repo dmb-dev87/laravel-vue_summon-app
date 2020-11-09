@@ -18,7 +18,9 @@
                 <feather-icon :icon="icon" class="p-3 inline-flex rounded-full" :class="[`text-${color}`, {'mb-4': !iconRight}]" :style="{background: `rgba(var(--vs-${color}),.15)`}"></feather-icon>
                 <div class="truncate">
                     <h2 class="mb-1 font-bold">{{ statistic }}</h2>
-                    <span style="color:white;">{{ statisticTitle }}</span>
+                    <span style="color:white;">Voice : {{ statisticTitle }}</span>
+                    <p style="color:white;">Location: CE office </p>
+                    <p style="color:white;">Due to: 10/11 20:34 </p>
                 </div>
             </div>
 

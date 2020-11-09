@@ -1,9 +1,9 @@
 <template>
   <div id="input-group-demo">
-    <form-input-group-basic></form-input-group-basic>
+    <!-- <form-input-group-basic></form-input-group-basic>
     <form-input-group-sizing></form-input-group-sizing>
     <form-input-group-form-elements></form-input-group-form-elements>
-    <form-input-group-multiple-addons></form-input-group-multiple-addons>
+    <form-input-group-multiple-addons></form-input-group-multiple-addons> -->
     <form-input-group-button-addons></form-input-group-button-addons>
   </div>
 </template>

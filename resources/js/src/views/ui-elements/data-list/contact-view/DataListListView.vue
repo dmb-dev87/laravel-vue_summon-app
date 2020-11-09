@@ -81,8 +81,6 @@
 
       <template slot="thead">
         <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="group">Group</vs-th>
-        <vs-th sort-key="location">Location</vs-th>
         <vs-th sort-key="email1">Email1</vs-th>
         <vs-th sort-key="email2">Email2</vs-th>
         <vs-th sort-key="phonenumber1">Phone Number1</vs-th>
@@ -98,14 +96,6 @@
 
               <vs-td>
                 <p class="product-name font-medium truncate">{{ tr.name }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-group">{{ tr.group }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-group">{{ tr.location }}</p>
               </vs-td>
 
               <vs-td>

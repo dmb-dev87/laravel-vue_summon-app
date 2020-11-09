@@ -57,21 +57,6 @@
 
                 <vs-list-header title="Location"></vs-list-header>
 
-                <vs-list-item title="1st Floot meeting roomss">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Main office">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="CE office">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="IT senior Manager office">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-
-                <vs-list-header title="Group"></vs-list-header>
-
                 <vs-list-item title="IT Department">
                   <vs-checkbox color="primary"/>
                 </vs-list-item>
@@ -84,6 +69,10 @@
                 <vs-list-item title="Broadcast">
                   <vs-checkbox color="primary"/>
                 </vs-list-item>
+
+                <vs-list-header title="Group"></vs-list-header>
+                <v-select v-model="location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+
             </component>
         </vs-sidebar>
 
@@ -102,12 +91,13 @@
                 <div class="chat__input flex p-4 bg-white">
                     <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
                     <vs-input class="flex-1" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />
+                    <flat-pickr class="ml-4" :config="configdateTimePicker" v-model="datetime" placeholder="Date Time" />
                     <vs-button class="ml-4" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
-                    <vs-button class="bg-primary-gradient ml-4" type="filled" @click="sendMsg">Send</vs-button>
+                    <vs-button class="bg-primary-gradient ml-4" type="filled" @click="sendMsg">Summon</vs-button>
                 </div>
             </template>
             <template v-else>
-                <div class="flex flex-col items-center">
+                <div class="flex flex-col items-center">                    
                     <feather-icon icon="MessageSquareIcon" class="mb-4 bg-white p-8 shadow-md rounded-full" svgClasses="w-16 h-16"></feather-icon>
                     <h4 class=" py-2 px-4 bg-white shadow-md rounded-full cursor-pointer" @click.stop="toggleChatSidebar(true)">Start Conversation</h4>
                 </div>
@@ -123,6 +113,9 @@ import ChatNavbar          from './ChatNavbar.vue'
 import UserProfile         from './UserProfile.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import moduleChat          from '@/store/chat/moduleChat.js'
+import vSelect             from 'vue-select'
+import flatPickr           from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
 
 export default {
   data () {
@@ -143,6 +136,19 @@ export default {
       isChatSidebarActive  : true,
       isLoggedInUserProfileView: false,
       messageType: true,
+      location: 'P.O. Box 948, Jidhafs',
+      datetime: null,
+      configdateTimePicker: {
+        enableTime: true,
+        dateFormat: 'd-m-Y H:i'
+      },
+      // Options
+      locationOptions: [
+        { label: '1st Floot meeting room',  value: '1'  },
+        { label: 'Main office ',     value: '2'     },
+        { label: 'CE office ',    value: '3'    },
+        { label: 'IT senior Manager office',      value: '4'     },
+      ],
     }
   },
   watch: {
@@ -267,7 +273,9 @@ export default {
     ChatContact,
     UserProfile,
     ChatNavbar,
-    ChatLog
+    ChatLog,
+    vSelect,
+    flatPickr
   },
   created () {
     this.$store.registerModule('chat', moduleChat)

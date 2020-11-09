@@ -11,7 +11,7 @@
     </div> -->
 
     <!-- Country -->
-    <div class="mt-8">
+    <!-- <div class="mt-8">
       <label class="text-sm">Location</label>
       <v-select v-model="location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
     </div>
@@ -22,15 +22,15 @@
     </div>
 
     <!-- Languages -->
-    <div class="mt-8">
+    <!-- <div class="mt-8">
       <label class="text-sm">Languages</label>
       <v-select v-model="lang_known" multiple :closeOnSelect="false" :options="langOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-    </div>
+    </div> -->
 
     <!-- Save & Reset Button -->
-    <div class="flex flex-wrap items-center justify-end mt-8">
-      <vs-button class="ml-auto mt-2">Save Changes</vs-button>
-      <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
+    <div class="flex flex-wrap items-center justify-start">
+      <vs-button class="mt-2">Start Integrate</vs-button>
+      <!-- <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button> -->
     </div>
   </vx-card>
 </template>

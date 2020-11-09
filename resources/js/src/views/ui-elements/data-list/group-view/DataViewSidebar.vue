@@ -23,6 +23,11 @@
         <!-- NAME -->
         <vs-input label="Group Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>        
+
+        <div class="mb-base mt-6">
+          <label class="text-sm">Contacts</label>
+          <v-select v-model="sel_contact" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        </div>
         
       </div>
     </component>
@@ -36,6 +41,7 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import vSelect from 'vue-select'
 
 export default {
   props: {
@@ -49,7 +55,8 @@ export default {
     }
   },
   components: {
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
+    vSelect
   },
   data () {
     return {
@@ -62,21 +69,22 @@ export default {
       dataPN3: '',
       dataGroup: null,
       dataLocation: null,
-
-      group_choices: [
-        { label: 'IT Department',  value: '1'  },
-        { label: 'Sales Team',     value: '2'  },
-        { label: 'Management Team',  value: '3'  },
-        { label: 'Broadcast',      value: '4'  },
+      sel_contact: [
+        'Felecia Rower', 
+        'Beats HeadPhones', 
       ],
 
-      location_choices: [
-        { label: '1st Floot meeting room',  value: '1'  },
-        { label: 'Main office ',     value: '2'     },
-        { label: 'CE office ',    value: '3'    },
-        { label: 'IT senior Manager office',      value: '4'     },
-      ],
-
+      contactlists: [
+        { label: 'Felecia Rower',  value: '1'  },
+        { label: 'Beats HeadPhones',  value: '2'  },
+        { label: 'Adalberto Granzin',   value: '3'   },
+        { label: 'Altec Lansing',  value: '4'  },
+        { label: 'Joaquina Weisenborn',   value: '5'   },
+        { label: 'Verla Morgano',   value: '6'   },
+        { label: 'Margot Henschke', value: '7' },
+        { label: 'Sal Piggee', value: '8' },
+        { label: 'Altec Lansing', value: '9' },
+      ], 
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
         wheelSpeed: .60
@@ -135,32 +143,32 @@ export default {
       this.dataPN3 = ''
     },
     submitData () {
-      this.$validator.validateAll().then(result => {
-        if (result) {
-          const obj = {
-            id: this.dataId,
-            name: this.dataName,
-            group: this.dataGroup, 
-            location: this.dataLocation, 
-            email1: this.dataEmail1,
-            email2: this.dataEmail2, 
-            phonenumber1: this.dataPN1,
-            phonenumber2: this.dataPN2,
-            phonenumber3: this.dataPN3,
-          }
+      // this.$validator.validateAll().then(result => {
+      //   if (result) {
+      //     const obj = {
+      //       id: this.dataId,
+      //       name: this.dataName,
+      //       group: this.dataGroup, 
+      //       location: this.dataLocation, 
+      //       email1: this.dataEmail1,
+      //       email2: this.dataEmail2, 
+      //       phonenumber1: this.dataPN1,
+      //       phonenumber2: this.dataPN2,
+      //       phonenumber3: this.dataPN3,
+      //     }
 
-          if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
-          } else {
-            delete obj.id
-            obj.popularity = 0
-            this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
-          }
+      //     if (this.dataId !== null && this.dataId >= 0) {
+      //       this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
+      //     } else {
+      //       delete obj.id
+      //       obj.popularity = 0
+      //       this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
+      //     }
 
-          this.$emit('closeSidebar')
-          this.initValues()
-        }
-      })
+      //     this.$emit('closeSidebar')
+      //     this.initValues()
+      //   }
+      // })
     }
   }
 }

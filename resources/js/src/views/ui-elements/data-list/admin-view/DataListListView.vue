@@ -30,15 +30,15 @@
 
               <vs-dropdown-item>
                 <span class="flex items-center">
-                  <feather-icon icon="TrashIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Delete</span>
+                  <!-- <feather-icon icon="ActivateIcon" svgClasses="h-4 w-4" class="mr-2" /> -->
+                  <span>Activate</span>
                 </span>
               </vs-dropdown-item>
 
               <vs-dropdown-item>
                 <span class="flex items-center">
-                  <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" />
-                  <span>Archive</span>
+                  <!-- <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" /> -->
+                  <span>Deactivate</span>
                 </span>
               </vs-dropdown-item>
 
@@ -80,8 +80,7 @@
 
       <template slot="thead">
         <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="group">Group</vs-th>
-        <vs-th sort-key="location">Location</vs-th>
+        <vs-th sort-key="group">Status</vs-th>        
         <vs-th sort-key="email1">Email1</vs-th>
         <vs-th sort-key="email2">Email2</vs-th>
         <vs-th sort-key="phonenumber1">Phone Number1</vs-th>
@@ -101,11 +100,7 @@
               </vs-td>
 
               <vs-td>
-                <p class="product-group">{{ tr.group }}</p>
-              </vs-td>
-
-              <vs-td>
-                <p class="product-group">{{ tr.location }}</p>
+                <p class="product-group">{{ tr.status }}</p>
               </vs-td>
 
               <vs-td>

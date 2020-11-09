@@ -67,9 +67,8 @@
             </div>
           </div>
 
-          <div class="vx-row sm:flex hidden mt-4">
+          <!-- <div class="vx-row sm:flex hidden mt-4">
             <div class="vx-col w-full flex">
-              <!-- Labels -->
               <div class="flex flex-wrap sm:justify-start justify-center">
                   <div v-for="(label, index) in calendarLabels" :key="index" class="flex items-center mr-4 mb-2">
                       <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.color"></div>
@@ -81,7 +80,7 @@
                   </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </calendar-view>
     </div>
@@ -89,13 +88,13 @@
     <!-- ADD EVENT -->
     <vs-prompt
         class="calendar-event-dialog"
-        title="Add Event"
-        accept-text= "Add Event"
+        title="Add New Summon"
+        accept-text= "Add New Summon"
         @accept="addEvent"
-        :is-valid="validForm"
+        :is-valid=true
         :active.sync="activePromptAddEvent">
 
-        <div class="calendar__label-container flex">
+        <!-- <div class="calendar__label-container flex">
 
             <vs-chip v-if="labelLocal != 'none'" class="text-white" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
 
@@ -116,23 +115,30 @@
                 </vs-dropdown-menu>
             </vs-dropdown>
 
-        </div>
+        </div> -->
 
-        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
-        <div class="my-4">
-            <small class="date-label">Start Date</small>
-            <datepicker :language="$vs.rtl ? langHe : langEn" name="start-date" v-model="startDate" :disabled="disabledFrom"></datepicker>
-        </div>
-        <div class="my-4">
+        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Summon Message" v-model="title"></vs-input>
+        <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" />
+        <p class="mt-4">Contact</p>
+        <v-select class="mt-2" v-model="contact" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <p class="mt-4">Group</p>
+        <v-select class="mt-2" v-model="group" multiple :closeOnSelect="false" :options="grouplists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <p class="mt-4">location</p>
+        <v-select class="mt-2" v-model="location" :options="locationlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <!-- <div class="my-4">
+            <!-- <small class="date-label">Date and Time</small> -->
+            
+        <!-- </div> -->
+        <!-- <div class="my-4">
             <small class="date-label">End Date</small>
             <datepicker :language="$vs.rtl ? langHe : langEn" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
-        </div>
-        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
+        </div> -->
+        <!-- <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input> -->
 
     </vs-prompt>
 
     <!-- EDIT EVENT -->
-    <vs-prompt
+    <!-- <vs-prompt
         class="calendar-event-dialog"
         title="Edit Event"
         accept-text= "Submit"
@@ -177,7 +183,7 @@
         </div>
         <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
 
-    </vs-prompt>
+    </vs-prompt> -->
   </div>
 </template>
 
@@ -189,11 +195,17 @@ require('vue-simple-calendar/static/css/default.css')
 import Datepicker from 'vuejs-datepicker'
 import { en, he } from 'vuejs-datepicker/src/locale'
 
+import flatPickr           from 'vue-flatpickr-component';
+import 'flatpickr/dist/flatpickr.css';
+import vSelect from 'vue-select'
+
 export default {
   components: {
     CalendarView,
     CalendarViewHeader,
-    Datepicker
+    Datepicker,
+    flatPickr,
+    vSelect
   },
   data () {
     return {
@@ -204,6 +216,13 @@ export default {
       startDate: '',
       endDate: '',
       labelLocal: 'none',
+      contact : '',
+      group : '',
+      location : '',
+      configdateTimePicker: {
+        enableTime: true,
+        dateFormat: 'd-m-Y H:i'
+      },
 
       langHe: he,
       langEn: en,
@@ -213,6 +232,32 @@ export default {
 
       activePromptAddEvent: false,
       activePromptEditEvent: false,
+
+      locationlists: [
+        { label: '1st Floot meeting rooms',  value: '1'  },
+        { label: 'Main office ',     value: '2'     },
+        { label: 'CE office ',    value: '3'    },
+        { label: 'IT senior Manager office',      value: '4'     },
+      ],
+
+      grouplists: [
+        { label: 'IT Department',  value: '1'  },
+        { label: 'Sales Team',     value: '2'     },
+        { label: 'Management Team',    value: '3'    },
+        { label: 'Broadcast',      value: '4'     },
+      ],
+
+      contactlists: [
+        { label: 'Felecia Rower',  value: '1'  },
+        { label: 'Beats HeadPhones',  value: '2'  },
+        { label: 'Adalberto Granzin',   value: '3'   },
+        { label: 'Altec Lansing',  value: '4'  },
+        { label: 'Joaquina Weisenborn',   value: '5'   },
+        { label: 'Verla Morgano',   value: '6'   },
+        { label: 'Margot Henschke', value: '7' },
+        { label: 'Sal Piggee', value: '8' },
+        { label: 'Altec Lansing', value: '9' },
+      ], 
 
       calendarViewTypes: [
         {

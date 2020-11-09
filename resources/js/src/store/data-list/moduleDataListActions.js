@@ -30,6 +30,16 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+  fetchGroupListItems ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/data-list/groups')
+        .then((response) => {
+          commit('SET_GROUPS', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
   // fetchEventLabels({ commit }) {
   //   return new Promise((resolve, reject) => {
   //     axios.get("/api/apps/calendar/labels")

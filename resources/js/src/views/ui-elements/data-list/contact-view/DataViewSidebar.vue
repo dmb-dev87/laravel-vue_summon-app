@@ -26,34 +26,92 @@
 
         <!-- EMAIL1 -->
         <vs-input label="Email1" v-model="dataEmail1" class="mt-5 w-full" name="item-email1" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-email1')">{{ errors.first('item-email1') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-email1')">{{ errors.first('item-email1') }}</span>  
+
+        <vx-input-group class="mb-base mt-4 form-element-demo">
+          <template slot="prepend">
+            <div class="prepend-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Email  </span>
+              <vs-switch v-model="permission.email1.email"/>
+            </div>
+          </template>
+        </vx-input-group>    
 
         <!-- EMAIL2 -->
         <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-email2')">{{ errors.first('item-email2') }}</span>
 
+        <vx-input-group class="mb-base mt-4 form-element-demo">
+          <template slot="prepend">
+            <div class="prepend-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Email  </span>
+              <vs-switch v-model="permission.email2.email"/>
+            </div>
+          </template>
+        </vx-input-group>
+
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number1" v-model="dataPN1" class="mt-5 w-full" name="item-pn1" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn1')">{{ errors.first('item-pn1') }}</span>
+        <vx-input-group class="mb-base mt-4 form-element-demo">
+          <template slot="append">
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
+              <vs-switch v-model="permission.phonenumber1.voice"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
+              <vs-switch v-model="permission.phonenumber1.sms"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
+              <vs-switch v-model="permission.phonenumber1.whatsapp"/>
+            </div>
+          </template>
+        </vx-input-group>
 
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn2')">{{ errors.first('item-pn2') }}</span>
 
+        <vx-input-group class="mb-base mt-4 form-element-demo">
+          <template slot="append">
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
+              <vs-switch v-model="permission.phonenumber2.voice"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
+              <vs-switch v-model="permission.phonenumber2.sms"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
+              <vs-switch v-model="permission.phonenumber2.whatsapp"/>
+            </div>
+          </template>
+        </vx-input-group>
+
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
 
-        <!-- CATEGORY -->
-        <vs-select v-model="dataGroup" label="Group" class="mt-5 w-full" name="item-group" v-validate="'required'">
-          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in group_choices" />
-        </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('item-group')">{{ errors.first('item-group') }}</span>
+        <vx-input-group class="mb-base mt-4 form-element-demo">
+          <template slot="append">
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
+              <vs-switch v-model="permission.phonenumber3.voice"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
+              <vs-switch v-model="permission.phonenumber3.sms"/>
+            </div>
+            <div class="append-text">
+              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
+              <vs-switch v-model="permission.phonenumber3.whatsapp"/>
+            </div>
+          </template>
+        </vx-input-group>
 
-        <!-- CATEGORY -->
-        <vs-select v-model="dataLocation" label="Location" class="mt-5 w-full" name="item-location" v-validate="'required'">
-          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in location_choices" />
-        </vs-select>
         <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
         
       </div>
@@ -94,6 +152,29 @@ export default {
       dataPN3: '',
       dataGroup: null,
       dataLocation: null,
+      permission: { 
+        email1: { 
+          email: false,
+        },
+        email2: { 
+          email: false,
+        },
+        phonenumber1: {
+          sms: true, 
+          voice: true, 
+          whatsapp: true
+        },
+        phonenumber2: {
+          sms: true, 
+          voice: false, 
+          whatsapp: false
+        },
+        phonenumber3: {
+          sms: true, 
+          voice: true, 
+          whatsapp: true
+        },
+      },
 
       group_choices: [
         { label: 'IT Department',  value: '1'  },

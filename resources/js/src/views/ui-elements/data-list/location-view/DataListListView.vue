@@ -114,7 +114,24 @@ export default {
   data () {
     return {
       selected: [],
-      // products: [],
+      products: [
+        {
+          id: 1, 
+          name: '1st Floot meeting rooms'
+        },
+        {
+          id: 2, 
+          name: 'Main office'
+        },
+        {
+          id: 3, 
+          name: 'CE office'
+        },
+        {
+          id: 4, 
+          name: 'IT senior Manager office'
+        }
+      ],
       itemsPerPage: 4,
       isMounted: false,
 

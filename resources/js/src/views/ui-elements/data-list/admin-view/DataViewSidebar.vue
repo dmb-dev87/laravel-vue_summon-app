@@ -24,6 +24,12 @@
         <vs-input label="Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
 
+        <!-- CATEGORY -->
+        <vs-select v-model="dataStatus" label="Status" class="mt-5 w-full" name="item-status" v-validate="'required'">
+          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in status_choices" />
+        </vs-select>
+        <span class="text-danger text-sm" v-show="errors.has('status-group')">{{ errors.first('status-group') }}</span>
+
         <!-- EMAIL1 -->
         <vs-input label="Email1" v-model="dataEmail1" class="mt-5 w-full" name="item-email1" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-email1')">{{ errors.first('item-email1') }}</span>
@@ -44,17 +50,12 @@
         <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
 
-        <!-- CATEGORY -->
-        <vs-select v-model="dataGroup" label="Group" class="mt-5 w-full" name="item-group" v-validate="'required'">
-          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in group_choices" />
-        </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('item-group')">{{ errors.first('item-group') }}</span>
 
         <!-- CATEGORY -->
-        <vs-select v-model="dataLocation" label="Location" class="mt-5 w-full" name="item-location" v-validate="'required'">
+        <!-- <vs-select v-model="dataLocation" label="Location" class="mt-5 w-full" name="item-location" v-validate="'required'">
           <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in location_choices" />
         </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span> -->
         
         <!-- CATEGORY -->
         <vs-select v-model="dataRole" label="Role" class="mt-5 w-full" name="item-role" v-validate="'required'">
@@ -109,6 +110,7 @@ export default {
       dataPN2: '',
       dataPN3: '',
       dataGroup: null,
+      dataStatus: null,
       dataLocation: null,
       dataRole: null,
       password: '',
@@ -132,6 +134,11 @@ export default {
         { label: 'Staff',  value: '2' },
       ],
 
+      status_choices: [
+        { label: 'Activate',  value: '1' },
+        { label: 'Deactivate',  value: '2' },
+      ],
+
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
         wheelSpeed: .60
@@ -145,7 +152,7 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, group, location, email1, email2, name, phonenumber1, phonenumber2, phonenumber3, role } = JSON.parse(JSON.stringify(this.data))        
+        const { id, group, location, email1, email2, status, name, phonenumber1, phonenumber2, phonenumber3, role } = JSON.parse(JSON.stringify(this.data))        
         this.dataId = id
         this.dataGroup = group
         this.dataLocation = location
@@ -155,6 +162,7 @@ export default {
         this.dataPN1 = phonenumber1
         this.dataPN2 = phonenumber2
         this.dataPN3 = phonenumber3
+        this.dataStatus = status
         this.dataRole = role
         this.initValues()
       }
@@ -189,6 +197,7 @@ export default {
       this.dataPN1 = ''
       this.dataPN2 = ''
       this.dataPN3 = ''
+      this.dataStatus = ''
       this.role = ''
     },
     submitData () {
@@ -204,6 +213,7 @@ export default {
             phonenumber1: this.dataPN1,
             phonenumber2: this.dataPN2,
             phonenumber3: this.dataPN3,
+            status: this.dataStatus,
             role : this.dataRole
           }
 

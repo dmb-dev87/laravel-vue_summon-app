@@ -3,6 +3,12 @@
     <!-- Info -->
     <vs-input class="w-full mb-base" label-placeholder="Username" v-model="profile.username"></vs-input>
     <vs-input class="w-full mb-base" label-placeholder="Name" v-model="profile.name"></vs-input>
+
+    <!-- Languages -->
+    <div class="mb-base">
+      <label class="text-sm">Languages</label>
+      <v-select v-model="lang_known" multiple :closeOnSelect="false" :options="langOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+    </div>
     <!-- SWITCH -->
     <label class="text-sm">First Email</label>
     <vx-input-group class="mb-base form-element-demo">
@@ -88,7 +94,12 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
+
 export default {
+  components: {
+    vSelect
+  },
   data () {
     return {
       profile : { 
@@ -130,7 +141,18 @@ export default {
             voice: false,
           }
         },
-      }      
+      },
+      lang_known: ['English', 'Arabic'],
+      langOptions: [
+        { label: 'English',  value: 'english'  },
+        // { label: 'Spanish',  value: 'spanish'  },
+        // { label: 'French',   value: 'french'   },
+        // { label: 'Russian',  value: 'russian'  },
+        // { label: 'German',   value: 'german'   },
+        { label: 'Arabic',   value: 'arabic'   },
+        // { label: 'Sanskrit', value: 'sanskrit' }
+      ] 
+
     }
   },
   computed: {

@@ -883,16 +883,15 @@ const router = new Router({
           }
         },
         {
-          path: '/forms/form-input-group',
+          path: '/activate',
           name: 'extra-component-form-input-group',
           component: () => import('@/views/forms/form-input-group/FormInputGroup.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Extra Components' },
-              { title: 'Form Input Group', active: true }
+              { title: 'Activate', active: true }
             ],
-            pageTitle: 'Form Input Group',
+            pageTitle: 'Activate',
             rule: 'editor'
           }
         },

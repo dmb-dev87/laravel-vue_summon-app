@@ -1,12 +1,12 @@
 <template>
-  <vx-card title="Button addons" code-toggler>
+  <vx-card title="Activate Twilio Code">
 
     <div class="mb-base">
-      <span>You can also use button as addons to your input</span>
+      <span>You can input twilio activate key here.</span>
     </div>
 
     <!-- Basic -->
-    <vx-input-group class="mb-base">
+    <!-- <vx-input-group class="mb-base">
       <template slot="prepend">
         <div class="prepend-text btn-addon">
           <vs-button color="primary">Button</vs-button>
@@ -14,7 +14,7 @@
       </template>
 
       <vs-input v-model="input1" />
-    </vx-input-group>
+    </vx-input-group> -->
     <!-- /Basic -->
 
     <!-- Append Button -->
@@ -23,14 +23,14 @@
 
       <template slot="append">
         <div class="append-text btn-addon">
-          <vs-button color="primary">Button</vs-button>
+          <vs-button color="primary">Activate</vs-button>
         </div>
       </template>
     </vx-input-group>
     <!-- /Append Button -->
 
     <!-- Prepend Two Buttons -->
-    <vx-input-group class="mb-base">
+    <!-- <vx-input-group class="mb-base">
       <template slot="prepend">
         <div class="prepend-text btn-addon">
           <vs-button color="primary" type="border">Button1</vs-button>
@@ -39,11 +39,11 @@
       </template>
 
       <vs-input v-model="input3" />
-    </vx-input-group>
+    </vx-input-group> -->
     <!-- /Prepend Two Buttons -->
 
     <!-- Append Two Buttons -->
-    <vx-input-group class="mb-base">
+    <!-- <vx-input-group class="mb-base">
       <vs-input v-model="input4" />
 
       <template slot="append">
@@ -52,7 +52,7 @@
           <vs-button color="primary" type="border">Button2</vs-button>
         </div>
       </template>
-    </vx-input-group>
+    </vx-input-group> -->
     <!-- /Append Two Buttons -->
 
     <template slot="codeContainer">

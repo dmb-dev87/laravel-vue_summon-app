@@ -91,18 +91,18 @@ export default [
         i18n: 'Contact'
       },
       {
-        url: '/location',
-        name: 'Location',
-        slug: 'Location',
-        icon: 'LayoutIcon',
-        i18n: 'Location'
-      },
-      {
         url: '/group',
         name: 'Group',
         slug: 'Group',
         icon: 'LayersIcon',
         i18n: 'Group'
+      },
+      {
+        url: '/location',
+        name: 'Location',
+        slug: 'Location',
+        icon: 'LayoutIcon',
+        i18n: 'Location'
       },
       {
         url: '/user-settings',
@@ -588,13 +588,13 @@ export default [
   //       slug: 'extra-component-form-validation',
   //       i18n: 'FormValidation'
   //     },
-  //     {
-  //       url: '/forms/form-input-group',
-  //       name: 'Form Input Group',
-  //       icon: 'MenuIcon',
-  //       slug: 'extra-component-form-input-group',
-  //       i18n: 'FormInputGroup'
-  //     },
+      // {
+      //   url: 'activate',
+      //   name: 'Activate',
+      //   icon: 'MenuIcon',
+      //   slug: 'Activate',
+      //   i18n: 'Activate'
+      // },
   //     {
   //       url: '/ui-elements/table',
   //       name: 'Table',
@@ -622,6 +622,13 @@ export default [
         slug: 'app-user-list',
         icon: 'UsersIcon',
         i18n: 'List'
+      },
+      {
+        url: 'activate',
+        name: 'Activate',
+        icon: 'LockIcon',
+        slug: 'Activate',
+        i18n: 'Activate'
       },
       // {
       //   url: '/pages/profile',
