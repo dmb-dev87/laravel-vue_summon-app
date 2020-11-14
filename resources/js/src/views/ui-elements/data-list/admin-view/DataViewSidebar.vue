@@ -131,7 +131,7 @@ export default {
 
       role_choices: [
         { label: 'Admin',  value: '1' },
-        { label: 'Staff',  value: '2' },
+        { label: 'User',  value: '2' },
       ],
 
       status_choices: [

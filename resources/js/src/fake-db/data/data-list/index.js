@@ -26,7 +26,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     {
       'id': 3,
@@ -52,7 +52,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     {
       'id': 5,
@@ -78,7 +78,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     {
       'id': 7,
@@ -91,7 +91,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     {
       'id': 8,
@@ -104,7 +104,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     {
       'id': 9,
@@ -117,7 +117,7 @@ const data = {
       'phonenumber1': '+1234567890',
       'phonenumber2': '+1234567890',
       'phonenumber3': '+1234567890',
-      'role': 'Staff',
+      'role': 'User',
     },
     // {
     //   'id': 10,

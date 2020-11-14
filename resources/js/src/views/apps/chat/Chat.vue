@@ -16,62 +16,29 @@
             <user-profile :active="activeProfileSidebar" :userId="userProfileId" class="user-profile-container" :isLoggedInUser="isLoggedInUserProfileView" @closeProfileSidebar="closeProfileSidebar"></user-profile>
 
             <div class="chat__profile-search flex p-4">
-                <div class="relative inline-flex">
-                    <!-- <vs-avatar v-if="activeUser.photoURL" class="m-0 border-2 border-solid border-white" :src="activeUser.photoURL" size="40px" /> -->
+                <!-- <div class="relative inline-flex">
+                    <vs-avatar v-if="activeUser.photoURL" class="m-0 border-2 border-solid border-white" :src="activeUser.photoURL" size="40px" /> -->
                     <!-- <div class="h-3 w-3 border-white border border-solid rounded-full absolute right-0 bottom-0" :class="'bg-' + getStatusColor(true)"></div> -->
-                </div>
-                <vs-input icon-no-border icon="icon-search" icon-pack="feather" class="w-full mx-5 input-rounded-full" placeholder="Select staff to send summon" v-model="searchQuery"/>
+                <!-- </div> -->
+                <vs-input icon-no-border icon="icon-search" icon-pack="feather" class="w-full" placeholder="Select staff to send summon" v-model="searchQuery"/>
 
-                <feather-icon class="md:inline-flex lg:hidden -ml-3 cursor-pointer" icon="XIcon" @click="toggleChatSidebar(false)" />
+                <feather-icon class="md:inline-flex lg:hidden ml-5 cursor-pointer" icon="XIcon" @click="toggleChatSidebar(false)" />
             </div>
 
             <vs-divider class="d-theme-border-grey-light m-0" />
             <component :is="scrollbarTag" class="chat-scroll-area" style="padding: 10px;" :settings="settings" :key="$vs.rtl">
 
                 <vs-list-header title="Contact"></vs-list-header>
-
-                <vs-list-item title="Felecia Rower">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Joaquina Weisenborn">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Sapporo Haru">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Verla Morgano">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Sal Piggee">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Miguel Guelff">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Mauro Elenbaas">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Bridgett Omohundro">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-
-                <vs-list-header title="Location"></vs-list-header>
-
-                <vs-list-item title="IT Department">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Sales Team">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Management Team">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
-                <vs-list-item title="Broadcast">
-                  <vs-checkbox color="primary"/>
-                </vs-list-item>
+                <v-select class="mt-2" v-model="contact" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
 
                 <vs-list-header title="Group"></vs-list-header>
+                <v-select class="mt-2" v-model="group" multiple :closeOnSelect="false" :options="grouplists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+
+                <vs-list-header title="Location"></vs-list-header>
                 <v-select v-model="location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+
+                <vs-list-header title="Due Date"></vs-list-header>
+                <flat-pickr :config="configdateTimePicker" v-model="datetime" placeholder="Date Time" class="w-full"/>
 
             </component>
         </vs-sidebar>
@@ -79,9 +46,9 @@
         <!-- RIGHT COLUMN -->
         <div class="chat__bg no-scroll-content chat-content-area border border-solid d-theme-border-grey-light border-t-0 border-r-0 border-b-0" :class="{'sidebar-spacer--wide': clickNotClose, 'flex items-center justify-center': activeChatUser === null}">
             <template v-if="activeChatUser">
-                <!-- <div class="chat__navbar">
+                <div class="chat__navbar">
                     <chat-navbar :isSidebarCollapsed="!clickNotClose" :user-id="activeChatUser" :isPinnedProp="isChatPinned" @openContactsSidebar="toggleChatSidebar(true)" @showProfileSidebar="showProfileSidebar" @toggleIsChatPinned="toggleIsChatPinned"></chat-navbar>
-                </div> -->
+                </div>
                 <component :is="scrollbarTag" class="chat-content-scroll-area border border-solid d-theme-border-grey-light" :settings="settings" ref="chatLogPS" :key="$vs.rtl">
                     <div class="chat__log" ref="chatLog">
                         <chat-log :userId="activeChatUser" v-if="activeChatUser"></chat-log>
@@ -90,10 +57,9 @@
                 
                 <div class="chat__input flex p-4 bg-white">
                     <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
-                    <vs-input class="flex-1" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />
-                    <flat-pickr class="ml-4" :config="configdateTimePicker" v-model="datetime" placeholder="Date Time" />
-                    <vs-button class="ml-4" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
-                    <vs-button class="bg-primary-gradient ml-4" type="filled" @click="sendMsg">Summon</vs-button>
+                    <vs-input class="flex-1" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />                    
+                    <vs-button class="ml-2" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
+                    <vs-button class="bg-primary-gradient ml-2" type="filled" icon-pack="feather" icon="icon-navigation" @click="sendMsg"></vs-button>
                 </div>
             </template>
             <template v-else>
@@ -136,11 +102,13 @@ export default {
       isChatSidebarActive  : true,
       isLoggedInUserProfileView: false,
       messageType: true,
-      location: 'P.O. Box 948, Jidhafs',
+      contact: '',
+      group: '',
+      location: '',
       datetime: null,
       configdateTimePicker: {
         enableTime: true,
-        dateFormat: 'd-m-Y H:i'
+        dateFormat: 'd-m-Y h:i K'
       },
       // Options
       locationOptions: [
@@ -149,6 +117,25 @@ export default {
         { label: 'CE office ',    value: '3'    },
         { label: 'IT senior Manager office',      value: '4'     },
       ],
+
+      grouplists: [
+        { label: 'IT Department',  value: '1'  },
+        { label: 'Sales Team',     value: '2'     },
+        { label: 'Management Team',    value: '3'    },
+        { label: 'Broadcast',      value: '4'     },
+      ],
+
+      contactlists: [
+        { label: 'Felecia Rower',  value: '1'  },
+        { label: 'Beats HeadPhones',  value: '2'  },
+        { label: 'Adalberto Granzin',   value: '3'   },
+        { label: 'Altec Lansing',  value: '4'  },
+        { label: 'Joaquina Weisenborn',   value: '5'   },
+        { label: 'Verla Morgano',   value: '6'   },
+        { label: 'Margot Henschke', value: '7' },
+        { label: 'Sal Piggee', value: '8' },
+        { label: 'Altec Lansing', value: '9' },
+      ], 
     }
   },
   watch: {

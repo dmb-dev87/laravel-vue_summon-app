@@ -20,38 +20,7 @@
             </template>
 
             <div class="flex items-start" :class="[{'flex-row-reverse' : msg.isSent}]">
-
                 <template v-if="index==1">
-                    <vs-navbar collapse class="p-2">
-                      <div slot="title">
-                        <vs-navbar-title>
-                          <span> (1 people unread) </span>
-                          <span>Sent To</span>
-                        </vs-navbar-title>
-                      </div>
-
-                      <vs-navbar-item index="0" style="color:black">
-                        <a href="#">Felecia Rower</a>
-                        <a href="#" class="ml-6">Phone1 : read</a>     
-                        <a href="#" class="ml-6">Phone2 : read</a>     
-                        <a href="#" class="ml-6">Phone3 : read</a>     
-                      </vs-navbar-item>
-
-                      <vs-navbar-item index="1">
-                        <a href="#">Joaquina Weisenborn</a>                        
-                        
-                        <a href="#" class="ml-6">Phone1 : read (replied "I can not go to the office today")</a>
-                      </vs-navbar-item>
-                      
-                      <vs-navbar-item index="1">
-                        <a href="#">Verla Morgano</a>                         
-                        
-                        <a href="#" class="ml-6">Phone1 : read</a>                                           
-                        <a href="#" class="ml-6">Phone2 : unread</a>                   
-                      </vs-navbar-item>
-
-                    </vs-navbar>
-
                     <div class="msg break-words relative rounded rounded-lg max-w-sm mb-2" style="min-width: 300px; min-height: 60px;">
                         <statistics-card-line
                           hideChart
@@ -63,55 +32,10 @@
                 </template>
 
                 <template v-if="index!=1">
-                    <vs-navbar collapse class="p-2">
-                      <div slot="title">
-                        <vs-navbar-title>
-                          <span> (2 people unread) </span>
-                          <span>Sent To</span>
-                        </vs-navbar-title>
-                      </div>
-
-                      <vs-navbar-item index="0">
-                        <a href="#">Felecia Rower</a>
-                        <a href="#" class="ml-6">Email1 : read</a>
-                        <a href="#" class="ml-6">Email2 : read</a>
-                        <a href="#" class="ml-12">Replied : "I can not reach office today."</a>
-                        
-                        <a href="#" class="ml-6">Phone1</a>
-                        <a href="#" class="ml-12">SMS: read, Whatsapp : read</a>                        
-                        <a href="#" class="ml-6">Phone2</a>
-                        <a href="#" class="ml-12">SMS: read, Whatsapp : read</a>
-                      </vs-navbar-item>
-
-                      <vs-navbar-item index="1">
-                        <a href="#">Joaquina Weisenborn</a>
-
-                        <a href="#" class="ml-6">Email1 : read</a>
-                        <a href="#" class="ml-6">Email2 : read</a>
-                        
-                        <a href="#" class="ml-6">Phone1</a>
-                        <a href="#" class="ml-12">SMS: read, Whatsapp : read</a>                        
-                        <a href="#" class="ml-6">Phone2</a>
-                        <a href="#" class="ml-12">SMS: read, Whatsapp : read</a>
-                      </vs-navbar-item>
-                      
-                      <vs-navbar-item index="1">
-                        <a href="#">Verla Morgano</a>   
-                        
-                        <a href="#" class="ml-6">Email1 : read</a>
-                        <a href="#" class="ml-6">Email2 : read</a>
-                        
-                        <a href="#" class="ml-6">Phone1</a>
-                        <a href="#" class="ml-12">SMS: read, Whatsapp : read</a>
-                        <a href="#" class="ml-12">Replied : "I can not reach office today."</a>
-                      </vs-navbar-item>
-
-                    </vs-navbar>
-
                     <div style="min-width: 300px; min-height: 60px;" class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" :class="{'bg-primary-gradient text-white': msg.isSent, 'border border-solid border-transparent bg-white': !msg.isSent}">
                         <span>{{ msg.textContent }} </span>
                         <p>Location: Main office </p>
-                        <p>Due to: 10/11 16:34 </p>
+                        <p>Due to: 10/11 4:34 PM </p>
                     </div>
                 </template>
             </div>

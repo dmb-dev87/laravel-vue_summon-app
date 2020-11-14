@@ -618,10 +618,10 @@ export default [
     items: [
       {
         url: '/user-list',
-        name: 'List',
+        name: 'Users',
         slug: 'app-user-list',
         icon: 'UsersIcon',
-        i18n: 'List'
+        i18n: 'Users'
       },
       {
         url: 'activate',

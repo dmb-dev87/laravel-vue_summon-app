@@ -20,7 +20,7 @@
                     <h2 class="mb-1 font-bold">{{ statistic }}</h2>
                     <span style="color:white;">Voice : {{ statisticTitle }}</span>
                     <p style="color:white;">Location: CE office </p>
-                    <p style="color:white;">Due to: 10/11 20:34 </p>
+                    <p style="color:white;">Due to: 10/11 8:30 PM </p>
                 </div>
             </div>
 
