@@ -368,16 +368,15 @@ const router = new Router({
           }
         },
         {
-          path: '/ui-elements/card/card-actions',
-          name: 'card-actions',
+          path: '/summon_history',
+          name: 'Summon History',
           component: () => import('./views/ui-elements/card/CardActions.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Card' },
-              { title: 'Card Actions', active: true }
+              { title: 'Summon History', active: true }
             ],
-            pageTitle: 'Card Actions',
+            pageTitle: 'Summon History',
             rule: 'editor'
           }
         },

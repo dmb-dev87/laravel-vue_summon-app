@@ -53,64 +53,56 @@
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number1" v-model="dataPN1" class="mt-5 w-full" name="item-pn1" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn1')">{{ errors.first('item-pn1') }}</span>
-        <vx-input-group class="mb-base mt-4 form-element-demo">
-          <template slot="append">
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
-              <vs-switch v-model="permission.phonenumber1.voice"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
-              <vs-switch v-model="permission.phonenumber1.sms"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
-              <vs-switch v-model="permission.phonenumber1.whatsapp"/>
-            </div>
-          </template>
-        </vx-input-group>
+        <div class="vx-row mt-5">
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
+            <vs-switch v-model="permission.phonenumber1.voice" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
+            <vs-switch v-model="permission.phonenumber1.sms" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
+            <vs-switch v-model="permission.phonenumber1.whatsapp" />
+          </div>      
+        </div>
 
-         <!-- PHONE NUMBER -->
+        <!-- PHONE NUMBER -->
         <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn2')">{{ errors.first('item-pn2') }}</span>
-
-        <vx-input-group class="mb-base mt-4 form-element-demo">
-          <template slot="append">
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
-              <vs-switch v-model="permission.phonenumber2.voice"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
-              <vs-switch v-model="permission.phonenumber2.sms"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
-              <vs-switch v-model="permission.phonenumber2.whatsapp"/>
-            </div>
-          </template>
-        </vx-input-group>
+        <div class="vx-row mt-5">
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
+            <vs-switch v-model="permission.phonenumber2.voice" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
+            <vs-switch v-model="permission.phonenumber2.sms" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
+            <vs-switch v-model="permission.phonenumber2.whatsapp" />
+          </div>      
+        </div>
 
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
-
-        <vx-input-group class="mb-base mt-4 form-element-demo">
-          <template slot="append">
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Voice  </span>
-              <vs-switch v-model="permission.phonenumber3.voice"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> SMS </span>
-              <vs-switch v-model="permission.phonenumber3.sms"/>
-            </div>
-            <div class="append-text">
-              <span class="mr-2 text-sm" style="color: #626262;"> Whatsapp </span>
-              <vs-switch v-model="permission.phonenumber3.whatsapp"/>
-            </div>
-          </template>
-        </vx-input-group>
+        <div class="vx-row mt-5">
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
+            <vs-switch v-model="permission.phonenumber3.voice" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
+            <vs-switch v-model="permission.phonenumber3.sms" />
+          </div>
+          <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
+            <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
+            <vs-switch v-model="permission.phonenumber3.whatsapp" />
+          </div>      
+        </div>
 
         <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
         

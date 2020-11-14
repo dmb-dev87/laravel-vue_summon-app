@@ -221,7 +221,7 @@ export default {
       location : '',
       configdateTimePicker: {
         enableTime: true,
-        dateFormat: 'd-m-Y H:i'
+        dateFormat: 'd-m-Y h:i K'
       },
 
       langHe: he,

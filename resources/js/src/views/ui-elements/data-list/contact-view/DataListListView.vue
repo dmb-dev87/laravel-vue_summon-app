@@ -81,11 +81,11 @@
 
       <template slot="thead">
         <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="email1">Email1</vs-th>
-        <vs-th sort-key="email2">Email2</vs-th>
-        <vs-th sort-key="phonenumber1">Phone Number1</vs-th>
-        <vs-th sort-key="phonenumber2">Phone Number2</vs-th>
-        <vs-th sort-key="phonenumber3">Phone Number3</vs-th>
+        <vs-th sort-key="email1" class="hidden sm:table-cell">Email1</vs-th>
+        <vs-th sort-key="email2" class="hidden sm:table-cell">Email2</vs-th>
+        <vs-th sort-key="phonenumber1" class="hidden sm:table-cell">Phone Number1</vs-th>
+        <vs-th sort-key="phonenumber2" class="hidden sm:table-cell">Phone Number2</vs-th>
+        <vs-th sort-key="phonenumber3" class="hidden sm:table-cell">Phone Number3</vs-th>
         
         <vs-th>Action</vs-th>
       </template>
@@ -98,23 +98,23 @@
                 <p class="product-name font-medium truncate">{{ tr.name }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td class="hidden sm:table-cell">
                 <p class="product-email">{{ tr.email1 }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td class="hidden sm:table-cell">
                 <p class="product-email">{{ tr.email2 }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td class="hidden sm:table-cell">
                 <p class="product-phonenumber">{{ tr.phonenumber1 }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td class="hidden sm:table-cell">
                 <p class="product-phonenumber">{{ tr.phonenumber2 }}</p>
               </vs-td>
 
-              <vs-td>
+              <vs-td class="hidden sm:table-cell">
                 <p class="product-phonenumber">{{ tr.phonenumber3 }}</p>
               </vs-td>
 

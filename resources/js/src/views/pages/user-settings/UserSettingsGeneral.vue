@@ -31,59 +31,53 @@
       </template>
     </vx-input-group>
     <label class="text-sm">First Phone Number</label>
-    <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="profile.phonenumber1.phonenumber" />
-      <template slot="append">
-        <div class="append-text">
+    <vs-input v-model="profile.phonenumber1.phonenumber" class="w-full"/>
+    <div class="vx-row mt-5">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="profile.phonenumber1.permission.voice" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
           <vs-switch v-model="profile.phonenumber1.permission.sms" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="profile.phonenumber1.permission.whatsapp" />
-        </div>
-      </template>
-    </vx-input-group>
+        </div>      
+    </div>
     <label class="text-sm">Second Phone Number</label>
-    <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="profile.phonenumber2.phonenumber" />
-      <template slot="append">
-        <div class="append-text">
+    <vs-input v-model="profile.phonenumber2.phonenumber" class="w-full"/>
+    <div class="vx-row mt-5">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="profile.phonenumber2.permission.voice" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
           <vs-switch v-model="profile.phonenumber2.permission.sms" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="profile.phonenumber2.permission.whatsapp" />
-        </div>
-      </template>
-    </vx-input-group>
+        </div>      
+    </div>
     <label class="text-sm">Third Phone Number</label>
-    <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="profile.phonenumber3.phonenumber" />
-      <template slot="append">
-        <div class="append-text">
+    <vs-input v-model="profile.phonenumber3.phonenumber" class="w-full"/>
+    <div class="vx-row mt-5">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="profile.phonenumber3.permission.voice" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
           <vs-switch v-model="profile.phonenumber3.permission.sms" />
         </div>
-        <div class="append-text">
+        <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="profile.phonenumber3.permission.whatsapp" />
-        </div>
-      </template>
-    </vx-input-group>
+        </div>      
+    </div>
     
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">

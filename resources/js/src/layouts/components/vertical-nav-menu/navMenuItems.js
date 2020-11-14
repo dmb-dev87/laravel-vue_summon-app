@@ -311,12 +311,12 @@ export default [
   //           slug: 'component-drop-down',
   //           i18n: 'DropDown'
   //         },
-  //         {
-  //           url: '/components/list',
-  //           name: 'List',
-  //           slug: 'component-list',
-  //           i18n: 'List'
-  //         },
+          // {
+          //   url: '/components/list',
+          //   name: 'List',
+          //   slug: 'component-list',
+          //   i18n: 'List'
+          // },
   //         {
   //           url: '/components/loading',
   //           name: 'Loading',
