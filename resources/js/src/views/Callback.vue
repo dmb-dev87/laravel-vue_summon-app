@@ -16,11 +16,9 @@ export default {
   methods: {
     handleLoginEvent (data) {
       this.$store.dispatch('updateUserInfo', {
-        displayName: data.profile.name,
+        name: data.profile.name,
         email: data.profile.email,
-        photoURL: data.profile.picture,
-        providerId: data.profile.sub.substr(0, data.profile.sub.indexOf('|')),
-        uid: data.profile.sub
+        id: data.profile.sub
       })
       this.$router.push(data.state.target || '/')
     }

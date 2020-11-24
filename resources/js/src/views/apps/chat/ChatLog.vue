@@ -43,10 +43,8 @@
 </template>
 
 <script>
-import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 export default{
   components: {
-    StatisticsCardLine
   },
   props: {
     userId: {

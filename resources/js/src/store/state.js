@@ -1,27 +1,13 @@
-/*=========================================================================================
-  File Name: state.js
-  Description: Vuex Store - state
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
 import navbarSearchAndPinList from '@/layouts/components/navbar/navbarSearchAndPinList'
 import themeConfig, { colors } from '@/../themeConfig.js'
 
-// /////////////////////////////////////////////
-// Helper
-// /////////////////////////////////////////////
-
 // *From Auth - Data will be received from auth provider
 const userDefaults = {
-  uid         : 0,          // From Auth
-  displayName : 'John Doe', // From Auth
-  about       : 'Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.',
-  photoURL    : require('@assets/images/portrait/small/avatar-s-11.jpg'), // From Auth
-  status      : 'online',
-  userRole    : 'admin'
+  id:         0,
+  user_name:  '',
+  name:       '',
+  status:     '',
+  role_name:  '',
 }
 
 const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {}

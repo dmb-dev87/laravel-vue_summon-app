@@ -14,7 +14,7 @@
         </div>
         <div class="contact__container w-full flex items-center justify-between overflow-hidden">
             <div class="contact__info flex flex-col truncate w-5/6">
-                <h5 class="font-semibold" :class="{'text-white': isActiveChatUser}">{{ contact.displayName }}</h5>
+                <h5 class="font-semibold" :class="{'text-white': isActiveChatUser}">{{ contact.name }}</h5>
                 <!-- <span class="truncate">{{ showLastMsg ? $store.getters['chat/chatLastMessaged'](contact.uid).textContent : contact.about }}</span> -->
             </div>
 

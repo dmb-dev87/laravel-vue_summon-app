@@ -15,12 +15,12 @@ export default {
   SET_PRODUCTS (state, products) {
     state.products = products
   },
+  SET_USERS (state, users) {
+    state.users = users
+  },
   SET_GROUPS (state, groups) {
     state.groups = groups
   },
-  // SET_LABELS(state, labels) {
-  //   state.eventLabels = labels
-  // },
   UPDATE_PRODUCT (state, product) {
     const productIndex = state.products.findIndex((p) => p.id === product.id)
     Object.assign(state.products[productIndex], product)

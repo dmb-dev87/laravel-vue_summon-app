@@ -152,18 +152,18 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, group, location, email1, email2, status, name, phonenumber1, phonenumber2, phonenumber3, role } = JSON.parse(JSON.stringify(this.data))        
+        const { id, group, location, email1, email2, status, name, phone_number1, phone_number2, phone_number3, permission_name } = JSON.parse(JSON.stringify(this.data))        
         this.dataId = id
         this.dataGroup = group
         this.dataLocation = location
         this.dataEmail1 = email1
         this.dataEmail2 = email2
         this.dataName = name
-        this.dataPN1 = phonenumber1
-        this.dataPN2 = phonenumber2
-        this.dataPN3 = phonenumber3
+        this.dataPN1 = phone_number1
+        this.dataPN2 = phone_number2
+        this.dataPN3 = phone_number3
         this.dataStatus = status
-        this.dataRole = role
+        this.dataRole = permission_name
         this.initValues()
       }
     }

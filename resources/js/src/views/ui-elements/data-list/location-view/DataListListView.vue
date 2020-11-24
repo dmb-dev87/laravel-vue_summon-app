@@ -1,6 +1,6 @@
 <!-- =========================================================================================
   File Name: DataListListView.vue
-  Description: Data List - List View
+  Description: User List - List View
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent

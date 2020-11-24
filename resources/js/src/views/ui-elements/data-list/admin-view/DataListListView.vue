@@ -12,7 +12,7 @@
 
     <data-view-sidebar :isSidebarActive="addNewDataSidebar1" @closeSidebar="toggleDataSidebar1" :data="sidebarData1" />
 
-    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
+    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="users">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -30,33 +30,24 @@
 
               <vs-dropdown-item>
                 <span class="flex items-center">
-                  <!-- <feather-icon icon="ActivateIcon" svgClasses="h-4 w-4" class="mr-2" /> -->
                   <span>Activate</span>
                 </span>
               </vs-dropdown-item>
 
               <vs-dropdown-item>
                 <span class="flex items-center">
-                  <!-- <feather-icon icon="ArchiveIcon" svgClasses="h-4 w-4" class="mr-2" /> -->
                   <span>Deactivate</span>
                 </span>
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
           </vs-dropdown>
-
-          <!-- ADD NEW -->
-          <!-- <div class="btn-add-new p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-center text-lg font-medium text-base text-primary border border-solid border-primary" @click="addNewContact">
-              <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add New</span>
-          </div> -->
-
         </div>
 
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ users.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : users.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
           <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -83,10 +74,10 @@
         <vs-th sort-key="group" class="hidden sm:table-cell">Status</vs-th>        
         <vs-th sort-key="email1" class="hidden sm:table-cell">Email1</vs-th>
         <vs-th sort-key="email2" class="hidden sm:table-cell">Email2</vs-th>
-        <vs-th sort-key="phonenumber1" class="hidden sm:table-cell">Phone Number1</vs-th>
-        <vs-th sort-key="phonenumber2" class="hidden sm:table-cell">Phone Number2</vs-th>
-        <vs-th sort-key="phonenumber3" class="hidden sm:table-cell">Phone Number3</vs-th>
-        <vs-th sort-key="role" class="hidden sm:table-cell">Role</vs-th>
+        <vs-th sort-key="phone_number1" class="hidden sm:table-cell">Phone Number1</vs-th>
+        <vs-th sort-key="phone_number2" class="hidden sm:table-cell">Phone Number2</vs-th>
+        <vs-th sort-key="phone_number3" class="hidden sm:table-cell">Phone Number3</vs-th>
+        <vs-th sort-key="permission" class="hidden sm:table-cell">Role</vs-th>
         
         <vs-th>Action</vs-th>
       </template>
@@ -112,19 +103,19 @@
               </vs-td>
 
               <vs-td class="hidden sm:table-cell">
-                <p class="product-phonenumber">{{ tr.phonenumber1 }}</p>
+                <p class="product-phonenumber">{{ tr.phone_number1 }}</p>
               </vs-td>
 
               <vs-td class="hidden sm:table-cell">
-                <p class="product-phonenumber">{{ tr.phonenumber2 }}</p>
+                <p class="product-phonenumber">{{ tr.phone_number2 }}</p>
               </vs-td>
 
               <vs-td class="hidden sm:table-cell">
-                <p class="product-phonenumber">{{ tr.phonenumber3 }}</p>
+                <p class="product-phonenumber">{{ tr.phone_number3 }}</p>
               </vs-td>
 
               <vs-td class="hidden sm:table-cell">
-                <p class="product-role">{{ tr.role }}</p>
+                <p class="product-role">{{ tr.permission_name }}</p>
               </vs-td>
 
               <vs-td class="whitespace-no-wrap">
@@ -150,7 +141,6 @@ export default {
   data () {
     return {
       selected: [],
-      // products: [],
       itemsPerPage: 4,
       isMounted: false,
 
@@ -173,8 +163,11 @@ export default {
     products () {
       return this.$store.state.dataList.products
     },
+    users () {
+      return this.$store.state.dataList.users
+    },
     queriedItems () {
-      return this.$refs.table ? this.$refs.table.queriedResults.length : this.products.length
+      return this.$refs.table ? this.$refs.table.queriedResults.length : this.users.length
     }
   },
   methods: {
@@ -213,6 +206,7 @@ export default {
       this.$store.registerModule('dataList', moduleDataList)
       moduleDataList.isRegistered = true
     }
+    this.$store.dispatch('dataList/fetchUserList')
     this.$store.dispatch('dataList/fetchDataListItems')
   },
   mounted () {
