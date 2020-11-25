@@ -178,6 +178,7 @@ export default {
         this.phoneVoice3 = phone_voice3
         this.phoneSMS3 = phone_sms3
         this.phoneWhatsapp3 = phone_whatsapp3
+
         this.initValues()
       }
     }
@@ -201,7 +202,9 @@ export default {
   },
   methods: {
     initValues () {
-      if (this.data.id) return
+      if (this.data.id) 
+        return
+
       this.dataId = null
       this.dataGroup = ''
       this.dataLocation = ''
@@ -211,6 +214,17 @@ export default {
       this.dataPN1 = ''
       this.dataPN2 = ''
       this.dataPN3 = ''
+      this.dataEmailVal1 = false
+      this.dataEmailVal2 = false
+      this.phoneVoice1 = false
+      this.phoneSMS1 = false
+      this.phoneWhatsapp1 = false
+      this.phoneVoice2 = false
+      this.phoneSMS2 = false
+      this.phoneWhatsapp2 = false
+      this.phoneVoice3 = false
+      this.phoneSMS3 = false
+      this.phoneWhatsapp3 = false
     },
     submitData () {
       this.$validator.validateAll().then(result => {
@@ -218,21 +232,31 @@ export default {
           const obj = {
             id: this.dataId,
             name: this.dataName,
-            group: this.dataGroup, 
-            location: this.dataLocation, 
-            email1: this.dataEmail1,
+            email: this.dataEmail,
+            email_val1: this.dataEmailVal1,
             email2: this.dataEmail2, 
-            phonenumber1: this.dataPN1,
-            phonenumber2: this.dataPN2,
-            phonenumber3: this.dataPN3,
+            email_val2: this.dataEmailVal2,
+            phone_number1: this.dataPN1,
+            phone_voice1: this.phoneVoice1,
+            phone_sms1: this.phoneSMS1,
+            phone_whatsapp1: this.phoneWhatsapp1,
+            phone_number2: this.dataPN2,
+            phone_voice2: this.phoneVoice2,
+            phone_sms2: this.phoneSMS2,
+            phone_whatsapp2: this.phoneWhatsapp2,
+            phone_number3: this.dataPN3,
+            phone_voice3: this.phoneVoice3,
+            phone_sms3: this.phoneSMS3,
+            phone_whatsapp3: this.phoneWhatsapp3,
           }
 
+          console.log("++++++++++++++++++++++", obj)
+
           if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
+            this.$store.dispatch('contacts/updateContact', obj).catch(err => { console.error(err) })
           } else {
             delete obj.id
-            obj.popularity = 0
-            this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
+            this.$store.dispatch('contacts/createContact', obj).catch(err => { console.error(err) })
           }
 
           this.$emit('closeSidebar')
@@ -271,7 +295,6 @@ export default {
 }
 
 .scroll-area--data-list-add-new {
-    // height: calc(var(--vh, 1vh) * 100 - 4.3rem);
     height: calc(var(--vh, 1vh) * 100 - 16px - 45px - 82px);
 
     &:not(.ps) {

@@ -1,5 +1,5 @@
 import jwt from '../../http/requests/auth/jwt/index.js'
-
+import axios from '@/axios.js'
 import router from '@/router'
 
 export default {
@@ -62,5 +62,16 @@ export default {
     return new Promise((resolve) => {
       jwt.refreshToken().then(response => { resolve(response) })
     })
+  },
+  upateUser ( { commit }, item)
+  {
+    return new Promise((resolve, reject) => {
+      axios.put(`/api/users/${item.id}`, {item})
+        .then((response) => {
+          commit('UPDATE_USER_INFO', response.data, {root: true})
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+      })
   }
 }

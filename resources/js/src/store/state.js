@@ -3,11 +3,27 @@ import themeConfig, { colors } from '@/../themeConfig.js'
 
 // *From Auth - Data will be received from auth provider
 const userDefaults = {
-  id:         0,
-  user_name:  '',
-  name:       '',
-  status:     '',
-  role_name:  '',
+  id:               0,
+  user_name:        '',
+  name:             '',
+  status:           '',
+  role_name:        '',
+  email:            '',
+  email_val1:       false,
+  email2:           '',
+  email_val2:       false,
+  phone_number1:    '',
+  phone_voice1:     false,
+  phone_sms1:       false,
+  phone_whatsapp1:  false,
+  phone_number2:    '',
+  phone_voice2:     false,
+  phone_sms2:       false,
+  phone_whatsapp2:  false,
+  phone_number3:    '',
+  phone_voice3:     false,
+  phone_sms3:       false,
+  phone_whatsapp3:  false,
 }
 
 const userInfoLocalStorage = JSON.parse(localStorage.getItem('userInfo')) || {}

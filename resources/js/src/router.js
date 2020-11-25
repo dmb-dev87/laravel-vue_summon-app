@@ -33,25 +33,14 @@ const router = new Router({
     return { x: 0, y: 0 }
   },
   routes: [
-
     {
-    // =============================================================================
-    // MAIN LAYOUT ROUTES
-    // =============================================================================
       path: '',
       component: () => import('./layouts/main/Main.vue'),
       children: [
-        // =============================================================================
-        // Theme Routes
-        // =============================================================================
         {
           path: '/',
           redirect: '/summon'
         },
-
-        // =============================================================================
-        // Application Routes
-        // =============================================================================
         {
           path: '/summon',
           name: 'chat',
@@ -88,7 +77,6 @@ const router = new Router({
           path: '/user-list',
           name: 'app-user-list',
           component: () => import('@/views/users/user-list/UserListView.vue'),
-          // component: () => import('@/views/ui-elements/data-list/admin-view/DataListListView.vue'),
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
@@ -127,9 +115,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-        // =============================================================================
-        // UI ELEMENTS
-        // =============================================================================
         {
           path: '/contact',
           name: 'Contact List',
@@ -222,10 +207,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-
-        // =============================================================================
-        // COMPONENT ROUTES
-        // =============================================================================
         {
           path: '/components/alert',
           name: 'component-alert',
@@ -534,14 +515,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-
-
-        // =============================================================================
-        // FORMS
-        // =============================================================================
-        // =============================================================================
-        // FORM ELEMENTS
-        // =============================================================================
         {
           path: '/forms/form-elements/select',
           name: 'form-element-select',
@@ -640,7 +613,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-        // -------------------------------------------------------------------------------------------------------------------------------------------
         {
           path: '/forms/form-layouts',
           name: 'forms-form-layouts',
@@ -710,9 +682,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-        // =============================================================================
-        // CHARTS & MAPS
-        // =============================================================================
         {
           path: '/charts-and-maps/charts/apex-charts',
           name: 'extra-component-charts-apex-charts',
@@ -755,11 +724,6 @@ const router = new Router({
             rule: 'editor'
           }
         },
-
-
-        // =============================================================================
-        // EXTENSIONS
-        // =============================================================================
         {
           path: '/extensions/select',
           name: 'extra-component-select',
@@ -975,16 +939,10 @@ const router = new Router({
         }
       ]
     },
-    // =============================================================================
-    // FULL PAGE LAYOUTS
-    // =============================================================================
     {
       path: '',
       component: () => import('@/layouts/full-page/FullPage.vue'),
       children: [
-        // =============================================================================
-        // PAGES
-        // =============================================================================
         {
           path: '/callback',
           name: 'auth-callback',
@@ -1051,7 +1009,6 @@ const router = new Router({
         },
       ]
     },
-    // Redirect to 404 page, if no match found
     {
       path: '*',
       redirect: '/error-404'
@@ -1060,7 +1017,6 @@ const router = new Router({
 })
 
 router.afterEach(() => {
-  // Remove initial loading
   const appLoading = document.getElementById('loading-bg')
   if (appLoading) {
     appLoading.style.display = 'none'
@@ -1069,24 +1025,7 @@ router.afterEach(() => {
 
 router.beforeEach((to, from, next) => {
   firebase.auth().onAuthStateChanged(() => {
-
-    // get firebase current user
     const firebaseCurrentUser = firebase.auth().currentUser
-
-    // if (
-    //     to.path === "/pages/login" ||
-    //     to.path === "/pages/forgot-password" ||
-    //     to.path === "/pages/error-404" ||
-    //     to.path === "/pages/error-500" ||
-    //     to.path === "/pages/register" ||
-    //     to.path === "/callback" ||
-    //     to.path === "/pages/comingsoon" ||
-    //     (auth.isAuthenticated() || firebaseCurrentUser)
-    // ) {
-    //     return next();
-    // }
-
-    // If auth required, check login. If login fails redirect to login page
     if (to.meta.authRequired) {
       if (!(auth.isAuthenticated() || firebaseCurrentUser)) {
         router.push({ path: '/login', query: { to: to.path } })
@@ -1094,10 +1033,6 @@ router.beforeEach((to, from, next) => {
     }
 
     return next()
-    // Specify the current path as the customState parameter, meaning it
-    // will be returned to the application after auth
-    // auth.login({ target: to.path });
-
   })
 
 })

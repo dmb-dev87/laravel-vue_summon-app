@@ -194,7 +194,6 @@ mock.onPost('/api/apps/chat/mark-all-seen/').reply((request) => {
   // Get chat data
   const chatLog = chatDataOfUser(contactId)
 
-  // console.log(chatLog);
   chatDataOfUser(1) == chatLog
 
   // Loop over all msg & mark them as seen
@@ -204,8 +203,6 @@ mock.onPost('/api/apps/chat/mark-all-seen/').reply((request) => {
 
   // Set unsen Msg flag to 0
   chatLog.unseenMsg = 0
-
-  // console.log(data.chats[0] == chatDataOfUser(contactId));
 
   return [200]
 })

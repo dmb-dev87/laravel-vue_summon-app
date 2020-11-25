@@ -11,7 +11,7 @@
       <div class="p-6">
 
         <!-- NAME -->
-        <vs-input label="Location Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
+        <vs-input label="Location Name" v-model="dataLocation" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
         
       </div>
@@ -44,28 +44,7 @@ export default {
   data () {
     return {
       dataId: null,
-      dataName: '',
-      dataEmail1: '',
-      dataEmail2: '',
-      dataPN1: '',
-      dataPN2: '',
-      dataPN3: '',
-      dataGroup: null,
       dataLocation: null,
-
-      group_choices: [
-        { label: 'IT Department',  value: '1'  },
-        { label: 'Sales Team',     value: '2'  },
-        { label: 'Management Team',  value: '3'  },
-        { label: 'Broadcast',      value: '4'  },
-      ],
-
-      location_choices: [
-        { label: '1st Floot meeting room',  value: '1'  },
-        { label: 'Main office ',     value: '2'     },
-        { label: 'CE office ',    value: '3'    },
-        { label: 'IT senior Manager office',      value: '4'     },
-      ],
 
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
@@ -80,16 +59,9 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, group, location, email1, email2, name, phonenumber1, phonenumber2, phonenumber3 } = JSON.parse(JSON.stringify(this.data))        
+        const { id, name } = JSON.parse(JSON.stringify(this.data))        
         this.dataId = id
-        this.dataGroup = group
-        this.dataLocation = location
-        this.dataEmail1 = email1
-        this.dataEmail2 = email2
-        this.dataName = name
-        this.dataPN1 = phonenumber1
-        this.dataPN2 = phonenumber2
-        this.dataPN3 = phonenumber3
+        this.dataLocation = name
         this.initValues()
       }
     }
@@ -115,36 +87,21 @@ export default {
     initValues () {
       if (this.data.id) return
       this.dataId = null
-      this.dataGroup = ''
       this.dataLocation = ''
-      this.dataEmail1 = ''
-      this.dataEmail2 = ''
-      this.dataName = ''
-      this.dataPN1 = ''
-      this.dataPN2 = ''
-      this.dataPN3 = ''
     },
     submitData () {
       this.$validator.validateAll().then(result => {
         if (result) {
           const obj = {
             id: this.dataId,
-            name: this.dataName,
-            group: this.dataGroup, 
-            location: this.dataLocation, 
-            email1: this.dataEmail1,
-            email2: this.dataEmail2, 
-            phonenumber1: this.dataPN1,
-            phonenumber2: this.dataPN2,
-            phonenumber3: this.dataPN3,
+            name: this.dataLocation,
           }
 
           if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
+            this.$store.dispatch('locations/updateLocation', obj).catch(err => { console.error(err) })
           } else {
             delete obj.id
-            obj.popularity = 0
-            this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
+            this.$store.dispatch('locations/createLocation', obj).catch(err => { console.error(err) })
           }
 
           this.$emit('closeSidebar')

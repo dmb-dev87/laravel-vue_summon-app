@@ -17,6 +17,7 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('name');
+            $table->string('contact_list');
             $table->tinyInteger('del_flag')->default('0');
             $table->timestamps();
         });

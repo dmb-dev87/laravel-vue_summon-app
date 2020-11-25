@@ -132,7 +132,7 @@ export default {
       this.toggleLocationEditView(true)
     },
     deleteLocation (id) {
-      this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
+      this.$store.dispatch('locations/deleteLocation', id).catch(err => { console.error(err) })
     },
     editLocation (data) {
       this.locationData = data

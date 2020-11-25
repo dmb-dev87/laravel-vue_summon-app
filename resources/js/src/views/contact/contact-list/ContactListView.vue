@@ -146,7 +146,6 @@ export default {
       return 0
     },
     contacts () {
-      console.log("+++++++++++++++++++", this.$store.state.contacts.contacts)
       return this.$store.state.contacts.contacts
     },
     queriedItems () {
@@ -155,11 +154,11 @@ export default {
   },
   methods: {
     addNewContact () {
-      this.sidebarData1 = {}
-      this.toggleDataSidebar1(true)
+      this.contactData = {}
+      this.toggleContactEditView(true)
     },
     deleteContact (id) {
-      this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
+      this.$store.dispatch('contacts/deleteContact', id).catch(err => { console.error(err) })
     },
     editContact (data) {
       this.contactData = data

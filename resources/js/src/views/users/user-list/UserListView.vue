@@ -41,7 +41,6 @@
             <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ users.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : users.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
-          <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
           <vs-dropdown-menu>
 
             <vs-dropdown-item @click="itemsPerPage=4">
@@ -83,7 +82,6 @@
 
               <vs-td class="hidden sm:table-cell">
                 <vs-chip :color="getUserStatusColor(tr.status)" class="product-group">{{ tr.status }}</vs-chip>
-                <!-- <p class="product-group" :color="getOrderStatusColor(tr.status)">{{ tr.status }}</p> -->
               </vs-td>
 
               <vs-td class="hidden sm:table-cell">
@@ -111,8 +109,8 @@
               </vs-td>
 
               <vs-td class="whitespace-no-wrap">
-                <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editData(tr)" />
-                <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteData(tr.id)" />
+                <feather-icon icon="EditIcon" svgClasses="w-5 h-5 hover:text-primary stroke-current" @click.stop="editUser(tr)" />
+                <feather-icon icon="TrashIcon" svgClasses="w-5 h-5 hover:text-danger stroke-current" class="ml-2" @click.stop="deleteUser(tr.id)" />
               </vs-td>
             </vs-tr>
           </tbody>
@@ -135,8 +133,6 @@ export default {
       selected: [],
       itemsPerPage: 4,
       isMounted: false,
-
-      // User Update View Sidebar
       userEditView: false,
       userData: {},
     }
@@ -156,10 +152,10 @@ export default {
     }
   },
   methods: {
-    deleteData (id) {
-      this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
+    deleteUser (id) {
+      this.$store.dispatch('users/deleteUser', id)
     },
-    editData (data) {
+    editUser (data) {
       this.userData = data
       this.toggleUserEditView(true)
     },
@@ -191,11 +187,6 @@ export default {
 <style lang="scss">
 #data-list-list-view {
   .vs-con-table {
-
-    /*
-      Below media-queries is fix for responsiveness of action buttons
-      Note: If you change action buttons or layout of this page, Please remove below style
-    */
     @media (max-width: 689px) {
       .vs-table--search {
         margin-left: 0;

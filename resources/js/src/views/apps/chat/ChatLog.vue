@@ -22,12 +22,12 @@
             <div class="flex items-start" :class="[{'flex-row-reverse' : msg.isSent}]">
                 <template v-if="index==1">
                     <div class="msg break-words relative rounded rounded-lg max-w-sm mb-2" style="min-width: 300px; min-height: 60px; cursor:pointer;" @click="$router.push('summon_history').catch(() => {})">
-                        <statistics-card-line
+                        <!-- <statistics-card-line
                           hideChart
                           icon="ActivityIcon"
                           icon-right
                           statisticTitle="1:45"
-                          color="danger" />
+                          color="danger" /> -->
                     </div>
                 </template>
 

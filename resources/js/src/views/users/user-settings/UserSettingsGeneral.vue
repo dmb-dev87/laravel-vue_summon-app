@@ -1,8 +1,8 @@
 <template>
   <vx-card no-shadow>
     <!-- Info -->
-    <vs-input class="w-full mb-base" label-placeholder="Username" v-model="profile.username"></vs-input>
-    <vs-input class="w-full mb-base" label-placeholder="Name" v-model="profile.name"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="Username" v-model="activeUserInfo.user_name"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="Name" v-model="activeUserInfo.name"></vs-input>
 
     <!-- Languages -->
     <div class="mb-base">
@@ -12,76 +12,76 @@
     <!-- SWITCH -->
     <label class="text-sm">First Email</label>
     <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="profile.email1.email" />
+      <vs-input v-model="activeUserInfo.email" />
       <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
-          <vs-switch v-model="profile.email1.permission.email" />
+          <vs-switch v-model="activeUserInfo.email_val1" />
         </div>
       </template>
     </vx-input-group>
     <label class="text-sm">Second Email</label>
     <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="profile.email2.email" />
+      <vs-input v-model="activeUserInfo.email2" />
       <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
-          <vs-switch v-model="profile.email2.permission.email" />
+          <vs-switch v-model="activeUserInfo.email_val2" />
         </div>
       </template>
     </vx-input-group>
     <label class="text-sm">First Phone Number</label>
-    <vs-input v-model="profile.phonenumber1.phonenumber" class="w-full"/>
+    <vs-input v-model="activeUserInfo.phone_number1" class="w-full"/>
     <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
-          <vs-switch v-model="profile.phonenumber1.permission.voice" />
+          <vs-switch v-model="activeUserInfo.phone_voice1" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
-          <vs-switch v-model="profile.phonenumber1.permission.sms" />
+          <vs-switch v-model="activeUserInfo.phone_sms1" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
-          <vs-switch v-model="profile.phonenumber1.permission.whatsapp" />
+          <vs-switch v-model="activeUserInfo.phone_whatsapp1" />
         </div>      
     </div>
     <label class="text-sm">Second Phone Number</label>
-    <vs-input v-model="profile.phonenumber2.phonenumber" class="w-full"/>
+    <vs-input v-model="activeUserInfo.phone_number2" class="w-full"/>
     <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
-          <vs-switch v-model="profile.phonenumber2.permission.voice" />
+          <vs-switch v-model="activeUserInfo.phone_voice2" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
-          <vs-switch v-model="profile.phonenumber2.permission.sms" />
+          <vs-switch v-model="activeUserInfo.phone_sms2" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
-          <vs-switch v-model="profile.phonenumber2.permission.whatsapp" />
+          <vs-switch v-model="activeUserInfo.phone_whatsapp2" />
         </div>      
     </div>
     <label class="text-sm">Third Phone Number</label>
-    <vs-input v-model="profile.phonenumber3.phonenumber" class="w-full"/>
+    <vs-input v-model="activeUserInfo.phone_number3" class="w-full"/>
     <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
-          <vs-switch v-model="profile.phonenumber3.permission.voice" />
+          <vs-switch v-model="activeUserInfo.phone_voice3" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> SMS </span>
-          <vs-switch v-model="profile.phonenumber3.permission.sms" />
+          <vs-switch v-model="activeUserInfo.phone_sms3" />
         </div>
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
-          <vs-switch v-model="profile.phonenumber3.permission.whatsapp" />
+          <vs-switch v-model="activeUserInfo.phone_whatsapp3" />
         </div>      
     </div>
     
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="ml-auto mt-2">Save Changes</vs-button>
+      <vs-button class="ml-auto mt-2" @click="saveUser">Save Changes</vs-button>
       <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
     </div>
   </vx-card>
@@ -89,62 +89,44 @@
 
 <script>
 import vSelect from 'vue-select'
+import moduleUser from '@/store/user/moduleUser.js'
 
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {}
+    }
+  },
   components: {
     vSelect
   },
   data () {
     return {
-      profile : { 
-        username: 'johny_01', 
-        name: "John Steve", 
-        email1 : { 
-          email : 'john1@admin.com', 
-          permission : { 
-            email: true
-          }
-        },
-        email2 : { 
-          email : 'john2@admin.com', 
-          permission : { 
-            email: false
-          }
-        },
-        phonenumber1 : { 
-          phonenumber : '1111111111', 
-          permission : { 
-            sms: true,
-            whatsapp: true,
-            voice: true,
-          }
-        },
-        phonenumber2 : { 
-          phonenumber : '2222222222', 
-          permission : { 
-            sms: false,
-            whatsapp: true,
-            voice: false,
-          }
-        },
-        phonenumber3 : { 
-          phonenumber : '33333333333', 
-          permission : { 
-            sms: false,
-            whatsapp: false,
-            voice: false,
-          }
-        },
-      },
+      dataId: null,
+      dataName: '',
+      dataEmail: '',
+      dataEmail2: '',
+      dataPN1: '',
+      dataPN2: '',
+      dataPN3: '',
+      dataEmailVal1: false,
+      dataEmailVal2: false,
+      phoneVoice1: false,
+      phoneSMS1: false,
+      phoneWhatsapp1: false,
+      phoneVoice2: false,
+      phoneSMS2: false,
+      phoneWhatsapp2: false,
+      phoneVoice3: false,
+      phoneSMS3: false,
+      phoneWhatsapp3: false,
+      
+
       lang_known: ['English', 'Arabic'],
       langOptions: [
         { label: 'English',  value: 'english'  },
-        // { label: 'Spanish',  value: 'spanish'  },
-        // { label: 'French',   value: 'french'   },
-        // { label: 'Russian',  value: 'russian'  },
-        // { label: 'German',   value: 'german'   },
         { label: 'Arabic',   value: 'arabic'   },
-        // { label: 'Sanskrit', value: 'sanskrit' }
       ] 
 
     }
@@ -152,6 +134,24 @@ export default {
   computed: {
     activeUserInfo () {
       return this.$store.state.AppActiveUser
+    }
+  },
+  methods: {
+    saveUser() {
+      this.$vs.loading()
+
+      this.$store.dispatch('auth/upateUser', this.activeUserInfo)
+        .then(() => {this.$vs.loading.close()})
+        .catch(error => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: error.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
     }
   }
 }

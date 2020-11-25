@@ -92,6 +92,7 @@ export default {
   },
   data () {
     return {
+      dataUserName: '',
       dataId: null,
       dataName: '',
       dataEmail: '',
@@ -142,7 +143,8 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, group, location, email, email2, status, name, phone_number1, phone_number2, phone_number3, role_name } = JSON.parse(JSON.stringify(this.data))        
+        const { id, user_name, group, location, email, email2, status, name, phone_number1, phone_number2, phone_number3, role_name } = JSON.parse(JSON.stringify(this.data))
+        this.dataUserName = user_name
         this.dataId = id
         this.dataGroup = group
         this.dataLocation = location
@@ -177,11 +179,14 @@ export default {
   },
   methods: {
     initValues () {
-      if (this.data.id) return
+      if (this.data.id) 
+        return
+
       this.dataId = null
+      this.dataUserName = ''
       this.dataGroup = ''
       this.dataLocation = ''
-      this.dataEmail1 = ''
+      this.dataEmail = ''
       this.dataEmail2 = ''
       this.dataName = ''
       this.dataPN1 = ''
@@ -195,25 +200,18 @@ export default {
         if (result) {
           const obj = {
             id: this.dataId,
+            user_name: this.dataUserName,
             name: this.dataName,
-            group: this.dataGroup, 
-            location: this.dataLocation, 
-            email1: this.dataEmail1,
+            email: this.dataEmail,
             email2: this.dataEmail2, 
-            phonenumber1: this.dataPN1,
-            phonenumber2: this.dataPN2,
-            phonenumber3: this.dataPN3,
+            phone_number1: this.dataPN1,
+            phone_number2: this.dataPN2,
+            phone_number3: this.dataPN3,
             status: this.dataStatus,
-            role : this.dataRole
+            role_name : this.dataRole
           }
 
-          if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
-          } else {
-            delete obj.id
-            obj.popularity = 0
-            this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
-          }
+          this.$store.dispatch('users/updateUser', obj).catch(err => { console.error(err) })
 
           this.$emit('closeSidebar')
           this.initValues()

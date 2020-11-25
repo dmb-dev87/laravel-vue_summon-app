@@ -15,19 +15,23 @@ class GroupsSeeder extends Seeder
         //
         Group::firstOrCreate([        
             'user_id' => 1,
-            'name' => 'IT Department'
+            'name' => 'IT Department',
+            'contact_list' => '2,3,5,',
         ]);
         Group::firstOrCreate([        
             'user_id' => 1,
-            'name' => 'Sales Team'
+            'name' => 'Sales Team',
+            'contact_list' => '1,2,6,',
         ]);
         Group::firstOrCreate([        
             'user_id' => 1,
-            'name' => 'Management Team'
+            'name' => 'Management Team',
+            'contact_list' => '1,4,6,',
         ]);
         Group::firstOrCreate([        
             'user_id' => 1,
-            'name' => 'Broadcast'
+            'name' => 'Broadcast',
+            'contact_list' => '1,3,5,',
         ]);
     }
 }

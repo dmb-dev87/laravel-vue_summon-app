@@ -18,22 +18,33 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::get('refresh', 'AuthController@refresh');    
 });
 
-Route::group(['middleware' => ['api']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::post('me', 'AuthController@me');
     // Users
     Route::get('/users', 'UsersController@get');
+    Route::put('/users/{id}', 'UsersController@updateUser');
+    Route::delete('/users/{id}', 'UsersController@deleteUser');
 
     // Location
     Route::get('/locations', 'LocationsController@get');
+    Route::post('/locations', 'LocationsController@createLocation');
+    Route::put('/locations/{id}', 'LocationsController@updateLocation');
+    Route::delete('/locations/{id}', 'LocationsController@deleteLocation');
 
     // Groups
     Route::get('/groups', 'GroupsController@get');
+    Route::delete('/groups/{id}', 'GroupsController@deleteGroup');
+    Route::put('/groups/{id}', 'GroupsController@updateGroup');
+    Route::post('/groups', 'GroupsController@createGroup');
 
     // Contacts
-    Route::get('/contacts/{user_id}', 'ContactsController@get');
+    Route::get('/contacts', 'ContactsController@get');
+    Route::delete('/contacts/{id}', 'ContactsController@deleteContact');
+    Route::post('/contacts', 'ContactsController@createContact');
+    Route::put('/contacts/{id}', 'ContactsController@updateContact');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

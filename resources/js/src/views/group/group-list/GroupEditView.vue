@@ -1,13 +1,3 @@
-<!-- =========================================================================================
-  File Name: AddNewDataSidebar.vue
-  Description: Add New Data - Sidebar component
-  ----------------------------------------------------------------------------------------
-  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
   <vs-sidebar click-not-close position-right parent="body" default-index="1" color="primary" class="add-new-data-sidebar items-no-padding" spacer v-model="isSidebarActiveLocal">
     <div class="mt-6 flex items-center justify-between px-6">
@@ -26,7 +16,7 @@
 
         <div class="mb-base mt-6">
           <label class="text-sm">Contacts</label>
-          <v-select v-model="sel_contact" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+          <v-select v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
         </div>
         
       </div>
@@ -52,6 +42,10 @@ export default {
     data: {
       type: Object,
       default: () => {}
+    },
+    contacts: {
+      type: Array,
+      default: () => []
     }
   },
   components: {
@@ -62,29 +56,9 @@ export default {
     return {
       dataId: null,
       dataName: '',
-      dataEmail1: '',
-      dataEmail2: '',
-      dataPN1: '',
-      dataPN2: '',
-      dataPN3: '',
-      dataGroup: null,
-      dataLocation: null,
-      sel_contact: [
-        'Felecia Rower', 
-        'Beats HeadPhones', 
-      ],
+      sel_contacts: [],
 
-      contactlists: [
-        { label: 'Felecia Rower',  value: '1'  },
-        { label: 'Beats HeadPhones',  value: '2'  },
-        { label: 'Adalberto Granzin',   value: '3'   },
-        { label: 'Altec Lansing',  value: '4'  },
-        { label: 'Joaquina Weisenborn',   value: '5'   },
-        { label: 'Verla Morgano',   value: '6'   },
-        { label: 'Margot Henschke', value: '7' },
-        { label: 'Sal Piggee', value: '8' },
-        { label: 'Altec Lansing', value: '9' },
-      ], 
+      contactlists: [],
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
         wheelSpeed: .60
@@ -93,21 +67,23 @@ export default {
   },
   watch: {
     isSidebarActive (val) {
-      if (!val) return
+      if (!val) 
+        return
+      
+      if(Array.entries(this.contacts).length === 0) {
+        this.contactlists = []
+      } else {
+        this.contactlists = this.contacts
+      }
+
       if (Object.entries(this.data).length === 0) {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, group, location, email1, email2, name, phonenumber1, phonenumber2, phonenumber3 } = JSON.parse(JSON.stringify(this.data))        
+        const { id, name, sel_contacts} = JSON.parse(JSON.stringify(this.data))        
         this.dataId = id
-        this.dataGroup = group
-        this.dataLocation = location
-        this.dataEmail1 = email1
-        this.dataEmail2 = email2
         this.dataName = name
-        this.dataPN1 = phonenumber1
-        this.dataPN2 = phonenumber2
-        this.dataPN3 = phonenumber3
+        this.sel_contacts = sel_contacts
         this.initValues()
       }
     }
@@ -124,7 +100,6 @@ export default {
       }
     },
     isFormValid () {
-      // return !this.errors.any() && this.dataName && this.dataCategory && this.dataPrice > 0
       return true;
     },
     scrollbarTag () { return this.$store.getters.scrollbarTag }
@@ -133,42 +108,29 @@ export default {
     initValues () {
       if (this.data.id) return
       this.dataId = null
-      this.dataGroup = ''
-      this.dataLocation = ''
-      this.dataEmail1 = ''
-      this.dataEmail2 = ''
       this.dataName = ''
-      this.dataPN1 = ''
-      this.dataPN2 = ''
-      this.dataPN3 = ''
+      this.sel_contacts = []
     },
     submitData () {
-      // this.$validator.validateAll().then(result => {
-      //   if (result) {
-      //     const obj = {
-      //       id: this.dataId,
-      //       name: this.dataName,
-      //       group: this.dataGroup, 
-      //       location: this.dataLocation, 
-      //       email1: this.dataEmail1,
-      //       email2: this.dataEmail2, 
-      //       phonenumber1: this.dataPN1,
-      //       phonenumber2: this.dataPN2,
-      //       phonenumber3: this.dataPN3,
-      //     }
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          const obj = {
+            id: this.dataId,
+            name: this.dataName,
+            sel_contacts: this.sel_contacts,
+          }
 
-      //     if (this.dataId !== null && this.dataId >= 0) {
-      //       this.$store.dispatch('dataList/updateItem', obj).catch(err => { console.error(err) })
-      //     } else {
-      //       delete obj.id
-      //       obj.popularity = 0
-      //       this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
-      //     }
+          if (this.dataId !== null && this.dataId >= 0) {
+            this.$store.dispatch('groups/updateGroup', obj).catch(err => { console.error(err) })
+          } else {
+            delete obj.id
+            this.$store.dispatch('groups/createGroup', obj).catch(err => { console.error(err) })
+          }
 
-      //     this.$emit('closeSidebar')
-      //     this.initValues()
-      //   }
-      // })
+          this.$emit('closeSidebar')
+          this.initValues()
+        }
+      })
     }
   }
 }

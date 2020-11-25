@@ -1,7 +1,7 @@
 <template>
   <div id="data-list-list-view" class="data-list-container">
 
-    <group-edit-view :isSidebarActive="groupEditView" @closeSidebar="toggleGroupEditView" :data="groupData" />
+    <group-edit-view :isSidebarActive="groupEditView" @closeSidebar="toggleGroupEditView" :data="groupData" :contacts="contacts" />
 
     <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="groups">
 
@@ -97,6 +97,7 @@
 <script>
 import GroupEditView from './GroupEditView.vue'
 import moduleGroups from '@/store/groups/moduleGroups.js'
+import moduleContacts from '@/store/contacts/moduleContacts.js'
 
 export default {
   components: {
@@ -125,6 +126,20 @@ export default {
     },
     queriedItems () {
       return this.$refs.table ? this.$refs.table.queriedResults.length : this.groups.length
+    },
+    contacts () {
+      let contacts = []
+      let contact_list = this.$store.state.contacts.contacts
+      for(let i = 0; i < contact_list.length; i++)
+      {
+        contacts.push(
+          {
+            label: contact_list[i]['name'],
+            value: contact_list[i]['id']
+          }
+        )
+      }
+      return contacts;
     }
   },
   methods: {
@@ -133,7 +148,7 @@ export default {
       this.toggleGroupEditView(true)
     },
     deleteGroup (id) {
-      this.$store.dispatch('dataList/removeItem', id).catch(err => { console.error(err) })
+      this.$store.dispatch('groups/deleteGroup', id).catch(err => { console.error(err) })
     },
     editGroup (data) {
       this.groupData = data
@@ -149,6 +164,12 @@ export default {
       moduleGroups.isRegistered = true
     }
     this.$store.dispatch('groups/fetchGroupsList')
+
+    if (!moduleContacts.isRegistered) {
+      this.$store.registerModule('contacts', moduleContacts)
+      moduleContacts.isRegistered = true
+    }
+    this.$store.dispatch('contacts/fetchContactsList')
   },
   mounted () {
     this.isMounted = true
