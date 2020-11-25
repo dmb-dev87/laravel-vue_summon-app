@@ -1,30 +1,7 @@
-<!-- =========================================================================================
-    File Name: Main.vue
-    Description: Main layout
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'no-scroll': isAppPage}]">
 
     <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical' && verticalNavMenuWidth == 'default')" />
-
-    <!-- <the-customizer
-      v-if                    = "!disableCustomizer"
-      :footerType             = "footerType"
-      :hideScrollToTop        = "hideScrollToTop"
-      :navbarType             = "navbarType"
-      :navbarColor            = "navbarColor"
-      :routerTransition       = "routerTransition"
-      @toggleHideScrollToTop  = "toggleHideScrollToTop"
-      @updateFooter           = "updateFooter"
-      @updateNavbar           = "updateNavbar"
-      @updateNavbarColor      = "updateNavbarColor"
-      @updateRouterTransition = "updateRouterTransition" /> -->
 
     <v-nav-menu
       :navMenuItems = "navMenuItems"
@@ -79,34 +56,6 @@
 
                 <!-- BREADCRUMB -->
                 <vx-breadcrumb class="ml-4 md:block hidden" v-if="$route.meta.breadcrumb" />
-
-                <!-- DROPDOWN -->
-                <!-- <vs-dropdown vs-trigger-click class="ml-auto md:block hidden cursor-pointer">
-                  <vs-button radius icon="icon-settings" icon-pack="feather" />
-
-                  <vs-dropdown-menu class="w-32">
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/pages/profile').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="UserIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Profile</span>
-                      </div>
-                    </vs-dropdown-item>
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/apps/todo').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="CheckSquareIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Tasks</span>
-                      </div>
-                    </vs-dropdown-item>
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/apps/email').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="MailIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Inbox</span>
-                      </div>
-                    </vs-dropdown-item>
-                  </vs-dropdown-menu>
-
-                </vs-dropdown> -->
-
               </div>
             </transition>
 
@@ -133,7 +82,6 @@
 import BackToTop           from 'vue-backtotop'
 import HNavMenu            from '@/layouts/components/horizontal-nav-menu/HorizontalNavMenu.vue'
 import navMenuItems        from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
-// import TheCustomizer       from '@/layouts/components/customizer/TheCustomizer.vue'
 import TheNavbarHorizontal from '@/layouts/components/navbar/TheNavbarHorizontal.vue'
 import TheNavbarVertical   from '@/layouts/components/navbar/TheNavbarVertical.vue'
 import TheFooter           from '@/layouts/components/TheFooter.vue'
@@ -146,7 +94,6 @@ export default {
   components: {
     BackToTop,
     HNavMenu,
-    // TheCustomizer,
     TheFooter,
     TheNavbarHorizontal,
     TheNavbarVertical,
