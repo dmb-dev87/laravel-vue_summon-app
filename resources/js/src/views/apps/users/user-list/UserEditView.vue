@@ -14,13 +14,13 @@
         <vs-input label="Name" v-model="dataName" class="mt-5 w-full" name="item-name" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-name')">{{ errors.first('item-name') }}</span>
 
-        <!-- CATEGORY -->
+        <!-- STATUS -->
         <vs-select v-model="dataStatus" label="Status" class="mt-5 w-full" name="item-status" v-validate="'required'">
           <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in status_choices" />
         </vs-select>
         <span class="text-danger text-sm" v-show="errors.has('status-group')">{{ errors.first('status-group') }}</span>
 
-        <!-- EMAIL1 -->
+        <!-- EMAIL -->
         <vs-input label="Email1" v-model="dataEmail" class="mt-5 w-full" name="item-email" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-email')">{{ errors.first('item-email') }}</span>
 
@@ -40,13 +40,6 @@
         <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
 
-
-        <!-- CATEGORY -->
-        <!-- <vs-select v-model="dataLocation" label="Location" class="mt-5 w-full" name="item-location" v-validate="'required'">
-          <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in location_choices" />
-        </vs-select>
-        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span> -->
-        
         <!-- CATEGORY -->
         <vs-select v-model="dataRole" label="Role" class="mt-5 w-full" name="item-role" v-validate="'required'">
           <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in role_choices" />
@@ -105,20 +98,6 @@ export default {
       dataLocation: null,
       dataRole: null,
       password: '',
-
-      group_choices: [
-        { label: 'IT Department',  value: '1'  },
-        { label: 'Sales Team',     value: '2'  },
-        { label: 'Management Team',  value: '3'  },
-        { label: 'Broadcast',      value: '4'  },
-      ],
-
-      location_choices: [
-        { label: '1st Floot meeting room',  value: '1'  },
-        { label: 'Main office ',     value: '2'     },
-        { label: 'CE office ',    value: '3'    },
-        { label: 'IT senior Manager office',      value: '4'     },
-      ],
 
       role_choices: [
         { label: 'Admin',  value: '1' },

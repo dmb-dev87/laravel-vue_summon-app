@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationsSeeder::class);
         $this->call(GroupsSeeder::class);
         $this->call(ContactsSeeder::class);
+        $this->call(SummonsSeeder::class);
     }
 }

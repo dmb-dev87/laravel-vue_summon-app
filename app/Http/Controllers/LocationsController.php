@@ -10,7 +10,7 @@ use App\Location;
 class LocationsController extends Controller
 {
     //
-    public function get()
+    public function getList()
     {
         $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;

@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
     }
 
-    public function get()
+    public function getList()
     {
         $users = User::where('del_flag', '=', '0')->get();
         return $users;

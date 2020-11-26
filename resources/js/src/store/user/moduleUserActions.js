@@ -19,7 +19,7 @@ export default {
         .then((response) => {
           commit('UPDATE_USER', response.data)
           resolve(response)
-          location.reload()
+          // location.reload()
         })
         .catch((error) => { reject(error) })
     })

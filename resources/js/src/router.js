@@ -22,7 +22,7 @@ const router = new Router({
         {
           path: '/summon',
           name: 'summon',
-          component: () => import('@/views/apps/summon/summon-home/Chat.vue'),
+          component: () => import('@/views/apps/summon/summon-home/Summon.vue'),
           meta: {
             rule: 'editor',
             no_scroll: true
@@ -53,7 +53,7 @@ const router = new Router({
         },
         {
           path: '/contact',
-          name: 'Contact List',
+          name: 'contact-list',
           component: () => import('@/views/apps/contacts/contact-list/ContactListView.vue'),
           meta: {
             breadcrumb: [
@@ -66,7 +66,7 @@ const router = new Router({
         },
         {
           path: '/location',
-          name: 'Contact List',
+          name: 'location-list',
           component: () => import('@/views/apps/locations/locations-list/LocationListView.vue'),
           meta: {
             breadcrumb: [
@@ -79,7 +79,7 @@ const router = new Router({
         },
         {
           path: '/group',
-          name: 'Contact List',
+          name: 'group-list',
           component: () => import('@/views/apps/groups/group-list/GroupListView.vue'),
           meta: {
             breadcrumb: [

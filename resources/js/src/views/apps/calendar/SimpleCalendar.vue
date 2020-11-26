@@ -5,7 +5,7 @@
         ref="calendar"
         :displayPeriodUom="calendarView"
         :show-date="showDate"
-        :events="simpleCalendarEvents"
+        :events="events"
         enableDragDrop
         :eventTop="windowWidth <= 400 ? '2rem' : '3rem'"
         eventBorderHeight="0px"
@@ -22,7 +22,7 @@
             <!-- Month Name -->
             <div class="vx-col w-1/3 items-center sm:flex hidden">
               <!-- Add new event button -->
-              <vs-button icon-pack="feather" icon="icon-plus" @click="promptAddNewEvent(new Date())">Add</vs-button>
+              <vs-button icon-pack="feather" icon="icon-plus" @click="openAddNewEvent(new Date())">Add</vs-button>
             </div>
 
             <!-- Current Month -->
@@ -66,138 +66,41 @@
 
             </div>
           </div>
-
-          <!-- <div class="vx-row sm:flex hidden mt-4">
-            <div class="vx-col w-full flex">
-              <div class="flex flex-wrap sm:justify-start justify-center">
-                  <div v-for="(label, index) in calendarLabels" :key="index" class="flex items-center mr-4 mb-2">
-                      <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.color"></div>
-                      <span>{{ label.text }}</span>
-                  </div>
-                  <div class="flex items-center mr-4 mb-2">
-                      <div class="h-3 w-3 inline-block rounded-full mr-2 bg-primary"></div>
-                      <span>None</span>
-                  </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </calendar-view>
     </div>
 
     <!-- ADD EVENT -->
     <vs-prompt
-        class="calendar-event-dialog"
-        title="Add New Summon"
-        accept-text= "Add New Summon"
-        @accept="addEvent"
-        :is-valid=true
-        :active.sync="activePromptAddEvent">
-
-        <!-- <div class="calendar__label-container flex">
-
-            <vs-chip v-if="labelLocal != 'none'" class="text-white" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
-
-            <vs-dropdown vs-custom-content vs-trigger-click class="ml-auto my-2 cursor-pointer">
-
-                <feather-icon icon="TagIcon" svgClasses="h-5 w-5" class="cursor-pointer" @click.prevent></feather-icon>
-
-                <vs-dropdown-menu style="z-index: 200001">
-                        <vs-dropdown-item v-for="(label, index) in calendarLabels" :key="index" @click="labelLocal = label.value">
-                            <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.color"></div>
-                            <span>{{ label.text }}</span>
-                        </vs-dropdown-item>
-
-                        <vs-dropdown-item @click="labelLocal = 'none'">
-                            <div class="h-3 w-3 mr-1 inline-block rounded-full mr-2 bg-primary"></div>
-                            <span>None</span>
-                        </vs-dropdown-item>
-                </vs-dropdown-menu>
-            </vs-dropdown>
-
-        </div> -->
+      class="calendar-event-dialog"
+      :title="isAddOrEdit ? 'Add New Summon' : 'Edit Summon'"
+      :accept-text= "isAddOrEdit ? 'Add New Summon' : 'Edit Summon'"
+      @accept="addEvent"
+      :is-valid=true
+      :active.sync="activePromptAddEvent">
 
         <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Summon Message" v-model="title"></vs-input>
         <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" />
         <p class="mt-4">Contact</p>
-        <v-select class="mt-2" v-model="contact" multiple :closeOnSelect="false" :options="contactlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
         <p class="mt-4">Group</p>
-        <v-select class="mt-2" v-model="group" multiple :closeOnSelect="false" :options="grouplists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-        <p class="mt-4">location</p>
-        <v-select class="mt-2" v-model="location" :options="locationlists" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
-        <!-- <div class="my-4">
-            <!-- <small class="date-label">Date and Time</small> -->
-            
-        <!-- </div> -->
-        <!-- <div class="my-4">
-            <small class="date-label">End Date</small>
-            <datepicker :language="$vs.rtl ? langHe : langEn" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
-        </div> -->
-        <!-- <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input> -->
-
+        <v-select class="mt-2" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <p class="mt-4">Location</p>
+        <v-select class="mt-2" v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
     </vs-prompt>
-
-    <!-- EDIT EVENT -->
-    <!-- <vs-prompt
-        class="calendar-event-dialog"
-        title="Edit Event"
-        accept-text= "Submit"
-        cancel-text = "Remove"
-        button-cancel = "border"
-        @cancel="removeEvent"
-        @accept="editEvent"
-        :is-valid="validForm"
-        :active.sync="activePromptEditEvent">
-
-        <div class="calendar__label-container flex">
-
-            <vs-chip v-if="labelLocal != 'none'" class="text-white" :class="'bg-' + labelColor(labelLocal)">{{ labelLocal }}</vs-chip>
-
-            <vs-dropdown vs-custom-content class="ml-auto my-2 cursor-pointer">
-
-                <feather-icon icon="TagIcon" svgClasses="h-5 w-5" @click.prevent></feather-icon>
-
-                <vs-dropdown-menu style="z-index: 200001">
-                        <vs-dropdown-item v-for="(label, index) in calendarLabels" :key="index" @click="labelLocal = label.value">
-                            <div class="h-3 w-3 inline-block rounded-full mr-2" :class="'bg-' + label.color"></div>
-                            <span>{{ label.text }}</span>
-                        </vs-dropdown-item>
-
-                        <vs-dropdown-item @click="labelLocal = 'none'">
-                            <div class="h-3 w-3 mr-1 inline-block rounded-full mr-2 bg-primary"></div>
-                            <span>None</span>
-                        </vs-dropdown-item>
-                </vs-dropdown-menu>
-            </vs-dropdown>
-
-        </div>
-
-        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Event Title" v-model="title"></vs-input>
-        <div class="my-4">
-            <small class="date-label">Start Date</small>
-            <datepicker :language="$vs.rtl ? langHe : langEn" :disabledDates="disabledDatesFrom" name="start-date" v-model="startDate"></datepicker>
-        </div>
-        <div class="my-4">
-            <small class="date-label">End Date</small>
-            <datepicker :language="$vs.rtl ? langHe : langEn" :disabledDates="disabledDatesTo" name="end-date" v-model="endDate"></datepicker>
-        </div>
-        <vs-input name="event-url" v-validate="'url'" class="w-full mt-6" label-placeholder="Event URL" v-model="url" :color="!errors.has('event-url') ? 'success' : 'danger'"></vs-input>
-
-    </vs-prompt> -->
   </div>
 </template>
 
 <script>
 import { CalendarView, CalendarViewHeader } from 'vue-simple-calendar'
 import moduleCalendar from '@/store/calendar/moduleCalendar.js'
-require('vue-simple-calendar/static/css/default.css')
-
+import moduleSummons from '@/store/summons/moduleSummons.js'
 import Datepicker from 'vuejs-datepicker'
-import { en, he } from 'vuejs-datepicker/src/locale'
-
-import flatPickr           from 'vue-flatpickr-component';
+import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import vSelect from 'vue-select'
+
+require('vue-simple-calendar/static/css/default.css')
 
 export default {
   components: {
@@ -210,54 +113,24 @@ export default {
   data () {
     return {
       showDate: new Date(),
-      disabledFrom: false,
       id: 0,
       title: '',
       startDate: '',
       endDate: '',
       labelLocal: 'none',
-      contact : '',
-      group : '',
-      location : '',
+      sel_contacts: '',
+      sel_groups: '',
+      sel_location: '',
       configdateTimePicker: {
         enableTime: true,
         dateFormat: 'd-m-Y h:i K'
       },
 
-      langHe: he,
-      langEn: en,
-
       url: '',
       calendarView: 'month',
 
       activePromptAddEvent: false,
-      activePromptEditEvent: false,
-
-      locationlists: [
-        { label: '1st Floot meeting rooms',  value: '1'  },
-        { label: 'Main office ',     value: '2'     },
-        { label: 'CE office ',    value: '3'    },
-        { label: 'IT senior Manager office',      value: '4'     },
-      ],
-
-      grouplists: [
-        { label: 'IT Department',  value: '1'  },
-        { label: 'Sales Team',     value: '2'     },
-        { label: 'Management Team',    value: '3'    },
-        { label: 'Broadcast',      value: '4'     },
-      ],
-
-      contactlists: [
-        { label: 'Felecia Rower',  value: '1'  },
-        { label: 'Beats HeadPhones',  value: '2'  },
-        { label: 'Adalberto Granzin',   value: '3'   },
-        { label: 'Altec Lansing',  value: '4'  },
-        { label: 'Joaquina Weisenborn',   value: '5'   },
-        { label: 'Verla Morgano',   value: '6'   },
-        { label: 'Margot Henschke', value: '7' },
-        { label: 'Sal Piggee', value: '8' },
-        { label: 'Altec Lansing', value: '9' },
-      ], 
+      isAddOrEdit: false,
 
       calendarViewTypes: [
         {
@@ -276,7 +149,16 @@ export default {
     }
   },
   computed: {
-    simpleCalendarEvents () {
+    locationOptions () {
+      return this.$store.state.summons.locationOptions
+    },
+    groupOptions () {
+      return this.$store.state.summons.groupOptions
+    },
+    contactOptions () {
+      return this.$store.state.summons.contactOptions
+    },
+    events () {
       return this.$store.state.calendar.events
     },
     validForm () {
@@ -287,9 +169,6 @@ export default {
     },
     disabledDatesFrom () {
       return { from: new Date(this.endDate) }
-    },
-    calendarLabels () {
-      return this.$store.state.calendar.eventLabels
     },
     labelColor () {
       return (label) => {
@@ -305,61 +184,86 @@ export default {
   },
   methods: {
     addEvent () {
-      const obj = { title: this.title, startDate: this.startDate, endDate: this.endDate, label: this.labelLocal, url: this.url }
-      obj.classes = `event-${  this.labelColor(this.labelLocal)}`
-      this.$store.dispatch('calendar/addEvent', obj)
+      let eventObj = {}
+
+      if (this.isAddOrEdit)
+      {
+        eventObj = {
+          'message': this.title,
+          'due_date': this.startDate,
+          'sel_groups': this.sel_groups,
+          'sel_contacts': this.sel_contacts,
+          'sel_location': this.sel_location,
+        }
+
+        this.$store.dispatch('calendar/createEvent', eventObj)
+      } else {
+        eventObj = {
+          'id': this.id,
+          'message': this.title,
+          'due_date': this.startDate,
+          'sel_groups': this.sel_groups,
+          'sel_contacts': this.sel_contacts,
+          'sel_location': this.sel_location,
+        }
+
+        this.$store.dispatch('calendar/updateEvent', eventObj)
+      }
+
     },
     updateMonth (val) {
       this.showDate = this.$refs.calendar.getIncrementedPeriod(val)
     },
-    clearFields () {
-      this.title = this.endDate = this.url = ''
-      this.id = 0
-      this.labelLocal = 'none'
-    },
-    promptAddNewEvent (date) {
-      this.disabledFrom = false
-      this.addNewEventDialog(date)
-    },
-    addNewEventDialog (date) {
-      this.clearFields()
+    openAddNewEvent (date) {
+      this.isAddOrEdit = true
       this.startDate = date
       this.endDate = date
+      this.sel_location = ''
+      this.sel_contacts = []
+      this.sel_groups = []
+      this.title = ''
+      this.id = 0
       this.activePromptAddEvent = true
     },
-    openAddNewEvent (date) {
-      this.disabledFrom = true
-      this.addNewEventDialog(date)
-    },
     openEditEvent (event) {
+      this.isAddOrEdit = false
       const e = this.$store.getters['calendar/getEvent'](event.id)
       this.id = e.id
       this.title = e.title
       this.startDate = e.startDate
-      this.endDate = e.endDate
-      this.url = e.url
-      this.labelLocal = e.label
-      this.activePromptEditEvent = true
-    },
-    editEvent () {
-      const obj = { id: this.id, title: this.title, startDate: this.startDate, endDate: this.endDate, label: this.labelLocal, url: this.url }
-      obj.classes = `event-${  this.labelColor(this.labelLocal)}`
-      this.$store.dispatch('calendar/editEvent', obj)
+      this.sel_location = e.sel_location
+      this.sel_contacts = e.sel_contacts
+      this.sel_groups = e.sel_groups
+      this.activePromptAddEvent = true
     },
     removeEvent () {
-      this.$store.dispatch('calendar/removeEvent', this.id)
+      this.$store.dispatch('calendar/deleteEvent', this.id)
     },
     eventDragged (event, date) {
       this.$store.dispatch('calendar/eventDragged', {event, date})
     }
   },
   created () {
-    this.$store.registerModule('calendar', moduleCalendar)
+    if (!moduleCalendar.isRegistered) {
+      this.$store.registerModule('calendar', moduleCalendar)
+      moduleCalendar.isRegistered = true
+    }
+
     this.$store.dispatch('calendar/fetchEvents')
     this.$store.dispatch('calendar/fetchEventLabels')
+
+    if (!moduleSummons.isRegistered) {
+      this.$store.registerModule('summons', moduleSummons)
+      moduleSummons.isRegistered = true
+    }
+
+    this.$store.dispatch('summons/fetchLocationOptions')
+    this.$store.dispatch('summons/fetchGroupOptions')
+    this.$store.dispatch('summons/fetchContactOptions')
   },
   beforeDestroy () {
     this.$store.unregisterModule('calendar')
+    moduleCalendar.isRegistered = false
   }
 }
 </script>

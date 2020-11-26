@@ -11,7 +11,7 @@ use App\Contact;
 class GroupsController extends Controller
 {
     //
-    public function get()
+    public function getList()
     {
         $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;

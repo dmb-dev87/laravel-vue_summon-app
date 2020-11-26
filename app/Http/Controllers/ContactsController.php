@@ -12,7 +12,7 @@ use App\Contact;
 class ContactsController extends Controller
 {
     //
-    public function get()
+    public function getList()
     {
         $user = JWTAuth::parseToken()->authenticate();
         $user_id = $user->id;

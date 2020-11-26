@@ -57,7 +57,6 @@ export default {
       dataId: null,
       dataName: '',
       sel_contacts: [],
-
       contactlists: [],
       settings: { // perfectscrollbar settings
         maxScrollbarLength: 60,
