@@ -25,7 +25,8 @@ const router = new Router({
           component: () => import('@/views/apps/summon/summon-home/Summon.vue'),
           meta: {
             rule: 'editor',
-            no_scroll: true
+            no_scroll: true,
+            authRequired: true
           }
         },
         {
@@ -34,7 +35,8 @@ const router = new Router({
           component: () => import('@/views/apps/calendar/SimpleCalendar.vue'),
           meta: {
             rule: 'editor',
-            no_scroll: true
+            no_scroll: true,
+            authRequired: true
           }
         },
         {
@@ -48,7 +50,8 @@ const router = new Router({
               { title: 'List', active: true }
             ],
             pageTitle: 'User List',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -61,7 +64,8 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -74,7 +78,8 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -87,7 +92,8 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -100,7 +106,8 @@ const router = new Router({
               { title: 'Summon History', active: true }
             ],
             pageTitle: 'Summon History',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -113,7 +120,8 @@ const router = new Router({
               { title: 'Activate', active: true }
             ],
             pageTitle: 'Activate',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
         {
@@ -126,7 +134,8 @@ const router = new Router({
               { title: 'User Settings', active: true }
             ],
             pageTitle: 'Settings',
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: true
           }
         },
       ]

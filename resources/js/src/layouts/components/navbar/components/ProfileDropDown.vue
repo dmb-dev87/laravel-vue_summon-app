@@ -1,55 +1,20 @@
 <template>
-  <div class="the-navbar__user-meta flex items-center pl-5" v-if="activeUserInfo.name">
-
-    
+  <div class="the-navbar__user-meta flex items-center pl-5">
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
 
-      <!-- <div class="con-img ml-3">
-        
-      </div> -->
       <div class="text-right leading-tight hidden sm:block">
         <p class="font-semibold">Hi, {{ activeUserInfo.name }}</p>
-        <!-- <small>Available</small> -->
       </div>
 
       <vs-dropdown-menu class="vx-navbar-dropdown">
         <ul style="min-width: 9rem">
-
-          <!-- <li
-            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/pages/profile').catch(() => {})">
-            <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Profile</span>
-          </li> -->
-
-          <!-- <li
-            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/email').catch(() => {})">
-            <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Summon</span>
-          </li>
-
-          <li
-            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/todo').catch(() => {})">
-            <feather-icon icon="CheckSquareIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Tasks</span>
-          </li> -->
-
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="$router.push('/summon').catch(() => {})">
             <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Summon</span>
           </li>
-
-          <!-- <li
-            class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-            @click="$router.push('/apps/eCommerce/wish-list').catch(() => {})">
-            <feather-icon icon="HeartIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Wish List</span>
-          </li> -->
 
           <vs-divider class="m-1" />
 
@@ -81,11 +46,12 @@ export default {
     logout () {
 
       // if user is logged in via auth0
-      if (this.$auth.profile) this.$auth.logOut()
+      // if (this.$auth.profile) this.$auth.logOut()
 
       // If JWT login
       if (localStorage.getItem('accessToken')) {
         localStorage.removeItem('accessToken')
+        localStorage.setItem('localStorageKey', false)
         this.$router.push('/login').catch(() => {})
       }
 

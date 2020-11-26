@@ -12,10 +12,8 @@ export default {
         .then(response => {
           // If there's user data in response
           if (response.data.user) {
-            // Navigate User to homepage
-            router.push(router.currentRoute.query.to || '/')
-
             // Set accessToken
+            localStorage.setItem('localStorageKey', true)
             localStorage.setItem('accessToken', response.data.access_token)
 
             // Update user details
@@ -24,11 +22,13 @@ export default {
             // Set bearer token in axios
             commit('SET_BEARER', response.data.access_token)
 
+            // Navigate User to homepage
+            router.push(router.currentRoute.query.to || '/')
+
             resolve(response)
           } else {
             reject({message: 'Wrong Email or Password'})
           }
-
         })
         .catch(error => { reject(error) })
     })
@@ -46,14 +46,14 @@ export default {
 
       jwt.registerUser(user_name, email, password)
         .then(response => {
-          // Redirect User
-          router.push(router.currentRoute.query.to || '/')
-
-          // Update data in localStorage
-          localStorage.setItem('accessToken', response.data.accessToken)
-          commit('UPDATE_USER_INFO', response.data.userData, {root: true})
-
-          resolve(response)
+          if (response.data.user) {
+            // Redirect login
+            router.push('/login')
+            resolve(response)  
+          }
+          else {
+            reject({message: 'Failed register'})
+          }
         })
         .catch(error => { reject(error) })
     })
@@ -63,8 +63,7 @@ export default {
       jwt.refreshToken().then(response => { resolve(response) })
     })
   },
-  upateUser ( { commit }, item)
-  {
+  upateUser ({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios.put(`/api/users/${item.id}`, {item})
         .then((response) => {
@@ -72,6 +71,6 @@ export default {
           resolve(response)
         })
         .catch((error) => { reject(error) })
-      })
+    })
   }
 }

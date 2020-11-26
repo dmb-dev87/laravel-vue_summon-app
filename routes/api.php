@@ -18,11 +18,11 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::get('refresh', 'AuthController@refresh');    
+    Route::get('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::post('me', 'AuthController@me');
     // Users
     Route::get('/users', 'UsersController@getList');
     Route::put('/users/{id}', 'UsersController@updateUser');

@@ -105,8 +105,9 @@ class AuthService extends EventEmitter {
 
     isAuthenticated () {
       return (
-        new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey)) &&
-            localStorage.getItem(localStorageKey) === 'true'
+        // new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey)) &&
+        //     localStorage.getItem(localStorageKey) === 'true'
+        localStorage.getItem('localStorageKey') === 'true' && localStorage.getItem('accessToken')
       )
     }
 }
