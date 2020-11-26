@@ -17,7 +17,7 @@
         <v-select v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
 
         <vs-list-header title="Due Date"></vs-list-header>
-        <flat-pickr :config="configdateTimePicker" v-model="due_datetime" placeholder="Date Time" class="w-full"/>
+        <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" class="w-full"/>
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
@@ -65,7 +65,8 @@ export default {
       sel_contacts: [],
       sel_groups: [],
       sel_location: 0,
-      due_datetime: null,
+      start_date: null,
+      end_date: null,
       configdateTimePicker: {
         enableTime: true,
         dateFormat: 'Y-m-d h:i K'
@@ -108,16 +109,19 @@ export default {
       if (!this.typedMessage) 
         return
 
+      this.start_date = new Date()
+
       const summonObj = {
         'message': this.typedMessage,
-        'due_date': this.due_datetime,
+        'start_date': this.start_date,
+        'end_date': this.end_date,
         'sel_groups': this.sel_groups,
         'sel_contacts': this.sel_contacts,
         'sel_location': this.sel_location,
       }
 
       this.$store.dispatch('summons/createSummon', summonObj).catch(err => { console.error(err) })
-      this.$store.dispatch('summons/sendChatMessage', summonObj).catch(err => { console.error(err) })
+      // this.$store.dispatch('summons/sendChatMessage', summonObj).catch(err => { console.error(err) })
       
       this.typedMessage = ''
 

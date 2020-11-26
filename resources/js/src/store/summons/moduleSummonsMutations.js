@@ -14,7 +14,7 @@ export default {
         state.contactOptions = contacts
     },
     CREATE_SUMMON (state, summon) {
-        state.summons.unshift(summon)
+        state.summons.push(summon)
     },
 
     ///////////////////////////////////////////////////////////////////////
@@ -59,4 +59,3 @@ export default {
         state.chats[Object.keys(state.chats).find(key => Number(key) === payload.id)].isPinned = payload.value
     }
   }
-  

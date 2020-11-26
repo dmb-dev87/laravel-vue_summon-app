@@ -4,8 +4,8 @@
 
         <!-- If previous msg is older than current time -->
         <template v-if="summonsData[index-1]">
-            <vs-divider v-if="!isSameDay(summon.due_date, summonsData[index-1].due_date)" class="msg-time">
-                <span>{{ toDate(summon.due_date) }}</span>
+            <vs-divider v-if="!isSameDay(summon.start_date, summonsData[index-1].start_date)" class="msg-time">
+                <span>{{ toDate(summon.start_date) }}</span>
             </vs-divider>
             <div class="spacer mt-8" v-if="!hasSentPreviousMsg(summonsData[index-1].is_sent, summon.is_sent)"></div>
         </template>
@@ -18,7 +18,7 @@
             @click="$router.push('summon_history').catch(() => {})"> 
               <span>{{ summon.message }} </span>
               <p>Location: {{ summon.location_name }} </p>
-              <p>Due to: {{ summon.due_date }} </p>
+              <p>Due to: {{ summon.end_date }} </p>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('/api/events', {event})
         .then((response) => {
-          commit('CREATE_EVENT', Object.assign(event, {id: response.data.id}))
+          commit('CREATE_EVENT', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -18,16 +18,6 @@ export default {
       axios.get('/api/events')
         .then((response) => {
           commit('SET_EVENTS', response.data)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
-  },
-  fetchEventLabels ({ commit }) {
-    return new Promise((resolve, reject) => {
-      axios.get('/api/apps/calendar/labels')
-        .then((response) => {
-          commit('SET_LABELS', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -45,7 +35,7 @@ export default {
   },
   deleteEvent ({ commit }, eventId) {
     return new Promise((resolve, reject) => {
-      axios.delete(`/api/event/${eventId}`)
+      axios.delete(`/api/events/${eventId}`)
         .then((response) => {
           commit('REMOVE_EVENT', eventId)
           resolve(response)

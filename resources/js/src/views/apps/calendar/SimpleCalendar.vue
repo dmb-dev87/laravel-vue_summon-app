@@ -76,6 +76,8 @@
       :title="isAddOrEdit ? 'Add New Summon' : 'Edit Summon'"
       :accept-text= "isAddOrEdit ? 'Add New Summon' : 'Edit Summon'"
       @accept="addEvent"
+      :cancel-text= "isAddOrEdit ? 'Cancel' : 'Remove Summon'"
+      @cancel="cancelEvent"
       :is-valid=true
       :active.sync="activePromptAddEvent">
 
@@ -170,14 +172,14 @@ export default {
     disabledDatesFrom () {
       return { from: new Date(this.endDate) }
     },
-    labelColor () {
-      return (label) => {
-        if      (label === 'business') return 'success'
-        else if (label === 'work')     return 'warning'
-        else if (label === 'personal') return 'danger'
-        else if (label === 'none')     return 'primary'
-      }
-    },
+    // labelColor () {
+    //   return (label) => {
+    //     if      (label === 'business') return 'success'
+    //     else if (label === 'work')     return 'warning'
+    //     else if (label === 'personal') return 'danger'
+    //     else if (label === 'none')     return 'primary'
+    //   }
+    // },
     windowWidth () {
       return this.$store.state.windowWidth
     }
@@ -186,11 +188,10 @@ export default {
     addEvent () {
       let eventObj = {}
 
-      if (this.isAddOrEdit)
-      {
+      if (this.isAddOrEdit) {
         eventObj = {
           'message': this.title,
-          'due_date': this.startDate,
+          'event_date': this.startDate,
           'sel_groups': this.sel_groups,
           'sel_contacts': this.sel_contacts,
           'sel_location': this.sel_location,
@@ -201,7 +202,7 @@ export default {
         eventObj = {
           'id': this.id,
           'message': this.title,
-          'due_date': this.startDate,
+          'event_date': this.startDate,
           'sel_groups': this.sel_groups,
           'sel_contacts': this.sel_contacts,
           'sel_location': this.sel_location,
@@ -210,6 +211,13 @@ export default {
         this.$store.dispatch('calendar/updateEvent', eventObj)
       }
 
+    },
+    cancelEvent () {
+      if (this.isAddOrEdit){
+        this.activePromptAddEvent = false
+      }
+
+      this.$store.dispatch('calendar/deleteEvent', this.id)
     },
     updateMonth (val) {
       this.showDate = this.$refs.calendar.getIncrementedPeriod(val)
@@ -231,13 +239,11 @@ export default {
       this.id = e.id
       this.title = e.title
       this.startDate = e.startDate
+      this.endDate = e.endDate
       this.sel_location = e.sel_location
       this.sel_contacts = e.sel_contacts
       this.sel_groups = e.sel_groups
       this.activePromptAddEvent = true
-    },
-    removeEvent () {
-      this.$store.dispatch('calendar/deleteEvent', this.id)
     },
     eventDragged (event, date) {
       this.$store.dispatch('calendar/eventDragged', {event, date})
@@ -250,7 +256,6 @@ export default {
     }
 
     this.$store.dispatch('calendar/fetchEvents')
-    this.$store.dispatch('calendar/fetchEventLabels')
 
     if (!moduleSummons.isRegistered) {
       this.$store.registerModule('summons', moduleSummons)

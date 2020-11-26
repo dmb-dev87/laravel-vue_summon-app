@@ -86,7 +86,7 @@ class EventsController extends Controller
             $group_list = rtrim($group_list, ",");
             $event->group_list = $group_list;
 
-            $event->due_date = Carbon::parse($item['due_date']);
+            $event->event_date = Carbon::parse($item['event_date']);
             $event->message = $item['message'];
             $event->is_sent = false;
 
@@ -129,7 +129,7 @@ class EventsController extends Controller
                     'location_id' => $item['sel_location']['value'],
                     'contact_list' => $contact_list,
                     'group_list' => $group_list,
-                    'due_date' => Carbon::parse($item['due_date']),
+                    'event_date' => Carbon::parse($item['event_date']),
                     'message' => $item['message'],
                 ]);
 
@@ -154,7 +154,7 @@ class EventsController extends Controller
             Event::where('id', '=', $id)
                 ->where('user_id', '=', $userId)
                 ->update([
-                    'due_date' => Carbon::parse($dragged_date),
+                    'event_date' => Carbon::parse($dragged_date),
                 ]);
 
             return $this->transformEvent(Event::find($id));
@@ -167,7 +167,7 @@ class EventsController extends Controller
 
     public function transformEvent($event)
     {
-        $event->startDate = $event->due_date;
+        $event->startDate = $event->event_date;
         $event->title = $event->message;
         $event->classes = $event->is_sent ? Event::EVENT_SUCCESS : Event::EVENT_PRIMARY;
         $event->sel_location = ['label' => $event->location->name, 'value' => $event->location_id];

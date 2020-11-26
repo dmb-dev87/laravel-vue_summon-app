@@ -118,7 +118,8 @@ class SummonsController extends Controller
             $group_list = rtrim($group_list, ",");
             $summon->group_list = $group_list;
 
-            $summon->due_date = Carbon::parse($item['due_date']);
+            $summon->start_date = Carbon::parse($item['start_date']);
+            $summon->end_date = Carbon::parse($item['end_date']);
             $summon->message = $item['message'];
             $summon->is_sent = false;
 

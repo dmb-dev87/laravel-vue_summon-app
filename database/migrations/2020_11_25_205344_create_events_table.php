@@ -19,7 +19,7 @@ class CreateEventsTable extends Migration
             $table->foreignId('location_id');
             $table->string('contact_list')->nullable();
             $table->string('group_list')->nullable();
-            $table->timestamp('due_date')->useCurrent();
+            $table->timestamp('event_date')->useCurrent();
             $table->tinyinteger('del_flag')->default(0);
             $table->string('message')->nullable();
             $table->boolean('is_sent')->default('1');

@@ -5,9 +5,6 @@ export default {
   SET_EVENTS (state, events) {
     state.events = events
   },
-  SET_LABELS (state, labels) {
-    state.eventLabels = labels
-  },
   UPDATE_EVENT (state, event) {
     const eventIndex = state.events.findIndex((e) => e.id === event.id)
     Object.assign(state.events[eventIndex], event)

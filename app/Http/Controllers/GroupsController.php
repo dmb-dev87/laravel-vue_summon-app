@@ -34,7 +34,8 @@ class GroupsController extends Controller
         foreach($contact_ids as $contact_id)
         {
             $contact = Contact::find($contact_id);
-            array_push($sel_contacts, ['label' => $contact['name'], 'value' => $contact['id']]);
+            if ($contact)
+                array_push($sel_contacts, ['label' => $contact['name'], 'value' => $contact['id']]);
         }
         return $sel_contacts;
     }
