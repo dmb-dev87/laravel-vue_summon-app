@@ -86,7 +86,7 @@ class EventsController extends Controller
             $group_list = rtrim($group_list, ",");
             $event->group_list = $group_list;
 
-            $event->event_date = Carbon::parse($item['event_date']);
+            $event->event_date = Carbon::parse($item['event_date'])->format('Y-m-d H:i:00');
             $event->message = $item['message'];
             $event->is_sent = false;
 
