@@ -3,9 +3,7 @@
     <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
       <vx-card>
         <div slot="no-body" class="full-page-bg-color">
-
           <div class="vx-row no-gutter justify-center items-center">
-
             <div class="vx-col hidden lg:block lg:w-1/2">
                <router-link tag="div" class="vx-logo cursor-pointer flex items-center justify-center" to="/login">
                 <svg viewBox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="35">
@@ -61,7 +59,7 @@ import LoginJwt from './LoginJWT.vue'
 export default {
   components: {
     LoginJwt,
-  }
+  },
 }
 </script>
 

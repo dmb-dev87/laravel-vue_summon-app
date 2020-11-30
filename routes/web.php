@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/email-verify/{token}', 'VerifyController@verifyEmail')->name('verify');
+// Route::get('/verify/resend', 'Auth\VerificationController@resendVerify')->name('resend');
+
 Route::get('/{any}', 'ApplicationController')->where('any', '.*');

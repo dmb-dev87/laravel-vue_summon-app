@@ -177,6 +177,14 @@ const router = new Router({
           }
         },
         {
+          path: '/email-verify/:token',
+          name: 'email-verify',
+          component: () => import('@/views/auth/EmailVerify.vue'),
+          meta: {
+            rule: 'editor'
+          },
+        },
+        {
           path: '/reset-password',
           name: 'reset-password',
           component: () => import('@/views/auth/ResetPassword.vue'),

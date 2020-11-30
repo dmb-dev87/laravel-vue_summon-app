@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+use App\Mail\VerificationEmail;
 use App\User;
 
 class AuthController extends Controller
@@ -21,21 +24,37 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $user = new User();
-        $user->user_name = $request->user_name;
-        $user->name = $request->user_name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response()->json(['user' => $user]);
+        $user = User::create([
+            'user_name' => trim($request->input('user_name')),
+            'name' => trim($request->input('user_name')),
+            'email' => strtolower($request->input('email')),
+            'password' => bcrypt($request->input('password')),
+            'email_verification_token' => Str::random(32),
+            'verification_code' => mt_rand(100000, 999999)
+        ]);
+
+        \Mail::to($user->email)->send(new VerificationEmail($user));
+
+        return response()->json(['token' => $user->email_verification_token]);
     }
 
     public function login()
     {
         $credentials = request(['email', 'password']);
+
         if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Wrong Email or Password']);
         }
+
+        $email = request('email');
+
+        $user = User::where('email', '=', $email)->first();
+
+        if ($user->email_verified == false)
+        {
+            return response()->json(['error' => 'You need to confirm your account. We have sent you an activation code, please check your email.']);
+        }
+
         return $this->respondWithToken($token);
     }
 

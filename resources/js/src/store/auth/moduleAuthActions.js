@@ -1,36 +1,24 @@
-import jwt from '../../http/requests/auth/jwt/index.js'
-import axios from '@/axios.js'
 import router from '@/router'
+import auth from '@/auth/authService.js'
+import { reject } from 'core-js/fn/promise'
 
 export default {
-  // JWT
   loginJWT ({ commit }, payload) {
-
     return new Promise((resolve, reject) => {
-
-      jwt.login(payload.userDetails.email, payload.userDetails.password)
+      auth.login(payload.userDetails)
         .then(response => {
-          // If there's user data in response
-          if (response.data.user) {
-            // Set accessToken
-            localStorage.setItem('localStorageKey', true)
-            localStorage.setItem('accessToken', response.data.access_token)
-
-            // Update user details
+          if (response.data && response.data.user) {
             commit('UPDATE_USER_INFO', response.data.user, {root: true})
-
-            // Set bearer token in axios
             commit('SET_BEARER', response.data.access_token)
-
-            // Navigate User to homepage
             router.push(router.currentRoute.query.to || '/')
-
             resolve(response)
-          } else {
-            reject({message: 'Wrong Email or Password'})
+          } else if (response.data.error) {
+            reject({message: response.data.error})
           }
         })
-        .catch(error => { reject(error) })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
   registerUserJWT ({ commit }, payload) {
@@ -44,23 +32,46 @@ export default {
         reject({message: 'Password doesn\'t match. Please try again.'})
       }
 
-      jwt.registerUser(user_name, email, password)
+      auth.registerUser(user_name, email, password)
+        .then(response => {
+          if (response.data.token) {
+            let token = response.data.token            
+            router.push({ path: `/email-verify/${token}` })
+            resolve(response)
+          }
+          else if (response.data.error) {
+            reject({message: response.data.error})
+          }
+        })
+        .catch(error => { reject(error) })
+    })
+  },
+  emailVerify ( { commit }, payload) {
+    const { token, verification_code } = payload.verify_details
+
+    return new Promise((resolve, reject) => {
+      auth.verifyEmail(token, verification_code)
         .then(response => {
           if (response.data.user) {
-            // Redirect login
             router.push('/login')
-            resolve(response)  
+            resolve(response)
           }
           else {
-            reject({message: 'Failed register'})
+            reject({message: 'Failed email verification'})
           }
         })
         .catch(error => { reject(error) })
     })
   },
   fetchAccessToken () {
-    return new Promise((resolve) => {
-      jwt.refreshToken().then(response => { resolve(response) })
+    return new Promise((resolve, reject) => {
+      jwt.refreshToken()
+        .then(response => { 
+          resolve(response) 
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
   upateUser ({ commit }, item) {

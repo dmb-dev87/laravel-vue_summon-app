@@ -71,7 +71,6 @@ export default {
       return true
     },
     loginJWT () {
-
       if (!this.checkLogin()) return
 
       // Loading

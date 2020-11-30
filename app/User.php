@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 {
     use Notifiable;
 
@@ -19,7 +19,7 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'user_name',
         'name',
-        'email1',
+        'email',
         'email2',
         'phone_number1',
         'phone_number2',
@@ -27,6 +27,10 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'permission_id',
         'status',
+        'email_verified_at',
+        'email_verified',
+        'email_verification_token',
+        'verification_code',
         'del_flag'
     ];
 

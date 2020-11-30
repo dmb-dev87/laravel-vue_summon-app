@@ -1,5 +1,5 @@
 <template>
-  <div class="clearfix" style="margin-top: 30px;">
+  <div style="margin-top: 30px;">
     <vs-input
       v-validate="'required|alpha_dash|min:3'"
       data-vv-validate-on="blur"
@@ -71,10 +71,6 @@ export default {
     checkLogin () {
       // If user is already logged in notify
       if (this.$store.state.auth.isUserLoggedIn()) {
-
-        // Close animation if passed as payload
-        // this.$vs.loading.close()
-
         this.$vs.notify({
           title: 'Login Attempt',
           text: 'You are already logged in!',
@@ -91,6 +87,8 @@ export default {
       // If form is not validated or user is already login return
       if (!this.validateForm || !this.checkLogin()) return
 
+      this.$vs.loading()
+
       const payload = {
         userDetails: {
           user_name: this.user_name,
@@ -98,9 +96,29 @@ export default {
           password: this.password,
           confirmPassword: this.confirm_password
         },
-        notify: this.$vs.notify
       }
+
       this.$store.dispatch('auth/registerUserJWT', payload)
+        .then(() => {
+          this.$vs.notify({
+            title: 'Success',
+            text: "Please verify your mail account.",
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.$vs.loading.close()
+        })
+        .catch(() => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: "User register failed",
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
     }
   }
 }

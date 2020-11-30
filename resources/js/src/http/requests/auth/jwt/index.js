@@ -18,11 +18,9 @@ export default {
     axios.interceptors.response.use(function (response) {
       return response
     }, function (error) {
-      // const { config, response: { status } } = error
       const { config, response } = error
       const originalRequest = config
 
-      // if (status === 401) {
       if (response && response.status === 401) {
         if (!isAlreadyFetchingAccessToken) {
           isAlreadyFetchingAccessToken = true
@@ -41,23 +39,20 @@ export default {
         })
         return retryOriginalRequest
       }
+
       return Promise.reject(error)
     })
   },
   login (email, pwd) {
-    return axios.post('/api/auth/login', {
-      email,
-      password: pwd
-    })
+    return axios.post('/api/auth/login', {email, password: pwd})
   },
   registerUser (user_name, email, pwd) {
-    return axios.post('/api/auth/register', {
-      user_name: user_name,
-      email,
-      password: pwd
-    })
+    return axios.post('/api/auth/register', {user_name: user_name, email, password: pwd})
+  },
+  verifyEmail (token, code) {
+    return axios.post('/api/email-verify', {email_verification_token: token, verification_code: code})
   },
   refreshToken () {
-    return axios.post('/api/auth/refresh-token', {accessToken: localStorage.getItem('accessToKen')})
+    return axios.post('/api/auth/refresh', {accessToken: localStorage.getItem('accessToKen')})
   }
 }

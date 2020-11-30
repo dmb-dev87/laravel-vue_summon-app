@@ -14,11 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/email-verify', 'VerifyController@verifyEmail');
+Route::get('/email-verify/resend', 'Auth\VerificationController@resendVerify')->name('resend');
+
 Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
-    Route::get('refresh', 'AuthController@refresh');
+    Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
 });
 

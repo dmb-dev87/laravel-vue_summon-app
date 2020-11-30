@@ -47,13 +47,6 @@ export default [
         icon: 'SettingsIcon',
         i18n: 'UserSettings'
       },
-      {
-        url: 'activate',
-        name: 'Activate',
-        icon: 'LockIcon',
-        slug: 'Activate',
-        i18n: 'Activate'
-      },
     ]
   },
   {
@@ -61,6 +54,13 @@ export default [
     icon: 'FileIcon',
     i18n: 'Admin',
     items: [
+      {
+        url: 'activate',
+        name: 'Activate',
+        icon: 'LockIcon',
+        slug: 'Activate',
+        i18n: 'Activate'
+      },
       {
         url: '/user-list',
         name: 'Users',

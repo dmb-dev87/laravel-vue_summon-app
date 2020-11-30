@@ -27,6 +27,11 @@ Vue.use(AuthPlugin)
 import acl from './acl/acl'
 
 
+// vue session
+import VueSession from 'vue-session'
+Vue.use(VueSession)
+
+
 // Globally Registered Components
 import './globalComponents.js'
 
