@@ -22,11 +22,8 @@ export default {
     })
   },
   registerUserJWT ({ commit }, payload) {
-
     const { user_name, email, password, confirmPassword } = payload.userDetails
-
     return new Promise((resolve, reject) => {
-
       // Check confirm password
       if (password !== confirmPassword) {
         reject({message: 'Password doesn\'t match. Please try again.'})
@@ -48,7 +45,6 @@ export default {
   },
   emailVerify ( { commit }, payload) {
     const { token, verification_code } = payload.verify_details
-
     return new Promise((resolve, reject) => {
       auth.verifyEmail(token, verification_code)
         .then(response => {
@@ -74,14 +70,27 @@ export default {
         })
     })
   },
-  upateUser ({ commit }, item) {
+  updateUser ({ commit }, user) {
     return new Promise((resolve, reject) => {
-      axios.put(`/api/users/${item.id}`, {item})
+      auth.updateUser(user)
         .then((response) => {
           commit('UPDATE_USER_INFO', response.data, {root: true})
           resolve(response)
         })
         .catch((error) => { reject(error) })
+    })
+  },
+  changePassword ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      auth.changePassword(item)
+        .then((response) => {
+          if (response.data) {
+            resolve(response)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   }
 }

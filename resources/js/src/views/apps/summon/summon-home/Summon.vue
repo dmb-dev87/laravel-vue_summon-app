@@ -8,24 +8,29 @@
       <vs-divider class="d-theme-border-grey-light m-0" />
       <component :is="scrollbarTag" class="chat-scroll-area" style="padding: 10px;" :settings="settings" :key="$vs.rtl">
         <vs-list-header title="Contact"></vs-list-header>
-        <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" name="item-contacts" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-contacts')">{{ errors.first('item-contacts') }}</span>
 
         <vs-list-header title="Group"></vs-list-header>
-        <v-select class="mt-2" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" name="item-groups" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-groups')">{{ errors.first('item-groups') }}</span>
 
         <vs-list-header title="Location"></vs-list-header>
-        <v-select v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" name="item-location" v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
 
         <vs-list-header title="Due Date"></vs-list-header>
-        <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" class="w-full"/>
+        <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" name="item-date" class="w-full" v-validate="'required'"/>
+        <span class="text-danger text-sm" v-show="errors.has('item-date')">{{ errors.first('item-date') }}</span>
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
           <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
-          <vs-input class="flex-1" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" />                    
+          <vs-input class="flex-1" name="item-message" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" v-validate="'required'" />         
           <vs-button class="ml-2" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
           <vs-button class="bg-primary-gradient ml-2" type="filled" icon-pack="feather" icon="icon-navigation" @click="sendMsg"></vs-button>
         </div>
+        <span class="text-danger text-sm" v-show="errors.has('item-message')">{{ errors.first('item-message') }}</span>
       </component>
     </vs-sidebar>
 
@@ -64,12 +69,12 @@ export default {
     return {
       sel_contacts: [],
       sel_groups: [],
-      sel_location: 0,
+      sel_location: null,
       start_date: null,
       end_date: null,
       configdateTimePicker: {
         enableTime: true,
-        dateFormat: 'Y-m-d h:i K'
+        dateFormat: 'd/m/Y h:i K'
       },
       messageType: true,
       typedMessage: '',
@@ -106,27 +111,34 @@ export default {
   },
   methods: {
     sendMsg () {
-      if (!this.typedMessage) 
-        return
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          this.start_date = new Date()
 
-      this.start_date = new Date()
+          const summonObj = {
+            'message': this.typedMessage,
+            'start_date': this.start_date,
+            'end_date': this.end_date,
+            'sel_groups': this.sel_groups,
+            'sel_contacts': this.sel_contacts,
+            'sel_location': this.sel_location,
+          }
 
-      const summonObj = {
-        'message': this.typedMessage,
-        'start_date': this.start_date,
-        'end_date': this.end_date,
-        'sel_groups': this.sel_groups,
-        'sel_contacts': this.sel_contacts,
-        'sel_location': this.sel_location,
-      }
-
-      this.$store.dispatch('summons/createSummon', summonObj).catch(err => { console.error(err) })
-      // this.$store.dispatch('summons/sendChatMessage', summonObj).catch(err => { console.error(err) })
-      
+          this.$store.dispatch('summons/createSummon', summonObj).catch(err => { console.error(err) })         
+          
+          this.initValues()
+          const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
+          scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
+        }
+      })
+    },
+    initValues () {
       this.typedMessage = ''
-
-      const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
-      scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
+      this.sel_contacts = []
+      this.sel_groups = []
+      this.sel_location = null
+      this.start_date = null
+      this.end_date = null
     },
     changemethod () { 
       this.messageType = !  this.messageType

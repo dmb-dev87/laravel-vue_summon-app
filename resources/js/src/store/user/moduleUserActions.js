@@ -19,7 +19,6 @@ export default {
         .then((response) => {
           commit('UPDATE_USER', response.data)
           resolve(response)
-          // location.reload()
         })
         .catch((error) => { reject(error) })
     })
@@ -29,6 +28,16 @@ export default {
       axios.delete(`/api/users/${userId}`)
         .then((response) => {
           commit('DELETE_USER', userId)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  changePassword ({ commit }, user) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/users/change-password/`, {user})
+        .then((response) => {
+          commit('UPDATE_USER', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

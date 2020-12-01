@@ -4,7 +4,7 @@
     <!-- GENERAL -->
     <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'General' : ''">
       <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <user-settings-general :userInfo="activeUserInfo" />
+        <user-settings-general />
       </div>
     </vs-tab>
     
@@ -42,9 +42,6 @@ export default {
     isSmallerScreen () {
       return this.$store.state.windowWidth < 768
     },
-    activeUserInfo () {
-      return this.$store.state.AppActiveUser
-    }
   },
 }
 </script>

@@ -70,7 +70,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="group">Group</vs-th>        
+        <vs-th sort-key="name">Group</vs-th>        
         <vs-th>Action</vs-th>
       </template>
 

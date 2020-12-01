@@ -25,22 +25,19 @@
         <span class="text-danger text-sm" v-show="errors.has('item-email')">{{ errors.first('item-email') }}</span>
 
         <!-- EMAIL2 -->
-        <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-email2')">{{ errors.first('item-email2') }}</span>
+        <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" />
 
          <!-- PHONE NUMBER -->
         <vs-input label="Phone Number1" v-model="dataPN1" class="mt-5 w-full" name="item-pn1" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn1')">{{ errors.first('item-pn1') }}</span>
 
          <!-- PHONE NUMBER -->
-        <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-pn2')">{{ errors.first('item-pn2') }}</span>
+        <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" />
 
          <!-- PHONE NUMBER -->
-        <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
+        <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" />
 
-        <!-- CATEGORY -->
+        <!-- ROLE -->
         <vs-select v-model="dataRole" label="Role" class="mt-5 w-full" name="item-role" v-validate="'required'">
           <vs-select-item :key="item.value" :value="item.label" :text="item.label" v-for="item in role_choices" />
         </vs-select>
@@ -49,10 +46,10 @@
 
         <p class="mt-5 text-sm w-full">Change Password</p>
         <vx-input-group class="mb-base form-element-demo mt-5">
-          <vs-input v-model="password" type="password"/>
+          <vs-input v-model="dataPwd" type="password"/>
           <template slot="append">
             <div class="append-text">
-              <vs-button color="primary" type="filled" style="font-size: 8px;">Change Password</vs-button>
+              <vs-button color="primary" type="filled" style="font-size: 8px;" @click="changePassword">Change Password</vs-button>
             </div>
           </template>
         </vx-input-group>
@@ -93,11 +90,9 @@ export default {
       dataPN1: '',
       dataPN2: '',
       dataPN3: '',
-      dataGroup: null,
       dataStatus: null,
-      dataLocation: null,
       dataRole: null,
-      password: '',
+      dataPwd: '',
 
       role_choices: [
         { label: 'Admin',  value: '1' },
@@ -122,11 +117,9 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, user_name, group, location, email, email2, status, name, phone_number1, phone_number2, phone_number3, role_name } = JSON.parse(JSON.stringify(this.data))
+        const { id, user_name, email, email2, status, name, phone_number1, phone_number2, phone_number3, role_name } = JSON.parse(JSON.stringify(this.data))
         this.dataUserName = user_name
         this.dataId = id
-        this.dataGroup = group
-        this.dataLocation = location
         this.dataEmail = email
         this.dataEmail2 = email2
         this.dataName = name
@@ -151,7 +144,6 @@ export default {
       }
     },
     isFormValid () {
-      // return !this.errors.any() && this.dataName && this.dataCategory && this.dataPrice > 0
       return true;
     },
     scrollbarTag () { return this.$store.getters.scrollbarTag }
@@ -163,8 +155,6 @@ export default {
 
       this.dataId = null
       this.dataUserName = ''
-      this.dataGroup = ''
-      this.dataLocation = ''
       this.dataEmail = ''
       this.dataEmail2 = ''
       this.dataName = ''
@@ -173,6 +163,21 @@ export default {
       this.dataPN3 = ''
       this.dataStatus = ''
       this.role = ''
+    },
+    changePassword() {
+      if (this.dataId === null)
+        return
+
+      const obj = {
+        id: this.dataId,
+        new_pwd: this.dataPwd,
+      }
+
+      this.$store.dispatch('users/changePassword', obj).catch(err => { console.error(err) })
+
+      this.dataPwd = ''
+
+      this.$emit('closeSidebar')
     },
     submitData () {
       this.$validator.validateAll().then(result => {
@@ -192,8 +197,7 @@ export default {
 
           this.$store.dispatch('users/updateUser', obj).catch(err => { console.error(err) })
 
-          this.$emit('closeSidebar')
-          this.initValues()
+          this.$emit('closeSidebar')          
         }
       })
     }

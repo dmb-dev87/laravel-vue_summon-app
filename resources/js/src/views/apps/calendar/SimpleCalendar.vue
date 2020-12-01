@@ -125,7 +125,7 @@ export default {
       sel_location: '',
       configdateTimePicker: {
         enableTime: true,
-        dateFormat: 'd-m-Y h:i K'
+        dateFormat: 'd/m/Y h:i K'
       },
 
       url: '',
@@ -228,7 +228,6 @@ export default {
     openEditEvent (event) {      
       this.isAddOrEdit = false
       const e = this.$store.getters['calendar/getEvent'](event.id)
-      console.log("++++++++++++++++++++++=", e.startDate)
       this.id = e.id
       this.title = e.title
       this.startDate = new Date(e.startDate)

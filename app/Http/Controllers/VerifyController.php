@@ -34,7 +34,8 @@ class VerifyController extends Controller
             'email_verified' => 1,
             'email_verified_at' => Carbon::now(),
             'email_verification_token' => '',
-            'verification_code' => ''
+            'verification_code' => '',
+            'status' => 'Activate'
         ]);
        
         return response()->json(['user' => $user]);

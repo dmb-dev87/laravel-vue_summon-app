@@ -55,4 +55,10 @@ export default {
   refreshToken () {
     return axios.post('/api/auth/refresh', {accessToken: localStorage.getItem('accessToKen')})
   },
+  updateUser (user) {
+    return axios.post('/api/auth/user', {user})
+  },
+  changePassword (old_password, new_password, confirm_password) {
+    return axios.post('/api/auth/change/password', {old_password: old_password, new_password: new_password, confirm_password: confirm_password})
+  }
 }

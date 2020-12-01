@@ -10,7 +10,7 @@
             <div class="spacer mt-8" v-if="!hasSentPreviousMsg(summonsData[index-1].is_sent, summon.is_sent)"></div>
         </template>
 
-        <div class="flex items-start flex-row-reverse">
+        <div class="flex items-start">
           <div 
             style="min-width: 300px; min-height: 60px; cursor:pointer;" 
             class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" 

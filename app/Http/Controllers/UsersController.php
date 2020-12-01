@@ -33,6 +33,7 @@ class UsersController extends Controller
                     'phone_number2' => $user['phone_number2'],
                     'phone_number3' => $user['phone_number3'],
                     'status' => $user['status'],
+                    'role_name' => $user['role_name'],
                 ]);
 
             $user = User::find($id);
@@ -52,6 +53,25 @@ class UsersController extends Controller
                 ->update(['del_flag' => '1']);
             
             return $res;
+        }
+        catch(Exception $ex)
+        {
+            return $ex;
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = $request->input('user');
+        try
+        {
+            User::where('id', '=', $user['id'])
+                ->update([
+                    'password' => bcrypt($user['new_pwd']),
+                ]);
+
+            $user = User::find($user['id']);
+            return $user;
         }
         catch(Exception $ex)
         {

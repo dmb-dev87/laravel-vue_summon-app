@@ -41,9 +41,20 @@ class AuthService extends EventEmitter {
 
   isAuthenticated () {
     return (
-      new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey)) && 
-        localStorage.getItem(localStorageKey) === 'true'
+      (new Date(Date.now()) < new Date(localStorage.getItem(tokenExpiryKey))) && 
+        (localStorage.getItem(localStorageKey) === 'true')
     )
+  }
+
+  updateUser (user) {
+    return jwt.updateUser(user)
+      .then((response) => {
+        return response
+      })
+  }
+
+  changePassword (item) {
+    return jwt.changePassword(item.old_password, item.new_password, item.confirm_password)
   }
 }
 

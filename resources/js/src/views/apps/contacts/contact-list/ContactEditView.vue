@@ -28,8 +28,7 @@
         </vx-input-group>    
 
         <!-- EMAIL2 -->
-        <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-email2')">{{ errors.first('item-email2') }}</span>
+        <vs-input label="Email2" v-model="dataEmail2" class="mt-5 w-full" name="item-email2" />
 
         <vx-input-group class="mb-base mt-4 form-element-demo">
           <template slot="prepend">
@@ -40,7 +39,7 @@
           </template>
         </vx-input-group>
 
-         <!-- PHONE NUMBER -->
+         <!-- PHONE NUMBER1 -->
         <vs-input label="Phone Number1" v-model="dataPN1" class="mt-5 w-full" name="item-pn1" v-validate="'required'" />
         <span class="text-danger text-sm" v-show="errors.has('item-pn1')">{{ errors.first('item-pn1') }}</span>
         <div class="vx-row mt-5">
@@ -58,9 +57,8 @@
           </div>      
         </div>
 
-        <!-- PHONE NUMBER -->
-        <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-pn2')">{{ errors.first('item-pn2') }}</span>
+        <!-- PHONE NUMBER2 -->
+        <vs-input label="Phone Number2" v-model="dataPN2" class="mt-5 w-full" name="item-pn2" />
         <div class="vx-row mt-5">
           <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
             <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
@@ -76,9 +74,8 @@
           </div>      
         </div>
 
-         <!-- PHONE NUMBER -->
-        <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-pn3')">{{ errors.first('item-pn3') }}</span>
+         <!-- PHONE NUMBER3 -->
+        <vs-input label="Phone Number3" v-model="dataPN3" class="mt-5 w-full" name="item-pn3" />
         <div class="vx-row mt-5">
           <div class="vx-col sm:w-1/2 md:w-1/2 flex mb-5">
             <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>

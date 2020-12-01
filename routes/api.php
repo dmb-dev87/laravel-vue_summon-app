@@ -23,6 +23,8 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+    Route::post('user', 'AuthController@updateUser');
+    Route::post('change/password', 'AuthController@changePassword');
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
@@ -30,6 +32,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/users', 'UsersController@getList');
     Route::put('/users/{id}', 'UsersController@updateUser');
     Route::delete('/users/{id}', 'UsersController@deleteUser');
+    Route::post('/users/change-password', 'UsersController@changePassword');
 
     // Location
     Route::get('/locations', 'LocationsController@getList');

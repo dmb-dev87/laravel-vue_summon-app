@@ -48,7 +48,7 @@ export default {
         localStorage.removeItem('accessToken')        
       }
 
-      localStorage.setItem('localStorageKey', false)
+      localStorage.setItem('loggedIn', false)
       localStorage.removeItem('userInfo')
       this.$acl.change('Admin')
 

@@ -68,7 +68,7 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="name">LOCATION</vs-th>
+        <vs-th sort-key="name">Location</vs-th>
         
         <vs-th>Action</vs-th>
       </template>

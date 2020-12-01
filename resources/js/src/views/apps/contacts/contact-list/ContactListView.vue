@@ -72,9 +72,9 @@
         <vs-th sort-key="name">Name</vs-th>
         <vs-th sort-key="email" class="hidden sm:table-cell">Email1</vs-th>
         <vs-th sort-key="email2" class="hidden sm:table-cell">Email2</vs-th>
-        <vs-th sort-key="phonenumber1" class="hidden sm:table-cell">Phone Number1</vs-th>
-        <vs-th sort-key="phonenumber2" class="hidden sm:table-cell">Phone Number2</vs-th>
-        <vs-th sort-key="phonenumber3" class="hidden sm:table-cell">Phone Number3</vs-th>
+        <vs-th sort-key="phone_number1" class="hidden sm:table-cell">Phone Number1</vs-th>
+        <vs-th sort-key="phone_number2" class="hidden sm:table-cell">Phone Number2</vs-th>
+        <vs-th sort-key="phone_number3" class="hidden sm:table-cell">Phone Number3</vs-th>
         
         <vs-th>Action</vs-th>
       </template>
