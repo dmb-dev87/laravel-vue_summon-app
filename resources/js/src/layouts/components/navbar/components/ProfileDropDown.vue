@@ -12,8 +12,8 @@
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="$router.push('/summon').catch(() => {})">
-            <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Summon</span>
+              <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
+              <span class="ml-2">Summon</span>
           </li>
 
           <vs-divider class="m-1" />
@@ -21,8 +21,8 @@
           <li
             class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
             @click="logout">
-            <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Logout</span>
+              <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
+              <span class="ml-2">Logout</span>
           </li>
         </ul>
       </vs-dropdown-menu>
@@ -44,22 +44,14 @@ export default {
   },
   methods: {
     logout () {
-
-      // if user is logged in via auth0
-      // if (this.$auth.profile) this.$auth.logOut()
-
-      // If JWT login
       if (localStorage.getItem('accessToken')) {
-        localStorage.removeItem('accessToken')
-        localStorage.setItem('localStorageKey', false)
-        this.$router.push('/login').catch(() => {})
+        localStorage.removeItem('accessToken')        
       }
 
-      // Change role on logout. Same value as initialRole of acj.js
-      this.$acl.change('admin')
+      localStorage.setItem('localStorageKey', false)
       localStorage.removeItem('userInfo')
+      this.$acl.change('Admin')
 
-      // This is just for demo Purpose. If user clicks on logout -> redirect
       this.$router.push('/login').catch(() => {})
     }
   }

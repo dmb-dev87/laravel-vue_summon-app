@@ -3,6 +3,7 @@ export default [
     header: 'Apps',
     icon: 'PackageIcon',
     i18n: 'Apps',
+    rule: 'user',
     items: [
       {
         url: '/summon',
@@ -53,9 +54,10 @@ export default [
     header: 'Admin',
     icon: 'FileIcon',
     i18n: 'Admin',
+    rule: 'admin',
     items: [
       {
-        url: 'activate',
+        url: '/activate',
         name: 'Activate',
         icon: 'LockIcon',
         slug: 'Activate',

@@ -54,10 +54,6 @@ export default {
     checkLogin () {
       // If user is already logged in notify
       if (this.$store.state.auth.isUserLoggedIn()) {
-
-        // Close animation if passed as payload
-        // this.$vs.loading.close()
-
         this.$vs.notify({
           title: 'Login Attempt',
           text: 'You are already logged in!',
@@ -65,13 +61,14 @@ export default {
           icon: 'icon-alert-circle',
           color: 'warning'
         })
-
+        this.$router.push(this.$router.currentRoute.query.to || '/')
         return false
       }
       return true
     },
     loginJWT () {
-      if (!this.checkLogin()) return
+      if (!this.checkLogin()) 
+        return
 
       // Loading
       this.$vs.loading()
@@ -85,7 +82,10 @@ export default {
       }
 
       this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => { this.$vs.loading.close() })
+        .then(() => { 
+          this.$vs.loading.close() 
+          this.$acl.change(this.$store.state.AppActiveUser.role_name)
+        })
         .catch(error => {
           this.$vs.loading.close()
           this.$vs.notify({

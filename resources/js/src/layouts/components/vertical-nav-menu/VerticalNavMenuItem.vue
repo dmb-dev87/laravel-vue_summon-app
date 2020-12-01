@@ -30,6 +30,9 @@
 <script>
 export default {
   name: 'v-nav-menu-item',
+  data: () => ({
+    // canSee: false,
+  }),
   props: {
     icon        : { type: String,                 default: ''               },
     iconSmall   : { type: Boolean,                default: false            },
@@ -44,13 +47,17 @@ export default {
   },
   computed: {
     canSee () {
-      this.$acl.check(this.$store.state.AppActiveUser.userRole)
+      this.$acl.check(this.$store.state.AppActiveUser.role_name)
       return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     activeLink () {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
     }
-  }
+  },
+  // created () {
+  //   this.$acl.check(this.$store.state.AppActiveUser.role_name)
+  //   this.canSee = this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+  // }
 }
 
 </script>

@@ -24,7 +24,7 @@ const router = new Router({
           name: 'summon',
           component: () => import('@/views/apps/summon/summon-home/Summon.vue'),
           meta: {
-            rule: 'editor',
+            rule: 'user',
             no_scroll: true,
             authRequired: true
           }
@@ -34,7 +34,7 @@ const router = new Router({
           name: 'calendar-simple-calendar',
           component: () => import('@/views/apps/calendar/SimpleCalendar.vue'),
           meta: {
-            rule: 'editor',
+            rule: 'user',
             no_scroll: true,
             authRequired: true
           }
@@ -50,7 +50,7 @@ const router = new Router({
               { title: 'List', active: true }
             ],
             pageTitle: 'User List',
-            rule: 'editor',
+            rule: 'admin',
             authRequired: true
           }
         },
@@ -64,7 +64,7 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor',
+            rule: 'user',
             authRequired: true
           }
         },
@@ -78,7 +78,7 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor',
+            rule: 'user',
             authRequired: true
           }
         },
@@ -92,7 +92,7 @@ const router = new Router({
               { title: 'Contact List', active: true }
             ],
             pageTitle: 'Contact List',
-            rule: 'editor',
+            rule: 'user',
             authRequired: true
           }
         },
@@ -106,7 +106,7 @@ const router = new Router({
               { title: 'Summon History', active: true }
             ],
             pageTitle: 'Summon History',
-            rule: 'editor',
+            rule: 'user',
             authRequired: true
           }
         },
@@ -120,7 +120,7 @@ const router = new Router({
               { title: 'Activate', active: true }
             ],
             pageTitle: 'Activate',
-            rule: 'editor',
+            rule: 'admin',
             authRequired: true
           }
         },
@@ -134,7 +134,7 @@ const router = new Router({
               { title: 'User Settings', active: true }
             ],
             pageTitle: 'Settings',
-            rule: 'editor',
+            rule: 'user',
             authRequired: true
           }
         },
@@ -149,7 +149,7 @@ const router = new Router({
           name: 'auth-callback',
           component: () => import('@/views/Callback.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -157,7 +157,7 @@ const router = new Router({
           name: 'login',
           component: () => import('@/views/auth/login/Login.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -165,7 +165,7 @@ const router = new Router({
           name: 'register',
           component: () => import('@/views/auth/register/Register.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -173,7 +173,7 @@ const router = new Router({
           name: 'forgot-password',
           component: () => import('@/views/auth/ForgotPassword.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -181,7 +181,7 @@ const router = new Router({
           name: 'email-verify',
           component: () => import('@/views/auth/EmailVerify.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           },
         },
         {
@@ -189,7 +189,7 @@ const router = new Router({
           name: 'reset-password',
           component: () => import('@/views/auth/ResetPassword.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -197,7 +197,7 @@ const router = new Router({
           name: 'error-404',
           component: () => import('@/views/error/Error404.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -205,7 +205,7 @@ const router = new Router({
           name: 'error-500',
           component: () => import('@/views/error/Error500.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
         {
@@ -213,7 +213,7 @@ const router = new Router({
           name: 'not-authorized',
           component: () => import('@/views/error/NotAuthorized.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'user'
           }
         },
       ]
