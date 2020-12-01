@@ -13,26 +13,26 @@
     <label class="text-sm">First Email</label>
     <vx-input-group class="mb-base form-element-demo">
       <vs-input v-model="activeUserInfo.email" />
-      <template slot="append">
+      <!-- <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
           <vs-switch v-model="activeUserInfo.email_val1" />
         </div>
-      </template>
+      </template> -->
     </vx-input-group>
     <label class="text-sm">Second Email</label>
     <vx-input-group class="mb-base form-element-demo">
       <vs-input v-model="activeUserInfo.email2" />
-      <template slot="append">
+      <!-- <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
           <vs-switch v-model="activeUserInfo.email_val2" />
         </div>
-      </template>
+      </template> -->
     </vx-input-group>
     <label class="text-sm">First Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number1" class="w-full"/>
-    <div class="vx-row mt-5">
+    <vs-input v-model="activeUserInfo.phone_number1" class="w-full mb-base"/>
+    <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="activeUserInfo.phone_voice1" />
@@ -45,10 +45,10 @@
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="activeUserInfo.phone_whatsapp1" />
         </div>      
-    </div>
+    </div> -->
     <label class="text-sm">Second Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number2" class="w-full"/>
-    <div class="vx-row mt-5">
+    <vs-input v-model="activeUserInfo.phone_number2" class="w-full mb-base"/>
+    <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="activeUserInfo.phone_voice2" />
@@ -61,10 +61,10 @@
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="activeUserInfo.phone_whatsapp2" />
         </div>      
-    </div>
+    </div> -->
     <label class="text-sm">Third Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number3" class="w-full"/>
-    <div class="vx-row mt-5">
+    <vs-input v-model="activeUserInfo.phone_number3" class="w-full mb-base"/>
+    <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
           <vs-switch v-model="activeUserInfo.phone_voice3" />
@@ -77,12 +77,12 @@
           <span class="mr-5 text-sm" style="color: #626262;"> Whatsapp </span>
           <vs-switch v-model="activeUserInfo.phone_whatsapp3" />
         </div>      
-    </div>
+    </div> -->
     
     <!-- Save & Reset Button -->
     <div class="flex flex-wrap items-center justify-end">
       <vs-button class="ml-auto mt-2" @click="saveUser">Save Changes</vs-button>
-      <vs-button class="ml-4 mt-2" type="border" color="warning">Reset</vs-button>
+      <vs-button class="ml-4 mt-2" type="border" color="warning" @click="resetInfo">Reset</vs-button>
     </div>
   </vx-card>
 </template>
@@ -103,26 +103,7 @@ export default {
   },
   data () {
     return {
-      dataId: null,
-      dataName: '',
-      dataEmail: '',
-      dataEmail2: '',
-      dataPN1: '',
-      dataPN2: '',
-      dataPN3: '',
-      dataEmailVal1: false,
-      dataEmailVal2: false,
-      phoneVoice1: false,
-      phoneSMS1: false,
-      phoneWhatsapp1: false,
-      phoneVoice2: false,
-      phoneSMS2: false,
-      phoneWhatsapp2: false,
-      phoneVoice3: false,
-      phoneSMS3: false,
-      phoneWhatsapp3: false,
-      
-
+      activeUserInfo: {},
       lang_known: ['English', 'Arabic'],
       langOptions: [
         { label: 'English',  value: 'english'  },
@@ -132,11 +113,17 @@ export default {
     }
   },
   computed: {
-    activeUserInfo () {
-      return this.$store.state.AppActiveUser
-    }
+    // activeUserInfo () {
+    //   return this.$store.state.AppActiveUser
+    // }
+  },
+  created () {
+    this.activeUserInfo = this.$store.state.AppActiveUser
   },
   methods: {
+    resetInfo() {
+      this.activeUserInfo = this.$store.state.AppActiveUser
+    },
     saveUser() {
       this.$vs.loading()
 
