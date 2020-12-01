@@ -200,6 +200,7 @@ export default {
   },
   methods: {
     canSee (rule) {
+      this.$acl.change(this.$store.state.AppActiveUser.role_name)
       return this.$acl.check(rule)
     },
     onMenuSwipe (event) {
@@ -286,7 +287,6 @@ export default {
     }
   },
   mounted () {
-    this.$acl.check(this.$store.state.AppActiveUser.role_name)
     this.setVerticalNavMenuWidth()
   }
 }

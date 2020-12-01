@@ -46,7 +46,7 @@ export default {
       return this.iconSmall ? 'w-3 h-3 mr-3' : 'w-5 h-5 mr-3'
     },
     canSee () {
-      this.$acl.check(this.$store.state.AppActiveUser.userRole)
+      this.$acl.change(this.$store.state.AppActiveUser.role_name)
       return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     activeLink () {

@@ -75,9 +75,9 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Contact List', active: true }
+              { title: 'Location List', active: true }
             ],
-            pageTitle: 'Contact List',
+            pageTitle: 'Location List',
             rule: 'user',
             authRequired: true
           }
@@ -89,9 +89,9 @@ const router = new Router({
           meta: {
             breadcrumb: [
               { title: 'Home', url: '/' },
-              { title: 'Contact List', active: true }
+              { title: 'Group List', active: true }
             ],
-            pageTitle: 'Contact List',
+            pageTitle: 'Group List',
             rule: 'user',
             authRequired: true
           }

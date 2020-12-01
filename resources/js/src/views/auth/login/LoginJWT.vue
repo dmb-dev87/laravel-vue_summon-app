@@ -83,7 +83,7 @@ export default {
 
       this.$store.dispatch('auth/loginJWT', payload)
         .then(() => { 
-          this.$vs.loading.close() 
+          this.$vs.loading.close()
           this.$acl.change(this.$store.state.AppActiveUser.role_name)
         })
         .catch(error => {

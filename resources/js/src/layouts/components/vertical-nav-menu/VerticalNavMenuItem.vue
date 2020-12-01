@@ -47,17 +47,13 @@ export default {
   },
   computed: {
     canSee () {
-      this.$acl.check(this.$store.state.AppActiveUser.role_name)
-      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
+      this.$acl.change(this.$store.state.AppActiveUser.role_name)
+      return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : false
     },
     activeLink () {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
     }
   },
-  // created () {
-  //   this.$acl.check(this.$store.state.AppActiveUser.role_name)
-  //   this.canSee = this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
-  // }
 }
 
 </script>

@@ -1,8 +1,8 @@
 <template>
   <vx-card no-shadow>
     <!-- Info -->
-    <vs-input class="w-full mb-base" label-placeholder="Username" v-model="activeUserInfo.user_name"></vs-input>
-    <vs-input class="w-full mb-base" label-placeholder="Name" v-model="activeUserInfo.name"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="Username" v-model="dataUsername"></vs-input>
+    <vs-input class="w-full mb-base" label-placeholder="Name" v-model="dataName"></vs-input>
 
     <!-- Languages -->
     <div class="mb-base">
@@ -12,7 +12,7 @@
     <!-- SWITCH -->
     <label class="text-sm">First Email</label>
     <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="activeUserInfo.email" />
+      <vs-input v-model="dataEmail" />
       <!-- <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
@@ -22,7 +22,7 @@
     </vx-input-group>
     <label class="text-sm">Second Email</label>
     <vx-input-group class="mb-base form-element-demo">
-      <vs-input v-model="activeUserInfo.email2" />
+      <vs-input v-model="dataEmail2" />
       <!-- <template slot="append">
         <div class="append-text">
           <span class="mr-5 text-sm" style="color: #626262;"> Email </span>
@@ -31,7 +31,7 @@
       </template> -->
     </vx-input-group>
     <label class="text-sm">First Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number1" class="w-full mb-base"/>
+    <vs-input v-model="dataPN1" class="w-full mb-base"/>
     <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
@@ -47,7 +47,7 @@
         </div>      
     </div> -->
     <label class="text-sm">Second Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number2" class="w-full mb-base"/>
+    <vs-input v-model="dataPN2" class="w-full mb-base"/>
     <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
@@ -63,7 +63,7 @@
         </div>      
     </div> -->
     <label class="text-sm">Third Phone Number</label>
-    <vs-input v-model="activeUserInfo.phone_number3" class="w-full mb-base"/>
+    <vs-input v-model="dataPN3" class="w-full mb-base"/>
     <!-- <div class="vx-row mt-5">
         <div class="vx-col sm:w-1/2 md:w-1/3 flex mb-5">
           <span class="mr-5 text-sm" style="color: #626262;"> Voice Message </span>
@@ -93,7 +93,7 @@ import moduleUser from '@/store/user/moduleUser.js'
 
 export default {
   props: {
-    data: {
+    userInfo: {
       type: Object,
       default: () => {}
     }
@@ -103,7 +103,14 @@ export default {
   },
   data () {
     return {
-      activeUserInfo: {},
+      dataId: null,
+      dataUsername: '',
+      dataName: '',
+      dataEmail: '',
+      dataEmail2: '',
+      dataPN1: '',
+      dataPN2: '',
+      dataPN3: '',
       lang_known: ['English', 'Arabic'],
       langOptions: [
         { label: 'English',  value: 'english'  },
@@ -119,6 +126,20 @@ export default {
   },
   created () {
     this.activeUserInfo = this.$store.state.AppActiveUser
+  },
+  watch: {
+    userInfo: function() {
+      console.log("++++++++++++++++++++", this.data)
+      const { id, user_name, email, email2, name, phone_number1, phone_number2, phone_number3 } = JSON.parse(JSON.stringify(this.data))
+      this.dataUsername = user_name
+      this.dataId = id
+      this.dataEmail = email
+      this.dataEmail2 = email2
+      this.dataName = name
+      this.dataPN1 = phone_number1
+      this.dataPN2 = phone_number2
+      this.dataPN3 = phone_number3
+    }
   },
   methods: {
     resetInfo() {

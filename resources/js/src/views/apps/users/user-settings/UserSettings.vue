@@ -4,7 +4,7 @@
     <!-- GENERAL -->
     <vs-tab icon-pack="feather" icon="icon-user" :label="!isSmallerScreen ? 'General' : ''">
       <div class="tab-general md:ml-4 md:mt-0 mt-4 ml-0">
-        <user-settings-general :data="activeUserInfo" />
+        <user-settings-general :userInfo="activeUserInfo" />
       </div>
     </vs-tab>
     
