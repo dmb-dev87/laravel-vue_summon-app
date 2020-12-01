@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Carbon\Carbon;
 
 class UsersSeeder extends Seeder
 {
@@ -13,7 +14,8 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //
-        $this->addUser('johny_01', 'John Steve', 'john1@admin.com', 'john2@admin.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'Admin', 'Activate');
+        $this->addUser('super_admin', 'Super Admin', 'super_admin@admin.com', 'super_admin2@admin.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'Admin', 'Activate');
+        $this->addUser('johny_01', 'John Steve', 'john1@admin.com', 'john2@admin.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'User', 'Activate');
         $this->addUser('chris_01', 'Chris Steve', 'chris1@admin.com', 'chris2@admin.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'User', 'Activate');
         $this->addUser('demodulation463', 'Rubi Ortwein', 'rubi@ortwein.com', 'rubi2@ortwein.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'User', 'Activate');
         $this->addUser('undivorced341', 'Donnette Charania', 'donnette@charania.com', 'donnette2@charania.com', '1111111111', '2222222222', '33333333333', bcrypt('dev1121!'), 'User', 'Deactivate');
@@ -35,6 +37,8 @@ class UsersSeeder extends Seeder
                 'password' => $password,
                 'role_name' => $role,
                 'status' => $status,
+                'email_verified_at' => Carbon::now(),
+                'email_verified' => true,
             ]
         );
 
