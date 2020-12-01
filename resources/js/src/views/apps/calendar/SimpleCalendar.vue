@@ -172,14 +172,6 @@ export default {
     disabledDatesFrom () {
       return { from: new Date(this.endDate) }
     },
-    // labelColor () {
-    //   return (label) => {
-    //     if      (label === 'business') return 'success'
-    //     else if (label === 'work')     return 'warning'
-    //     else if (label === 'personal') return 'danger'
-    //     else if (label === 'none')     return 'primary'
-    //   }
-    // },
     windowWidth () {
       return this.$store.state.windowWidth
     }
@@ -233,13 +225,14 @@ export default {
       this.id = 0
       this.activePromptAddEvent = true
     },
-    openEditEvent (event) {
+    openEditEvent (event) {      
       this.isAddOrEdit = false
       const e = this.$store.getters['calendar/getEvent'](event.id)
+      console.log("++++++++++++++++++++++=", e.startDate)
       this.id = e.id
       this.title = e.title
-      this.startDate = e.startDate
-      this.endDate = e.endDate
+      this.startDate = new Date(e.startDate)
+      this.endDate = new Date(e.endDate)
       this.sel_location = e.sel_location
       this.sel_contacts = e.sel_contacts
       this.sel_groups = e.sel_groups

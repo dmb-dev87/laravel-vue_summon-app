@@ -18,7 +18,7 @@
             @click="$router.push('summon_history').catch(() => {})"> 
               <span>{{ summon.message }} </span>
               <p>Location: {{ summon.location_name }} </p>
-              <p>Due to: {{ summon.end_date }} </p>
+              <p>Due to: {{ summon.end_date_str }} </p>
           </div>
         </div>
       </div>

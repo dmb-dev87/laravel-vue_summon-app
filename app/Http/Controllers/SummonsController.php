@@ -26,6 +26,7 @@ class SummonsController extends Controller
         foreach($summons as $summon)
         {
             $summon->location_name = $summon->location->name;
+            $summon->end_date_str = date("Y-m-d h:i A", strtotime($summon->end_date));
         }
 
         return $summons;
