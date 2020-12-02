@@ -9,11 +9,11 @@
       <component :is="scrollbarTag" class="chat-scroll-area" style="padding: 10px;" :settings="settings" :key="$vs.rtl">
         <vs-list-header title="Contact"></vs-list-header>
         <v-select class="mt-2" name="item-contacts" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-contacts')">{{ errors.first('item-contacts') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-contacts') }}</span>
 
         <vs-list-header title="Group"></vs-list-header>
         <v-select class="mt-2" name="item-groups" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
-        <span class="text-danger text-sm" v-show="errors.has('item-groups')">{{ errors.first('item-groups') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-groups') }}</span>
 
         <vs-list-header title="Location"></vs-list-header>
         <v-select class="mt-2" name="item-location" v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
