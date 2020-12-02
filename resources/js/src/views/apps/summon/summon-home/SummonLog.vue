@@ -15,7 +15,7 @@
             style="min-width: 300px; min-height: 60px; cursor:pointer;" 
             class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" 
             :class="{'bg-primary-gradient text-white': summon.is_sent, 'border border-solid border-transparent bg-white': !summon.is_sent}"  
-            @click="$router.push('summon_history').catch(() => {})"> 
+            @click="$router.push({ name: 'summon-history', params: { id: summon.id }}).catch(() => {})"> 
               <span>{{ summon.message }} </span>
               <p>Location: {{ summon.location_name }} </p>
               <p>Due to: {{ summon.end_date_str }} </p>

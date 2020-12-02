@@ -50,7 +50,7 @@ class UsersController extends Controller
         try
         {
             $res = User::where('id', '=', $id)
-                ->update(['del_flag' => '1']);
+                        ->update(['del_flag' => '1']);
             
             return $res;
         }

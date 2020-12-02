@@ -59,6 +59,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/summons/contact_options', 'SummonsController@getContactOptions');
     Route::post('/summons', 'SummonsController@createSummon');
 
+    // Histories
+    Route::get('/histories/{summon_id}', 'HistoriesController@getHistories');
+
     // Calendar-Event
     Route::get('/events', 'EventsController@getList');
     Route::post('/events', 'EventsController@createEvent');

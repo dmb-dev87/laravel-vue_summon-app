@@ -97,7 +97,7 @@ const router = new Router({
           }
         },
         {
-          path: '/summon_history',
+          path: '/summon_history/:id',
           name: 'summon-history',
           component: () => import('@/views/apps/summon/summon-history/SummonHistories.vue'),
           meta: {

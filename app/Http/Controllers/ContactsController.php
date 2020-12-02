@@ -18,8 +18,8 @@ class ContactsController extends Controller
         $user_id = $user->id;
 
         $contacts = Contact::where('del_flag', '=', '0')
-                        ->where('user_id', '=', $user_id)
-                        ->get();
+                            ->where('user_id', '=', $user_id)
+                            ->get();
 
         return $contacts;
     }
@@ -94,26 +94,26 @@ class ContactsController extends Controller
         try
         {
             Contact::where('id', '=', $id)
-                ->where('user_id', '=', $user_id)
-                ->update([
-                    'name' => $item['name'],
-                    'email' => $item['email'],
-                    'email_val1' => $item['email_val1'],
-                    'email2' => $item['email2'],
-                    'email_val2' => $item['email_val2'],
-                    'phone_number1' => $item['phone_number1'],
-                    'phone_voice1' => $item['phone_voice1'],
-                    'phone_sms1' => $item['phone_sms1'],
-                    'phone_whatsapp1' => $item['phone_whatsapp1'],
-                    'phone_number2' => $item['phone_number2'],
-                    'phone_voice2' => $item['phone_voice2'],
-                    'phone_sms2' => $item['phone_sms2'],
-                    'phone_whatsapp2' => $item['phone_whatsapp2'],
-                    'phone_number3' => $item['phone_number3'],
-                    'phone_voice3' => $item['phone_voice3'],
-                    'phone_sms3' => $item['phone_sms3'],
-                    'phone_whatsapp3' => $item['phone_whatsapp3'],
-                ]);
+                    ->where('user_id', '=', $user_id)
+                    ->update([
+                        'name' => $item['name'],
+                        'email' => $item['email'],
+                        'email_val1' => $item['email_val1'],
+                        'email2' => $item['email2'],
+                        'email_val2' => $item['email_val2'],
+                        'phone_number1' => $item['phone_number1'],
+                        'phone_voice1' => $item['phone_voice1'],
+                        'phone_sms1' => $item['phone_sms1'],
+                        'phone_whatsapp1' => $item['phone_whatsapp1'],
+                        'phone_number2' => $item['phone_number2'],
+                        'phone_voice2' => $item['phone_voice2'],
+                        'phone_sms2' => $item['phone_sms2'],
+                        'phone_whatsapp2' => $item['phone_whatsapp2'],
+                        'phone_number3' => $item['phone_number3'],
+                        'phone_voice3' => $item['phone_voice3'],
+                        'phone_sms3' => $item['phone_sms3'],
+                        'phone_whatsapp3' => $item['phone_whatsapp3'],
+                    ]);
 
             $contact = Contact::find($id);
             return $contact;

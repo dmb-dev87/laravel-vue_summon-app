@@ -126,7 +126,7 @@ export default {
 
           this.$store.dispatch('summons/createSummon', summonObj).catch(err => { console.error(err) })         
           
-          this.initValues()
+          // this.initValues()
           const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
           scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
         }
