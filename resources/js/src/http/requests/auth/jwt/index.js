@@ -60,5 +60,8 @@ export default {
   },
   changePassword (old_password, new_password, confirm_password) {
     return axios.post('/api/auth/change/password', {old_password: old_password, new_password: new_password, confirm_password: confirm_password})
+  },
+  emailConfigure (email_type, access_token) {
+    return axios.post('/api/auth/email/configure', {email_type: email_type, access_token: access_token})
   }
 }

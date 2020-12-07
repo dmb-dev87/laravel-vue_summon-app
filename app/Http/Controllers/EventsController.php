@@ -86,7 +86,7 @@ class EventsController extends Controller
             $group_list = rtrim($group_list, ",");
             $event->group_list = $group_list;
 
-            $event->event_date = Carbon::parse($item['event_date'])->format('Y-m-d H:i:00');
+            $event->start_date = Carbon::parse($item['start_date'])->format('Y-m-d H:i:00');
             $event->message = $item['message'];
             $event->is_sent = false;
 
@@ -129,7 +129,7 @@ class EventsController extends Controller
                     'location_id' => $item['sel_location']['value'],
                     'contact_list' => $contact_list,
                     'group_list' => $group_list,
-                    'event_date' => Carbon::parse($item['event_date']),
+                    'start_date' => Carbon::parse($item['start_date']),
                     'message' => $item['message'],
                 ]);
 
@@ -154,7 +154,7 @@ class EventsController extends Controller
             Event::where('id', '=', $id)
                 ->where('user_id', '=', $userId)
                 ->update([
-                    'event_date' => Carbon::parse($dragged_date),
+                    'start_date' => Carbon::parse($dragged_date),
                 ]);
 
             return $this->transformEvent(Event::find($id));
@@ -167,12 +167,18 @@ class EventsController extends Controller
 
     public function transformEvent($event)
     {
-        $event->startDate = $event->event_date;
+        $event->startDate = $event->start_date;
         $event->title = $event->message;
         $event->classes = $event->is_sent ? Event::EVENT_SUCCESS : Event::EVENT_PRIMARY;
-        $event->sel_location = ['label' => $event->location->name, 'value' => $event->location_id];
-        $event->sel_contacts = $this->getSelectedContacts($event->contact_list);
-        $event->sel_groups = $this->getSelectedGroups($event->group_list);
+
+        if ($event->location_id == null) {
+            $event->sel_location = null;
+        } else {
+            $event->sel_location = ['label' => $event->location->name, 'value' => $event->location_id];
+        }
+        
+        $event->sel_contacts = $event->contact_list != null ? $this->getSelectedContacts($event->contact_list) : array();
+        $event->sel_groups = $event->group_list != null ? $this->getSelectedGroups($event->group_list) : array();
 
         return $event;
     }

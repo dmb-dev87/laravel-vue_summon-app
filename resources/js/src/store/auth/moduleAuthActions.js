@@ -92,5 +92,18 @@ export default {
           reject(error)
         })
     })
+  },
+  emailConfigure ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      auth.emailConfigure(item)
+        .then((response) => {
+          if (response.data) {
+            resolve(response)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   }
 }

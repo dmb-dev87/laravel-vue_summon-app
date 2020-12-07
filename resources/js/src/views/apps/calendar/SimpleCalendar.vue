@@ -183,7 +183,8 @@ export default {
       if (this.isAddOrEdit) {
         eventObj = {
           'message': this.title,
-          'event_date': this.startDate,
+          'start_date': this.startDate,
+          'end_date': this.endDate,
           'sel_groups': this.sel_groups,
           'sel_contacts': this.sel_contacts,
           'sel_location': this.sel_location,
@@ -194,7 +195,8 @@ export default {
         eventObj = {
           'id': this.id,
           'message': this.title,
-          'event_date': this.startDate,
+          'start_date': this.startDate,
+          'end_date': this.endDate,
           'sel_groups': this.sel_groups,
           'sel_contacts': this.sel_contacts,
           'sel_location': this.sel_location,

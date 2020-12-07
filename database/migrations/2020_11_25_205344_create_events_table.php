@@ -16,13 +16,14 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('location_id');
+            $table->integer('location_id')->nullable();
             $table->string('contact_list')->nullable();
             $table->string('group_list')->nullable();
-            $table->timestamp('event_date')->useCurrent();
+            $table->timestamp('start_date')->useCurrent();
+            $table->timestamp('end_date')->useCurrent();
             $table->tinyinteger('del_flag')->default(0);
             $table->string('message')->nullable();
-            $table->boolean('is_sent')->default('1');
+            $table->boolean('is_sent')->default('0');
             $table->timestamps();
         });
     }

@@ -1,55 +1,127 @@
 <template>
   <vx-card no-shadow>
-    <div class="flex flex-wrap items-center justify-start">
+    <vs-input type="email" class="w-full mb-base" label-placeholder="Email Address" v-model="email_address" name="email_address" v-validate="'required'" />
+    <span class="text-danger text-sm" v-show="errors.has('email_address')">{{ errors.first('email_address') }}</span>
+
+    <div class="flex flex-wrap items-center justify-end">
+      <vs-button class="mt-2 mr-4" @click="integrateWithGoogle">Integrate with Google</vs-button>
+      <vs-button class="mt-2 mr-4" @click="integrateWithOutlook">Integrate with Outlook</vs-button>
       <vs-button class="mt-2">Start Integrate</vs-button>
     </div>
   </vx-card>
 </template>
 
 <script>
-import flatPickr from 'vue-flatpickr-component'
-import 'flatpickr/dist/flatpickr.css'
-import vSelect from 'vue-select'
+import outlookAuth from '@/authServices/outlook_oAuth'
 
 export default {
   components: {
-    flatPickr,
-    vSelect
   },
   data () {
     return {
-      bio: this.$store.state.AppActiveUser.about,
-      dob: null,
-      country: 'Bahrain',
-      location: 'P.O. Box 948, Jidhafs',
-      group: 'IT Manager', 
-      lang_known: ['English', 'Arabic'],
-      gender: 'male',      
-      mobile: '',
-      website: '',
-
-      // Options
-      locationOptions: [
-        { label: '1st Floot meeting room',  value: '1'  },
-        { label: 'Main office ',     value: '2'     },
-        { label: 'CE office ',    value: '3'    },
-        { label: 'IT senior Manager office',      value: '4'     },
-      ],
-      groupOptions: [
-        { label: 'IT Department',  value: '1'  },
-        { label: 'Sales Team',     value: '2'     },
-        { label: 'Management Team',    value: '3'    },
-        { label: 'Broadcast',      value: '4'     },
-      ],
-      langOptions: [
-        { label: 'English',  value: 'english'  },
-        { label: 'Arabic',   value: 'arabic'   },
-      ]
+      email_address: "",
     }
   },
   computed: {
     activeUserInfo () {
       return this.$store.state.AppActiveUser
+    }
+  },
+  created () {
+    outlookAuth.configure()
+  },
+  methods: {
+    integrateWithGoogle () {
+      this.$gAuth.signIn()
+        .then(GoogleUser => {
+          let authResponse = GoogleUser.getAuthResponse()
+
+          const obj = {
+            email_type: 'google',
+            access_token: authResponse.access_token,
+          }
+
+          this.$store.dispatch('auth/emailConfigure', obj)
+            .then((response) => {
+              this.$vs.notify({
+                title: response.data.status === 200 ? 'Success' : 'Error',
+                text: response.data.message,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: response.data.status === 200 ? 'success' : 'danger'
+              })
+              this.$vs.loading.close()
+            })
+            .catch(err => {
+              this.$vs.loading.close()
+              this.$vs.notify({
+                title: 'Error',
+                text: err.message,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              })
+            })
+        })
+        .catch(error => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: error.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
+    },
+    async integrateWithOutlook () {
+      let idToken  = await outlookAuth.login()
+
+      if (idToken)
+      {
+        this.$vs.loading()
+
+        let accessToken = await outlookAuth.acquireToken()
+
+        if (accessToken) {
+          const obj = {
+            email_type: 'outlook',
+            access_token: accessToken
+          }
+
+          this.$store.dispatch('auth/emailConfigure', obj)
+            .then(response => {
+              this.$vs.loading.close()
+              this.$vs.notify({
+                title: response.data.status === 200 ? 'Success' : 'Error',
+                text: response.data.message,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: response.data.status === 200 ? 'success' : 'danger'
+              })
+            })
+            .catch(error => {
+              this.$vs.loading.close()
+              this.$vs.notify({
+                title: 'Error',
+                text: error.message,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              })
+            })
+        }
+      } 
+      else 
+      {
+        this.$vs.notify({
+          title: 'Error',
+          text: "Email configure failed",
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      }
     }
   }
 }

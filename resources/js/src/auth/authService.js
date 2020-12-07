@@ -1,8 +1,6 @@
 import EventEmitter from 'events'
 import jwt from '@/http/requests/auth/jwt/index.js'
 
-import store from '@/store/store.js'
-
 // 'loggedIn' is used in other parts of application. So, Don't forget to change there also
 const localStorageKey = 'loggedIn'
 const tokenExpiryKey = 'tokenExpiry'
@@ -55,6 +53,10 @@ class AuthService extends EventEmitter {
 
   changePassword (item) {
     return jwt.changePassword(item.old_password, item.new_password, item.confirm_password)
+  }
+
+  emailConfigure(item) {
+    return jwt.emailConfigure(item.email_type, item.access_token)
   }
 }
 

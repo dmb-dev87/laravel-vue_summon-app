@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('name')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->boolean('email_val1')->default('1');
             $table->string('email2')->nullable();
             $table->boolean('email_val2')->default('0');

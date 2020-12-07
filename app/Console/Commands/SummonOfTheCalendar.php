@@ -47,7 +47,7 @@ class SummonOfTheCalendar extends Command
         $send_dt = Carbon::now()->addMinutes(15);
         $send_dt = Carbon::parse($send_dt)->format('Y-m-d H:i:00');
 
-        $events = Event::where('event_date', '=', $send_dt)->get();
+        $events = Event::where('start_date', '=', $send_dt)->get();
 
         foreach($events as $event)
         {
@@ -58,7 +58,7 @@ class SummonOfTheCalendar extends Command
             $summon->contact_list = $event->contact_list;
             $summon->group_list = $event->group_list;
             $summon->start_date = $send_dt;
-            $summon->end_date = $event->event_date;
+            $summon->end_date = $event->start_date;
             $summon->message = $event->message;
             $summon->is_sent = false;
 

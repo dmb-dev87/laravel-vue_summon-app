@@ -25,6 +25,7 @@ Route::group(['prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
     Route::post('user', 'AuthController@updateUser');
     Route::post('change/password', 'AuthController@changePassword');
+    Route::post('email/configure', 'AuthController@emailConfigure');
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
