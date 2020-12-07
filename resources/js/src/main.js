@@ -6,6 +6,9 @@ import Vuesax from 'vuesax'
 
 Vue.use(Vuesax)
 
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+
 // axios
 import axios from './axios.js'
 Vue.prototype.$http = axios

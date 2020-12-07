@@ -4,8 +4,14 @@
     <span class="text-danger text-sm" v-show="errors.has('email_address')">{{ errors.first('email_address') }}</span>
 
     <div class="flex flex-wrap items-center justify-end">
-      <vs-button class="mt-2 mr-4" @click="integrateWithGoogle">Integrate with Google</vs-button>
-      <vs-button class="mt-2 mr-4" @click="integrateWithOutlook">Integrate with Outlook</vs-button>
+      <vs-button class="mr-4 mt-2" type="border" color="primary" @click="integrateWithGoogle">
+        <i class="fab fa-google mr-1"></i>
+        <span class="truncate">With Google</span>
+      </vs-button>
+      <vs-button class="mr-4 mt-2" type="border" color="primary" @click="integrateWithOutlook">
+        <i class="fab fa-microsoft mr-1"></i>
+        With Outlook
+      </vs-button>
       <vs-button class="mt-2">Start Integrate</vs-button>
     </div>
   </vx-card>
