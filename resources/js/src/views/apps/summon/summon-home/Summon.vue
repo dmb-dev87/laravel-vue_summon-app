@@ -8,11 +8,11 @@
       <vs-divider class="d-theme-border-grey-light m-0" />
       <component :is="scrollbarTag" class="chat-scroll-area" style="padding: 10px;" :settings="settings" :key="$vs.rtl">
         <vs-list-header title="Contact"></vs-list-header>
-        <v-select class="mt-2" name="item-contacts" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
+        <v-select class="mt-2" name="item-contacts" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
         <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-contacts') }}</span>
 
         <vs-list-header title="Group"></vs-list-header>
-        <v-select class="mt-2" name="item-groups" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-validate="'required'" />
+        <v-select class="mt-2" name="item-groups" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
         <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-groups') }}</span>
 
         <vs-list-header title="Location"></vs-list-header>
@@ -21,12 +21,19 @@
 
         <vs-list-header title="Due Date"></vs-list-header>
         <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" name="item-date" class="w-full" v-validate="'required'"/>
-        <span class="text-danger text-sm" v-show="errors.has('item-date')">{{ errors.first('item-date') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
+          <template v-if="errors.has('item-date')">
+            {{ errors.first('item-date') }}
+          </template>
+          <template v-else>
+            You can't select the past date.
+          </template>
+        </span>
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
           <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
-          <vs-input class="flex-1" name="item-message" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" v-validate="'required'" />         
+          <vs-input class="flex-1" name="item-message" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" v-validate="'required'" />
           <vs-button class="ml-2" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
           <vs-button class="bg-primary-gradient ml-2" type="filled" icon-pack="feather" icon="icon-navigation" @click="sendMsg"></vs-button>
         </div>
@@ -85,6 +92,7 @@ export default {
         maxScrollbarLength : 60,
         wheelSpeed         : 0.70
       },
+      invalid_date: false
     }
   },
   watch: {
@@ -115,10 +123,27 @@ export default {
         if (result) {
           this.start_date = new Date()
 
+          var fullDate = this.end_date
+          fullDate = fullDate.split(' ');
+
+          var date = fullDate[0].split(/\//);
+          var time = fullDate[1];
+
+          var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
+          var endDate = new Date(newDate);
+
+          if (this.start_date > endDate)
+          {
+            this.invalid_date = true
+            return 
+          }
+          
+          this.invalid_date = false
+
           const summonObj = {
             'message': this.typedMessage,
             'start_date': this.start_date,
-            'end_date': this.end_date,
+            'end_date': endDate,
             'sel_groups': this.sel_groups,
             'sel_contacts': this.sel_contacts,
             'sel_location': this.sel_location,

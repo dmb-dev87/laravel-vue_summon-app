@@ -1,27 +1,29 @@
 <template>
   <div id="component-chat-log" class="m-8" v-if="summonsData">
-      <div v-for="(summon, index) in summonsData" class="msg-grp-container" :key="index">
+    <div v-for="(summon, index) in summonsData" class="msg-grp-container" :key="index">
 
-        <!-- If previous msg is older than current time -->
-        <template v-if="summonsData[index-1]">
-            <vs-divider v-if="!isSameDay(summon.start_date, summonsData[index-1].start_date)" class="msg-time">
-                <span>{{ toDate(summon.start_date) }}</span>
-            </vs-divider>
-            <div class="spacer mt-8" v-if="!hasSentPreviousMsg(summonsData[index-1].is_sent, summon.is_sent)"></div>
-        </template>
-
-        <div class="flex items-start">
-          <div 
-            style="min-width: 300px; min-height: 60px; cursor:pointer;" 
-            class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" 
-            :class="{'bg-primary-gradient text-white': summon.is_sent, 'border border-solid border-transparent bg-white': !summon.is_sent}"  
-            @click="$router.push({ name: 'summon-history', params: { id: summon.id }}).catch(() => {})"> 
-              <span>{{ summon.message }} </span>
-              <p>Location: {{ summon.location_name }} </p>
-              <p>Due to: {{ summon.end_date_str }} </p>
-          </div>
+      <!-- If previous msg is older than current time -->
+      <!-- <template v-if="summonsData[index-1]">
+          <vs-divider v-if="!isSameDay(summon.start_date, summonsData[index-1].start_date)" class="msg-time">
+              <span>{{ toDate(summon.start_date) }}</span>
+          </vs-divider>
+          <div class="spacer mt-8" v-if="!hasSentPreviousMsg(summonsData[index-1].is_sent, summon.is_sent)"></div>
+      </template> -->      
+      <div class="flex items-start">
+        <div 
+          style="min-width: 300px; min-height: 60px; cursor:pointer;" 
+          class="msg break-words relative shadow-md rounded py-3 px-4 mb-2 rounded-lg max-w-sm" 
+          :class="{'bg-primary-gradient text-white': summon.is_sent, 'border border-solid border-transparent bg-white': !summon.is_sent}"  
+          @click="$router.push({ name: 'summon-history', params: { id: summon.id }}).catch(() => {})"> 
+            <span>{{ summon.message }} </span>
+            <p>Location: {{ summon.location_name }} </p>
+            <p>Due to: {{ summon.end_date_str }} </p>
         </div>
       </div>
+      <div class="mb-5" style="font-size: 10px">
+        <span>{{ summon.start_date_str }}</span>
+      </div>
+    </div>
   </div>
 </template>
 

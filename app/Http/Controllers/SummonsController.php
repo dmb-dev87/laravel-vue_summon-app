@@ -29,6 +29,7 @@ class SummonsController extends Controller
         {
             $summon->location_name = $summon->location->name;
             $summon->end_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
+            $summon->start_date_str = date("d/m/Y h:i A", strtotime($summon->start_date));
         }
 
         return $summons;
@@ -123,6 +124,7 @@ class SummonsController extends Controller
 
             $summon->start_date = Carbon::parse($item['start_date']);
             $summon->end_date = Carbon::parse($item['end_date']);
+            // $summon->end_date = Carbon::createFromFormat('d/m/Y h:i A', $item['end_date']);
             $summon->message = $item['message'];
             $summon->is_sent = false;
 
@@ -130,6 +132,7 @@ class SummonsController extends Controller
 
             $summon->location_name = $summon->location->name;
             $summon->end_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
+            $summon->start_date_str = date("d/m/Y h:i A", strtotime($summon->start_date));
 
             $this->create_history($summon);
 
@@ -143,20 +146,29 @@ class SummonsController extends Controller
 
     public function create_history($summon)
     {
-        $contact_ids = explode(',', $summon->contact_list);
-        $group_ids = explode(',', $summon->group_list);
+        $contact_ids = array();
 
-        foreach($group_ids as $group_id)
+        if ($summon->contact_list)
         {
-            $group_contacts = Group::find($group_id)->contact_list;
-            $group_contact_ids = explode(',', $group_contacts);
+            $contact_ids = explode(',', $summon->contact_list);            
+        }
 
-            foreach($group_contact_ids as $group_contact_id)
+        if ($summon->group_list)
+        {
+            $group_ids = explode(',', $summon->group_list);
+
+            foreach($group_ids as $group_id)
             {
-                if (in_array($group_contact_id, $contact_ids) == false)
+                $group_contacts = Group::find($group_id)->contact_list;
+                $group_contact_ids = explode(',', $group_contacts);
+
+                foreach($group_contact_ids as $group_contact_id)
                 {
-                    array_push($contact_ids, $group_contact_id);
-                }                
+                    if (in_array($group_contact_id, $contact_ids) == false)
+                    {
+                        array_push($contact_ids, $group_contact_id);
+                    }                
+                }
             }
         }
 

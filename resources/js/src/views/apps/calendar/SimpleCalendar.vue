@@ -81,14 +81,29 @@
       :is-valid=true
       :active.sync="activePromptAddEvent">
 
-        <vs-input name="event-name" v-validate="'required'" class="w-full" label-placeholder="Summon Message" v-model="title"></vs-input>
-        <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" />
+        <vs-input name="item-message" v-validate="'required'" class="w-full" label-placeholder="Summon Message" v-model="title"></vs-input>
+        <span class="text-danger text-sm" v-show="errors.has('item-message')">{{ errors.first('item-message') }}</span>
+        <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" v-validate="'required'" name="item-date" />
+        <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
+          <template v-if="errors.has('item-date')">
+            {{ errors.first('item-date') }}
+          </template>
+          <template v-else>
+            You can't select the past date.
+          </template>
+        </span>
+
         <p class="mt-4">Contact</p>
-        <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" name="item-contacts" />
+        <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-contacts') }}</span>
+
         <p class="mt-4">Group</p>
-        <v-select class="mt-2" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" v-model="sel_groups" multiple :closeOnSelect="false" :options="groupOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" name="item-groups" />
+        <span class="text-danger text-sm" v-show="errors.has('item-contacts') && errors.has('item-groups')">{{ errors.first('item-groups') }}</span>
+
         <p class="mt-4">Location</p>
-        <v-select class="mt-2" v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" />
+        <v-select class="mt-2" v-model="sel_location" :options="locationOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'"  name="item-location" v-validate="'required'" />
+        <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
     </vs-prompt>
   </div>
 </template>
@@ -127,7 +142,7 @@ export default {
         enableTime: true,
         dateFormat: 'd/m/Y h:i K'
       },
-
+      invalid_date: false,
       url: '',
       calendarView: 'month',
 
@@ -178,33 +193,55 @@ export default {
   },
   methods: {
     addEvent () {
-      let eventObj = {}
+      this.$validator.validateAll().then(result => {
+        if (result) {
+          let eventObj = {}
 
-      if (this.isAddOrEdit) {
-        eventObj = {
-          'message': this.title,
-          'start_date': this.startDate,
-          'end_date': this.endDate,
-          'sel_groups': this.sel_groups,
-          'sel_contacts': this.sel_contacts,
-          'sel_location': this.sel_location,
+          // let current_date = new Date()
+
+          // var fullDate = this.startDate
+          // fullDate = fullDate.split(' ');
+
+          // var date = fullDate[0].split(/\//);
+          // var time = fullDate[1];
+
+          // var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
+          // var eventDate = new Date(newDate);
+
+          // if (this.current_date > eventDate)
+          // {
+          //   this.invalid_date = true
+          //   return 
+          // }
+
+          // this.invalid_date = false
+
+          if (this.isAddOrEdit) {
+            eventObj = {
+              'message': this.title,
+              'start_date': this.startDate,
+              'end_date': this.endDate,
+              'sel_groups': this.sel_groups,
+              'sel_contacts': this.sel_contacts,
+              'sel_location': this.sel_location,
+            }
+
+            this.$store.dispatch('calendar/createEvent', eventObj)
+          } else {
+            eventObj = {
+              'id': this.id,
+              'message': this.title,
+              'start_date': this.startDate,
+              'end_date': this.endDate,
+              'sel_groups': this.sel_groups,
+              'sel_contacts': this.sel_contacts,
+              'sel_location': this.sel_location,
+            }
+
+            this.$store.dispatch('calendar/updateEvent', eventObj)
+          }
         }
-
-        this.$store.dispatch('calendar/createEvent', eventObj)
-      } else {
-        eventObj = {
-          'id': this.id,
-          'message': this.title,
-          'start_date': this.startDate,
-          'end_date': this.endDate,
-          'sel_groups': this.sel_groups,
-          'sel_contacts': this.sel_contacts,
-          'sel_location': this.sel_location,
-        }
-
-        this.$store.dispatch('calendar/updateEvent', eventObj)
-      }
-
+      })
     },
     cancelEvent () {
       if (this.isAddOrEdit){
