@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -17,10 +20,13 @@ use App\Event;
 
 class AuthController extends Controller
 {
+    use SendsPasswordResetEmails;
+    // use ResetsPasswords;
+
     //
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        // $this->middleware('auth:api', ['except' => ['login', 'register', 'sendPasswordResetLink']]);
     }
 
     public function register(Request $request)
@@ -418,4 +424,47 @@ class AuthController extends Controller
         return $contents;
     }
 
+    public function sendPasswordResetLink(Request $request)
+    {
+        // print_r("111111111111");
+        // exit();
+        return $this->sendResetLinkEmail($request);
+    }
+
+    // protected function sendResetLinkResponse(Request $request, $response)
+    // {
+    //     return response()->json([
+    //         'message' => 'Password reset email send',
+    //         'date' => $response
+    //     ]);
+    // }
+    
+    // protected function sendResetLinkFailedResponse(Reqeust $request, $response)
+    // {
+    //     return response()->json([
+    //         'message' => 'Email could not be sent to this email address.'
+    //     ]);
+    // }
+
+    // public function callResetPassword(Request $request)
+    // {
+    //     return $this->reset($request);
+    // }
+
+    // protected function resetPassword($user, $password)
+    // {
+    //     $user->password = bcrypt($password);
+    //     $user->save();
+    //     event(new PasswordReset($user));
+    // }
+
+    // protected function sendResetResponse(Request $request, $response)
+    // {
+    //     return response()->json(['message' => 'Password reset successfully.']);
+    // }
+
+    // protected function sendResetFailedResponse(Request $request, $response)
+    // {
+    //     return response()->json(['message' => 'Failed, Invalid Token.']);
+    // }
 }

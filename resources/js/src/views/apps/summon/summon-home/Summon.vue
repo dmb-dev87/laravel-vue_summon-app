@@ -29,6 +29,9 @@
             You can't select the past date.
           </template>
         </span>
+        <datetime v-model="date" class="w-full"></datetime>
+        <datetime type="time" v-model="time"></datetime>
+
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
@@ -63,6 +66,8 @@ import vSelect from 'vue-select'
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import moduleSummons from '@/store/summons/moduleSummons.js'
+import { Datetime } from 'vue-datetime';
+import 'vue-datetime/dist/vue-datetime.css'
 
 export default {
   components: {
@@ -70,7 +75,8 @@ export default {
     SummonLog,
     SummonNavbar,
     vSelect,
-    flatPickr
+    flatPickr,
+    datetime: Datetime
   },
   data () {
     return {
@@ -92,7 +98,9 @@ export default {
         maxScrollbarLength : 60,
         wheelSpeed         : 0.70
       },
-      invalid_date: false
+      invalid_date: false,
+      date: "",
+      time: ""
     }
   },
   watch: {
@@ -185,6 +193,10 @@ export default {
       this.$store.registerModule('summons', moduleSummons)
       moduleSummons.isRegistered = true
     }
+
+    this.date = new Date().toString()
+    console.log("++++++++++++++++++++", this.date)
+
     this.$store.dispatch('summons/fetchSummonsList')
     this.$store.dispatch('summons/fetchLocationOptions')
     this.$store.dispatch('summons/fetchGroupOptions')

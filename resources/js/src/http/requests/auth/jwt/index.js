@@ -63,5 +63,9 @@ export default {
   },
   emailConfigure (email_type, access_token) {
     return axios.post('/api/auth/email/configure', {email_type: email_type, access_token: access_token})
+  },
+  forgotPassword (email) {
+    console.log("+++++++++++++++++++++", email)
+    return axios.post('/api/auth/forgot-password', {email: email})
   }
 }

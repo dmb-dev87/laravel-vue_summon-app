@@ -14,9 +14,9 @@
                                     <p>Please enter your email address and we'll send you instructions on how to reset your password.</p>
                                 </div>
 
-                                <vs-input type="email" label-placeholder="Email" v-model="value1" class="w-full mb-8" />
+                                <vs-input type="email" label-placeholder="Email" v-model="email" class="w-full mb-8" />
                                 <vs-button type="border" to="/login" class="px-4 w-full md:w-auto">Back To Login</vs-button>
-                                <vs-button class="float-right px-4 w-full md:w-auto mt-3 mb-8 md:mt-0 md:mb-0">Recover Password</vs-button>
+                                <vs-button class="float-right px-4 w-full md:w-auto mt-3 mb-8 md:mt-0 md:mb-0" @click="requestResetPassword">Reset Password</vs-button>
                             </div>
                         </div>
                     </div>
@@ -30,8 +30,39 @@
 export default {
   data () {
     return {
-      value1: ''
+      email: ''
     }
+  },
+  methods: {
+		requestResetPassword() {
+			this.$vs.loading()
+
+			const payload = {
+				email: this.email
+			}
+			
+			this.$store.dispatch('auth/forgotPassword', payload)
+        .then((result) => { 
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Success',
+            text: result.data,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
+        .catch(error => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: error.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+				})
+		}      
   }
 }
 </script>

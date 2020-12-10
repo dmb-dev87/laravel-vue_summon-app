@@ -105,5 +105,18 @@ export default {
           reject(error)
         })
     })
+  },
+  forgotPassword ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      auth.forgotPassword(payload)
+        .then((response) => {
+          if (response.date) {
+            resolve(reponse)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
   }
 }
