@@ -111,7 +111,7 @@ export default {
       auth.forgotPassword(payload)
         .then((response) => {
           if (response.data) {
-            resolve(reponse.data)
+            resolve(response.data)
           }
         })
         .catch(error => {
