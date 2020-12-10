@@ -22,14 +22,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', 'AuthController@login');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/refresh', 'AuthController@refresh');
-    Route::post('/forgot-password', 'AuthController@sendPasswordResetLink');
+    Route::post('/forgot-password', 'Auth\ForgotPasswordController@sendPasswordResetLink');
+    Route::post('/reset-password', 'Auth\ResetPasswordController@callResetPassword');
     
     Route::group(['middleware' => ['auth:api']], function () {
         Route::post('/me', 'AuthController@me');
         Route::post('/user', 'AuthController@updateUser');
         Route::post('/change/password', 'AuthController@changePassword');
         Route::post('/email/configure', 'AuthController@emailConfigure');
-        Route::post('/reset-password', 'AuthController@callResetPassword');
     });
 });
 

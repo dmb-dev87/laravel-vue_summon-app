@@ -13,13 +13,13 @@
                                     <h4 class="mb-4">Reset Password</h4>
                                     <p>Please enter your new password.</p>
                                 </div>
-                                <vs-input type="email" label-placeholder="Email" v-model="value1" class="w-full mb-6" />
-                                <vs-input type="password" label-placeholder="Password" v-model="value2" class="w-full mb-6" />
-                                <vs-input type="password" label-placeholder="Confirm Password" v-model="value3" class="w-full mb-8" />
+                                <vs-input type="email" label-placeholder="Email" v-model="email" class="w-full mb-6" />
+                                <vs-input type="password" label-placeholder="Password" v-model="new_password" class="w-full mb-6" />
+                                <vs-input type="password" label-placeholder="Confirm Password" v-model="confirm_password" class="w-full mb-8" />
 
                                 <div class="flex flex-wrap justify-between flex-col-reverse sm:flex-row">
                                     <vs-button type="border" to="/login" class="w-full sm:w-auto mb-8 sm:mb-auto mt-3 sm:mt-auto">Go Back To Login</vs-button>
-                                    <vs-button class="w-full sm:w-auto">Reset</vs-button>
+                                    <vs-button class="w-full sm:w-auto" @click="resetPassword">Reset</vs-button>
                                 </div>
 
                             </div>
@@ -35,10 +35,48 @@
 export default {
   data () {
     return {
-      value1: '',
-      value2: '',
-      value3: ''
+			token: '',
+      email: '',
+      new_password: '',
+      confirm_password: ''
     }
-  }
+	},
+	created () {
+		this.token = this.$route.params.token
+	},
+  methods: {
+		resetPassword() {
+			this.$vs.loading()
+
+			const payload = {
+				token: this.token,
+				email: this.email,
+				password: this.new_password,
+				password_confirmation: this.confirm_password
+			}
+			
+			this.$store.dispatch('auth/resetPassword', payload)
+        .then((result) => { 
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: result.status === 200 ? 'Success' : 'Error',
+            text: result.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: result.status === 200 ? 'success' : 'danger'
+          })
+        })
+        .catch(error => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: error.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+				})
+		}
+	}
 }
 </script>

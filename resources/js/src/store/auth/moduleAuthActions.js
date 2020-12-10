@@ -110,8 +110,21 @@ export default {
     return new Promise((resolve, reject) => {
       auth.forgotPassword(payload)
         .then((response) => {
-          if (response.date) {
-            resolve(reponse)
+          if (response.data) {
+            resolve(reponse.data)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  resetPassword ( { commit }, payload) {
+    return new Promise((resolve, reject) => {
+      auth.resetPassword(payload)
+        .then((response) => {
+          if (response.data) {
+            resolve(response.data)
           }
         })
         .catch(error => {

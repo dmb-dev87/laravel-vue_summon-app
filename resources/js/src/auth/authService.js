@@ -62,6 +62,10 @@ class AuthService extends EventEmitter {
   forgotPassword(payload) {
     return jwt.forgotPassword(payload.email)
   }
+
+  resetPassword(payload) {
+    return jwt.resetPassword(payload.token, payload.email, payload.password, payload.password_confirmation)
+  }
 }
 
 export default new AuthService()

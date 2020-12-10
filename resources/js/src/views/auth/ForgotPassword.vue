@@ -45,11 +45,11 @@ export default {
         .then((result) => { 
           this.$vs.loading.close()
           this.$vs.notify({
-            title: 'Success',
-            text: result.data,
+            title: result.status === 200 ? 'Success' : 'Error',
+            text: result.message,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'danger'
+            color: result.status === 200 ? 'success' : 'danger'
           })
         })
         .catch(error => {
