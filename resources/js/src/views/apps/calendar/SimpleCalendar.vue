@@ -83,7 +83,12 @@
 
         <vs-input name="item-message" v-validate="'required'" class="w-full" label-placeholder="Summon Message" v-model="title"></vs-input>
         <span class="text-danger text-sm" v-show="errors.has('item-message')">{{ errors.first('item-message') }}</span>
-        <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" v-validate="'required'" name="item-date" />
+
+        <div class="flex p-0 bg-white mt-4">
+          <datetime v-model="due_date" class="mr-3" format="dd/MM/yyyy" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
+          <datetime type="time" v-model="due_time" use12-hour format="HH:mm a" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
+        </div>
+        <!-- <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" v-validate="'required'" name="item-date" />
         <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
           <template v-if="errors.has('item-date')">
             {{ errors.first('item-date') }}
@@ -91,7 +96,7 @@
           <template v-else>
             You can't select the past date.
           </template>
-        </span>
+        </span> -->
 
         <p class="mt-4">Contact</p>
         <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" name="item-contacts" />
@@ -116,6 +121,8 @@ import Datepicker from 'vuejs-datepicker'
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
 import vSelect from 'vue-select'
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 
 require('vue-simple-calendar/static/css/default.css')
 
@@ -125,7 +132,8 @@ export default {
     CalendarViewHeader,
     Datepicker,
     flatPickr,
-    vSelect
+    vSelect,
+    datetime: Datetime
   },
   data () {
     return {
@@ -148,6 +156,8 @@ export default {
 
       activePromptAddEvent: false,
       isAddOrEdit: false,
+      due_date: '',
+      due_time: '',
 
       calendarViewTypes: [
         {
@@ -216,6 +226,8 @@ export default {
 
           // this.invalid_date = false
 
+          this.endDate = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
+
           if (this.isAddOrEdit) {
             eventObj = {
               'message': this.title,
@@ -281,6 +293,8 @@ export default {
     }
   },
   created () {
+    this.due_date = new Date().toISOString()
+    this.due_time = new Date().toISOString()
     if (!moduleCalendar.isRegistered) {
       this.$store.registerModule('calendar', moduleCalendar)
       moduleCalendar.isRegistered = true
@@ -306,4 +320,14 @@ export default {
 
 <style lang="scss">
 @import "@sass/vuexy/apps/simple-calendar.scss";
+
+.vdatetime-input {
+  width: 100%;
+  color: inherit;
+  font-size: 14px;
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 </style>

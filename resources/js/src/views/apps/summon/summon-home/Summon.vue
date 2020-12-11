@@ -20,7 +20,12 @@
         <span class="text-danger text-sm" v-show="errors.has('item-location')">{{ errors.first('item-location') }}</span>
 
         <vs-list-header title="Due Date"></vs-list-header>
-        <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" name="item-date" class="w-full" v-validate="'required'"/>
+        <div class="flex p-0 bg-white">
+          <datetime v-model="due_date" class="mr-3" format="dd/MM/yyyy" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
+          <datetime type="time" v-model="due_time" use12-hour format="HH:mm a" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
+        </div>
+        <span class="text-danger text-sm" v-show="invalid_date">You can't select the past date.</span>
+        <!-- <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" name="item-date" class="w-full" v-validate="'required'"/>
         <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
           <template v-if="errors.has('item-date')">
             {{ errors.first('item-date') }}
@@ -28,10 +33,7 @@
           <template v-else>
             You can't select the past date.
           </template>
-        </span>
-        <datetime v-model="date" class="w-full"></datetime>
-        <datetime type="time" v-model="time"></datetime>
-
+        </span> -->
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
@@ -63,10 +65,10 @@ import SummonLog from './SummonLog.vue'
 import SummonNavbar from './SummonNavbar'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import vSelect from 'vue-select'
-import flatPickr from 'vue-flatpickr-component';
-import 'flatpickr/dist/flatpickr.css';
+import flatPickr from 'vue-flatpickr-component'
+import 'flatpickr/dist/flatpickr.css'
 import moduleSummons from '@/store/summons/moduleSummons.js'
-import { Datetime } from 'vue-datetime';
+import { Datetime } from 'vue-datetime'
 import 'vue-datetime/dist/vue-datetime.css'
 
 export default {
@@ -99,8 +101,8 @@ export default {
         wheelSpeed         : 0.70
       },
       invalid_date: false,
-      date: "",
-      time: ""
+      due_date: '',
+      due_time: '',
     }
   },
   watch: {
@@ -129,29 +131,36 @@ export default {
     sendMsg () {
       this.$validator.validateAll().then(result => {
         if (result) {
+          this.end_date = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
           this.start_date = new Date()
 
-          var fullDate = this.end_date
-          fullDate = fullDate.split(' ');
+          console.log("++++++++++++++++++++++", this.end_date)
 
-          var date = fullDate[0].split(/\//);
-          var time = fullDate[1];
+          let endDate = new Date(this.end_date)
 
-          var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
-          var endDate = new Date(newDate);
+          console.log("++++++++++++++++++", endDate)
+
+          // var fullDate = this.end_date
+          // fullDate = fullDate.split(' ');
+
+          // var date = fullDate[0].split(/\//);
+          // var time = fullDate[1];
+
+          // var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
+          // var endDate = new Date(newDate);
 
           if (this.start_date > endDate)
           {
             this.invalid_date = true
-            return 
+            return
           }
-          
+
           this.invalid_date = false
 
           const summonObj = {
             'message': this.typedMessage,
             'start_date': this.start_date,
-            'end_date': endDate,
+            'end_date': this.end_date,
             'sel_groups': this.sel_groups,
             'sel_contacts': this.sel_contacts,
             'sel_location': this.sel_location,
@@ -189,14 +198,12 @@ export default {
     }
   },  
   created () {
+    this.due_date = new Date().toISOString()
+    this.due_time = new Date().toISOString()
     if (!moduleSummons.isRegistered) {
       this.$store.registerModule('summons', moduleSummons)
       moduleSummons.isRegistered = true
     }
-
-    this.date = new Date().toString()
-    console.log("++++++++++++++++++++", this.date)
-
     this.$store.dispatch('summons/fetchSummonsList')
     this.$store.dispatch('summons/fetchLocationOptions')
     this.$store.dispatch('summons/fetchGroupOptions')
@@ -214,4 +221,14 @@ export default {
 
 <style lang="scss">
 @import "@sass/vuexy/apps/chat.scss";
+
+.vdatetime-input {
+  width: 100%;
+  color: inherit;
+  font-size: 14px;
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 </style>
