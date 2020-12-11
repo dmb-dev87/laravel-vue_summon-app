@@ -1,5 +1,5 @@
 import router from '@/router'
-import auth from '@/auth/authService.js'
+import auth from '@/authServices/jwt_authService.js'
 
 export default {
   loginJWT ({ commit }, payload) {

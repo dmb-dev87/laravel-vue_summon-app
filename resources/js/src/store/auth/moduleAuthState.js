@@ -1,4 +1,4 @@
-import auth from '@/auth/authService'
+import auth from '@/authServices/jwt_authService.js'
 
 export default {
   isUserLoggedIn: () => {
