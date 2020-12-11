@@ -25,15 +25,6 @@
           <datetime type="time" v-model="due_time" use12-hour format="HH:mm a" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
         </div>
         <span class="text-danger text-sm" v-show="invalid_date">You can't select the past date.</span>
-        <!-- <flat-pickr :config="configdateTimePicker" v-model="end_date" placeholder="Date Time" name="item-date" class="w-full" v-validate="'required'"/>
-        <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
-          <template v-if="errors.has('item-date')">
-            {{ errors.first('item-date') }}
-          </template>
-          <template v-else>
-            You can't select the past date.
-          </template>
-        </span> -->
 
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
@@ -134,20 +125,7 @@ export default {
           this.end_date = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
           this.start_date = new Date()
 
-          console.log("++++++++++++++++++++++", this.end_date)
-
           let endDate = new Date(this.end_date)
-
-          console.log("++++++++++++++++++", endDate)
-
-          // var fullDate = this.end_date
-          // fullDate = fullDate.split(' ');
-
-          // var date = fullDate[0].split(/\//);
-          // var time = fullDate[1];
-
-          // var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
-          // var endDate = new Date(newDate);
 
           if (this.start_date > endDate)
           {

@@ -1,6 +1,5 @@
 import router from '@/router'
 import auth from '@/auth/authService.js'
-import acl from '@/acl/acl'
 
 export default {
   loginJWT ({ commit }, payload) {

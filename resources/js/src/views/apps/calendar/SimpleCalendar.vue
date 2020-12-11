@@ -88,15 +88,6 @@
           <datetime v-model="due_date" class="mr-3" format="dd/MM/yyyy" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
           <datetime type="time" v-model="due_time" use12-hour format="HH:mm a" value-zone="Asia/Bahrain" zone="Asia/Bahrain"></datetime>
         </div>
-        <!-- <flat-pickr class="mt-4" :config="configdateTimePicker" v-model="startDate" placeholder="Date Time" v-validate="'required'" name="item-date" />
-        <span class="text-danger text-sm" v-show="errors.has('item-date') || invalid_date">
-          <template v-if="errors.has('item-date')">
-            {{ errors.first('item-date') }}
-          </template>
-          <template v-else>
-            You can't select the past date.
-          </template>
-        </span> -->
 
         <p class="mt-4">Contact</p>
         <v-select class="mt-2" v-model="sel_contacts" multiple :closeOnSelect="false" :options="contactOptions" :dir="$vs.rtl ? 'rtl' : 'ltr'" name="item-contacts" />
@@ -206,25 +197,6 @@ export default {
       this.$validator.validateAll().then(result => {
         if (result) {
           let eventObj = {}
-
-          // let current_date = new Date()
-
-          // var fullDate = this.startDate
-          // fullDate = fullDate.split(' ');
-
-          // var date = fullDate[0].split(/\//);
-          // var time = fullDate[1];
-
-          // var newDate = date[1] + '/' + date[0] + '/' + date[2] + ' ' + time;
-          // var eventDate = new Date(newDate);
-
-          // if (this.current_date > eventDate)
-          // {
-          //   this.invalid_date = true
-          //   return 
-          // }
-
-          // this.invalid_date = false
 
           this.endDate = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
 

@@ -13,15 +13,8 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import axios from './axios.js'
 Vue.prototype.$http = axios
 
-// API Calls
-import './http/requests'
-
 // Theme Configurations
 import '../themeConfig.js'
-
-// Auth0 Plugin
-import AuthPlugin from './plugins/auth'
-Vue.use(AuthPlugin)
 
 // ACL
 import acl from './acl/acl'
