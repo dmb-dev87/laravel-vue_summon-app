@@ -121,12 +121,14 @@ class SummonsController extends Controller
     {
         $response = new VoiceResponse();
 
-        // $save_url = url('/').'/api/summons/voice/save';
-        $save_url = getenv("APP_URL").'/api/summons/voice/save';
+        $save_url = url('/').'/api/summons/voice/save';
+        // $save_url = getenv("APP_URL").'/api/summons/voice/save';
 
         $response->say('Please leave a message at the beep. Press the star key when finished');
         $response->record(['maxLength' => 30, 'finishOnKey' => '*', 'action' => $save_url, 'method' => 'GET']);
         $response->say('I did not receive a recording');
+
+        echo $response;
     }
 
     public function saveVoicemail(Request $request)
