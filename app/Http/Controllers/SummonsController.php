@@ -100,8 +100,10 @@ class SummonsController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
         $receiver_number = $user->phone_number1;
+        $receiver_number = "+13152150723";
 
-        $response_url = url('/').'/api/summons/voice/response';
+        // $response_url = url('/').'/api/summons/voice/response';
+        $response_url = getenv("APP_URL").'/api/summons/voice/response';
 
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
@@ -119,7 +121,8 @@ class SummonsController extends Controller
     {
         $response = new VoiceResponse();
 
-        $save_url = url('/').'/api/summons/voice/save';
+        // $save_url = url('/').'/api/summons/voice/save';
+        $save_url = getenv("APP_URL").'/api/summons/voice/save';
 
         $response->say('Please leave a message at the beep. Press the star key when finished');
         $response->record(['maxLength' => 30, 'finishOnKey' => '*', 'action' => $save_url, 'method' => 'GET']);
