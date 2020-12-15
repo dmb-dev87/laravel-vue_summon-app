@@ -111,8 +111,8 @@ class SummonsController extends Controller
 
         $twilio = new Client($account_sid, $auth_token);
         $call = $twilio->calls->create(
-            $receiver_number,
             $twilio_number,
+            $receiver_number,
             array("url" => $response_url)
         );
     }
