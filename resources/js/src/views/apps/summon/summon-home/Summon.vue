@@ -29,11 +29,11 @@
         <vs-list-header title="Type Message"></vs-list-header>
         <div class="chat__input flex p-0 bg-white">
           <vs-progress class="flex-1" v-if="!messageType" indeterminate color="primary" style="margin-top: 17px;"></vs-progress>
-          <vs-input class="flex-1" name="item-message" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="sendMsg" v-validate="'required'" />
+          <vs-input class="flex-1" name="item-message" v-if="messageType" placeholder="Type Your Message" v-model="typedMessage" @keyup.enter="createSummon" v-validate="'required'" />
           <vs-button class="ml-2" radius color="primary" type="filled" icon-pack="feather" icon="icon-voicemail" @click="changemethod"></vs-button>
-          <vs-button class="bg-primary-gradient ml-2" type="filled" icon-pack="feather" icon="icon-navigation" @click="sendMsg"></vs-button>
+          <vs-button class="bg-primary-gradient ml-2" type="filled" icon-pack="feather" icon="icon-navigation" @click="createSummon"></vs-button>
         </div>
-        <span class="text-danger text-sm" v-show="errors.has('item-message')">{{ errors.first('item-message') }}</span>
+        <span class="text-danger text-sm" v-show="errors.has('item-message') && messageType">{{ errors.first('item-message') }}</span>
       </component>
     </vs-sidebar>
 
@@ -94,6 +94,7 @@ export default {
       invalid_date: false,
       due_date: '',
       due_time: '',
+      summon_id: 0,
     }
   },
   watch: {
@@ -119,7 +120,7 @@ export default {
     }
   },
   methods: {
-    sendMsg () {
+    createSummon () {
       this.$validator.validateAll().then(result => {
         if (result) {
           this.end_date = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
@@ -144,13 +145,43 @@ export default {
             'sel_location': this.sel_location,
           }
 
-          this.$store.dispatch('summons/createSummon', summonObj).catch(err => { console.error(err) })         
+          this.$store.dispatch('summons/createSummon', summonObj)
+            .then(response => {
+              this.sendMessage(response.data.id)
+            })
+            .catch(err => { 
+              console.error(err) 
+            })
           
           // this.initValues()
           const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
           scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
         }
       })
+    },
+    sendMessage (summon_id) {
+      this.$vs.loading();
+      this.$store.dispatch('summons/sendMessage', summon_id)
+        .then((response) => {
+          this.$vs.notify({
+            title: 'Success',
+            text: response.data.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.$vs.loading.close()
+        })
+        .catch(err => {
+          this.$vs.loading.close()
+          this.$vs.notify({
+            title: 'Error',
+            text: err.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+        })
     },
     initValues () {
       this.typedMessage = ''
@@ -160,8 +191,52 @@ export default {
       this.start_date = null
       this.end_date = null
     },
-    changemethod () { 
+    changemethod () {
       this.messageType = !  this.messageType
+
+      // let result = this.$validator.validateAll()
+
+      // if (result != false)
+      //   return
+
+      console.log("+++++++++++++++++++++", this.messageType)
+      if (!this.messageType)
+      {
+        this.end_date = this.due_date.split('T')[0] + 'T' + this.due_time.split('T')[1]
+        this.start_date = new Date()
+
+        let endDate = new Date(this.end_date)
+
+        if (this.start_date > endDate)
+        {
+          this.invalid_date = true
+          return
+        }
+
+        this.invalid_date = false
+
+        const summonObj = {
+          'message': this.typedMessage,
+          'start_date': this.start_date,
+          'end_date': this.end_date,
+          'sel_groups': this.sel_groups,
+          'sel_contacts': this.sel_contacts,
+          'sel_location': this.sel_location,
+        }
+
+        this.$store.dispatch('summons/recordVoicemail', summonObj)
+          .then(response => {
+            console.log("+++++++++++++++", response)
+            // this.sendMessage(response.data.id)
+          })
+          .catch(err => { 
+            console.error(err) 
+          })
+        
+        // this.initValues()
+        const scroll_el = this.$refs.chatLogPS.$el || this.$refs.chatLogPS
+        scroll_el.scrollTop = this.$refs.chatLog.scrollHeight
+      }
     },
     setSidebarWidth () {
       if (this.windowWidth < 1200) {

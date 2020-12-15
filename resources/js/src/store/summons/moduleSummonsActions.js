@@ -52,7 +52,23 @@ export default {
           }
           resolve(response)
         })
-        .catch((error) => { reject(error) })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  recordVoicemail({ commit }, summon) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/summons/voice/record`, {summon})
+        .then((response) => {
+          if (response.data) {
+            commit('CREATE_SUMMON', response.data)
+          }
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
     })
   },
   fetchHistories({ commit }, summon_id) {
@@ -63,5 +79,19 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
-  }
+  },
+  sendMessage ({ commit }, summon_id) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/summons/send/${summon_id}`)
+        .then((response) => {          
+          if (response.data) {
+            commit('SENT_SUMMON', response.data)
+          }
+          resolve(response)
+        })
+        .catch((error) =>{
+          reject(error)
+        })
+    })
+  },  
 }

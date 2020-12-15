@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "microsoft/microsoft-graph": "^1.24",
+        "twilio/sdk": "^6.15",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+
+use Twilio\Rest\Client;
+use Twilio\TwiML\VoiceResponse;
+
 use App\Summon;
 use App\Location;
 use App\Group;
@@ -92,6 +96,43 @@ class SummonsController extends Controller
         return $contact_options;
     }
 
+    public function recordVoicemail()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $receiver_number = $user->phone_number1;
+
+        $response_url = url('/').'/api/summons/voice/response';
+
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_NUMBER");
+
+        $twilio = new Client($account_sid, $auth_token);
+        $call = $twilio->calls->create(
+            $receiver_number,
+            $twilio_number,
+            array("url" => $response_url)
+        );
+    }
+
+    public function responseVoiceCall(Request $request)
+    {
+        $response = new VoiceResponse();
+
+        $save_url = url('/').'/api/summons/voice/save';
+
+        $response->say('Please leave a message at the beep. Press the star key when finished');
+        $response->record(['maxLength' => 30, 'finishOnKey' => '*', 'action' => $save_url, 'method' => 'GET']);
+        $response->say('I did not receive a recording');
+    }
+
+    public function saveVoicemail(Request $request)
+    {
+        $url = $request->RecordingUrl;
+        $img = $request->CallSid . "_" . $request->RecordingSid . ".wav";
+        file_put_contents($img, file_get_contents($url));
+    }
+
     public function createSummon(Request $request)
     {
         $item = $request->input('summon');
@@ -126,6 +167,7 @@ class SummonsController extends Controller
             $summon->end_date = Carbon::parse($item['end_date']);
             // $summon->end_date = Carbon::createFromFormat('d/m/Y h:i A', $item['end_date']);
             $summon->message = $item['message'];
+
             $summon->is_sent = false;
 
             $summon->save();
@@ -144,8 +186,103 @@ class SummonsController extends Controller
         }
     }
 
-    public function create_history($summon)
+    public function sendSummonMessage($summon_id)
     {
+        $summon = Summon::find($summon_id);
+
+        $location_name = $summon->location->name;
+        $due_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
+
+        $message = 'Message: '.$summon->message.' Location: '.$location_name.' Due Datetime: '.$due_date_str;
+
+        $contact_ids = $this->get_contact_ids($summon);
+
+        try
+        {
+            foreach($contact_ids as $contact_id)
+            {
+                $contact = Contact::find($contact_id);
+
+                if ($contact->phone_number1)
+                {
+                    if ($contact->phone_sms1)
+                    {
+                        $this->send_sms($contact->phone_number1, $message);
+                    }
+                    if ($contact->phone_whatsapp1)
+                    {
+                        $this->send_whatsapp($contact->phone_number1, $message);
+                    }
+                }
+
+                if ($contact->phone_number2)
+                {
+                    if ($contact->phone_sms2)
+                    {
+                        $this->send_sms($contact->phone_number2, $message);
+                    }
+                    if ($contact->phone_whatsapp2)
+                    {
+                        $this->send_whatsapp($contact->phone_number2, $message);
+                    }
+                }
+
+                if ($contact->phone_nmuber2)
+                {
+                    if ($contact->phone_sms3)
+                    {
+                        $this->send_sms($contact->phone_number3, $message);
+                    }
+                    if ($contact->phone_whatsapp3)
+                    {
+                        $this->send_whatsapp($contact->phone_number3, $message);
+                    }
+                }
+            }
+
+            $arr = array("id" => $summon_id, "sent" => true, "message" => "Summon message send successfully.");
+            $summon->is_sent = true;            
+        }
+        catch(Exception $ex)
+        {
+            $msg = $ex->getMessage();
+            $arr = array("id" => $summon_id, "sent" => false, "message" => $msg);
+            $summon->is_sent = false;            
+        }
+
+        $summon->update();
+
+        return $arr;
+    }
+
+    protected function send_sms($phone_number, $message)
+    {
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_number = getenv("TWILIO_NUMBER");
+
+        $client = new Client($account_sid, $auth_token);
+        
+        $client->messages->create($phone_number, 
+                ['from' => $twilio_number, 'body' => $message]);
+    }
+
+    protected function send_whatsapp($phone_number, $message)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user->id;
+
+        $account_sid = getenv("TWILIO_SID");
+        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+
+        $twilio = new Client($account_sid, $auth_token);
+
+        $message = $twilio->messages->create("whatsapp:".$phone_number, // to
+                ["from" => "whatsapp:".$user->phone_number1, "body" => $message]);
+    }
+
+    protected function get_contact_ids($summon)
+    {  
         $contact_ids = array();
 
         if ($summon->contact_list)
@@ -172,6 +309,13 @@ class SummonsController extends Controller
             }
         }
 
+        return $contact_ids;
+    }
+
+    protected function create_history($summon)
+    {
+        $contact_ids = $this->get_contact_ids($summon);
+
         foreach($contact_ids as $contact_id)
         {
             $history = new History;
@@ -187,7 +331,7 @@ class SummonsController extends Controller
         }
     }
 
-    public function create_init_history($contact)
+    protected function create_init_history($contact)
     {
         $history_details = array();
 

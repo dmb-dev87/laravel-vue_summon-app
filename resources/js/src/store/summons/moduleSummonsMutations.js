@@ -14,4 +14,8 @@ export default {
     CREATE_SUMMON (state, summon) {
         state.summons.push(summon)
     },
+    SENT_SUMMON (state, item) {
+        const summonId = state.summons.findIndex((p) => p.id == item.id)
+        state.summons[summonId].is_sent = item.sent
+    }
   }

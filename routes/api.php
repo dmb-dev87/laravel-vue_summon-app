@@ -64,6 +64,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/summons/group_options', 'SummonsController@getGroupOptions');
     Route::get('/summons/contact_options', 'SummonsController@getContactOptions');
     Route::post('/summons', 'SummonsController@createSummon');
+    Route::post('/summons/send/{id}', 'SummonsController@sendSummonMessage');
+    Route::post('/summons/voice/record', 'SummonsController@recordVoicemail');
+    Route::post('/summons/voice/response', 'SummonsController@responseVoiceCall');
+    Route::get('/summons/voice/save', 'SummonsController@saveVoicemail');    
 
     // Histories
     Route::get('/histories/{summon_id}', 'HistoriesController@getHistories');
