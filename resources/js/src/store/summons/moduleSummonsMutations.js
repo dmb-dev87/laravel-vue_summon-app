@@ -12,7 +12,6 @@ export default {
         state.contactOptions = contacts
     },
     CREATE_SUMMON (state, summon) {
-        console.log('++++++++++++++++++++', summon)
         state.summons.push(summon)
     },
     SENT_SUMMON (state, item) {

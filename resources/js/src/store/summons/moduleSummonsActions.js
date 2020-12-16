@@ -47,9 +47,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(`/api/summons`, {summon})
         .then((response) => {
-          console.log("+++++++++++++++++++++++++", response)
           if (response.data) {
-            console.log("+++++++++++++++++++++++++", response.data)
             commit('CREATE_SUMMON', response.data)
           }
           resolve(response)
