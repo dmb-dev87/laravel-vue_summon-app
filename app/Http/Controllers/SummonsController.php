@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -14,6 +16,8 @@ use App\Location;
 use App\Group;
 use App\Contact;
 use App\History;
+
+use App\Mail\SummonMail;
 
 use Carbon\Carbon;
 
@@ -111,8 +115,8 @@ class SummonsController extends Controller
 
         $twilio = new Client($account_sid, $auth_token);
         $call = $twilio->calls->create(
-            $twilio_number,
             $receiver_number,
+            $twilio_number,
             array("url" => $response_url)
         );
     }
@@ -193,6 +197,8 @@ class SummonsController extends Controller
 
     public function sendSummonMessage($summon_id)
     {
+        $user = JWTAuth::parseToken()->authenticate();
+
         $summon = Summon::find($summon_id);
 
         $location_name = $summon->location->name;
@@ -208,41 +214,51 @@ class SummonsController extends Controller
             {
                 $contact = Contact::find($contact_id);
 
-                if ($contact->phone_number1)
+                if ($contact->email && $contact->email_val1)
                 {
-                    if ($contact->phone_sms1)
-                    {
-                        $this->send_sms($contact->phone_number1, $message);
-                    }
-                    if ($contact->phone_whatsapp1)
-                    {
-                        $this->send_whatsapp($contact->phone_number1, $message);
-                    }
+                    Mail::to($contact->email)->send(new SummonMail($contact, $summon, $user));
                 }
 
-                if ($contact->phone_number2)
+                if ($contact->email2 && $contact->email_val2)
                 {
-                    if ($contact->phone_sms2)
-                    {
-                        $this->send_sms($contact->phone_number2, $message);
-                    }
-                    if ($contact->phone_whatsapp2)
-                    {
-                        $this->send_whatsapp($contact->phone_number2, $message);
-                    }
+                    Mail::to($contact->email2)->send(new SummonMail($contact, $summon, $user));
                 }
 
-                if ($contact->phone_nmuber2)
-                {
-                    if ($contact->phone_sms3)
-                    {
-                        $this->send_sms($contact->phone_number3, $message);
-                    }
-                    if ($contact->phone_whatsapp3)
-                    {
-                        $this->send_whatsapp($contact->phone_number3, $message);
-                    }
-                }
+                // if ($contact->phone_number1)
+                // {
+                //     if ($contact->phone_sms1)
+                //     {
+                //         $this->send_sms($contact->phone_number1, $message);
+                //     }
+                //     if ($contact->phone_whatsapp1)
+                //     {
+                //         $this->send_whatsapp($contact->phone_number1, $message);
+                //     }
+                // }
+
+                // if ($contact->phone_number2)
+                // {
+                //     if ($contact->phone_sms2)
+                //     {
+                //         $this->send_sms($contact->phone_number2, $message);
+                //     }
+                //     if ($contact->phone_whatsapp2)
+                //     {
+                //         $this->send_whatsapp($contact->phone_number2, $message);
+                //     }
+                // }
+
+                // if ($contact->phone_nmuber2)
+                // {
+                //     if ($contact->phone_sms3)
+                //     {
+                //         $this->send_sms($contact->phone_number3, $message);
+                //     }
+                //     if ($contact->phone_whatsapp3)
+                //     {
+                //         $this->send_whatsapp($contact->phone_number3, $message);
+                //     }
+                // }
             }
 
             $arr = array("id" => $summon_id, "sent" => true, "message" => "Summon message send successfully.");
