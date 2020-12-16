@@ -1,4 +1,4 @@
-<html lang="en">
+<!-- <html lang="en">
 
 <body>
 	
@@ -18,4 +18,24 @@
 
 </body>
 
-</html> 
+</html> -->
+
+@component('mail::message')
+
+Dear $contact->name
+
+Please read the following and click the "Response" to answer.
+
+Message: $summon->message
+
+Location: $location_name
+
+Due Datetime: $due_datetime
+
+@component('mail::button', ['url' => $action_url])
+Response
+@endcomponent
+
+Thank you
+
+@endcomponent
