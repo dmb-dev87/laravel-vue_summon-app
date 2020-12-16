@@ -359,8 +359,6 @@ class SummonsController extends Controller
 
         print_r($contact);
 
-        exit();
-
         $history_details = array();
 
         if ($contact->email && $contact->email_val1)
