@@ -5,19 +5,15 @@
     <p>Dear {{ $contact->name }}</p>
     <p>Please read the following and click the "Response" to answer.</p>
 
-    <p>{{ $summon->message }}</p>
-    <br/>
+    <p>Message: {{ $summon->message }}</p>
     <p>Location: {{ $location_name }}</p>
-    <br/>
     <p>Due Datetime: {{ $due_datetime }}</p>
     <p>
-        <a href="{{ url('/api/summons/mail-response', $contact->id, $summon->id) }}">
+        <a href="{{ url('/api/summons/mail-response', $contact->id) }}">
             Response
         </a>
     </p>
-
     <p>Thank you</p>
-    <br/>
     <p>{{$user->name}}</p>
 
 </body>

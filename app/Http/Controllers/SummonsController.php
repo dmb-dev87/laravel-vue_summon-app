@@ -354,8 +354,6 @@ class SummonsController extends Controller
     {
         $contact = Contact::find($contact_id);
 
-        // print_r($contact);
-
         $history_details = array();
 
         if ($contact['email'] && $contact['email_val1'])
