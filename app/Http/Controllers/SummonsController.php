@@ -337,8 +337,6 @@ class SummonsController extends Controller
     {
         $contact_ids = $this->get_contact_ids($summon);
 
-        print_r($contact_ids);
-
         foreach($contact_ids as $contact_id)
         {
             $history = new History;
@@ -354,10 +352,7 @@ class SummonsController extends Controller
 
     protected function create_init_history($contact_id)
     {
-        print_r($contact_id);
         $contact = Contact::find($contact_id);
-
-        print_r($contact);
 
         $history_details = array();
 
