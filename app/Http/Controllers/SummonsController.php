@@ -185,7 +185,7 @@ class SummonsController extends Controller
             $summon->end_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
             $summon->start_date_str = date("d/m/Y h:i A", strtotime($summon->start_date));
 
-            $this->create_history($summon);
+            // $this->create_history($summon);
 
             return $summon;
         }
@@ -343,17 +343,17 @@ class SummonsController extends Controller
 
             $history->summon_id = $summon->id;
             $history->user_id = $summon->user_id;
-            $history->contact_id = $contact_id;
-
-            $contact = Contact::find($contact_id);
-            $history->history_detail = $this->create_init_history($contact);
+            $history->contact_id = $contact_id;            
+            $history->history_detail = $this->create_init_history($contact_id);
 
             $history->save();            
         }
     }
 
-    protected function create_init_history($contact)
+    protected function create_init_history($contact_id)
     {
+        $contact = Contact::find($contact_id);
+
         $history_details = array();
 
         if ($contact->email && $contact->email_val1)
