@@ -147,7 +147,6 @@ export default {
 
           this.$store.dispatch('summons/createSummon', summonObj)
             .then(response => {
-              console.log("+++++++++++++++++++++", response)
               this.sendMessage(response.data.id)
             })
             .catch(err => { 
@@ -161,7 +160,6 @@ export default {
       })
     },
     sendMessage (summon_id) {
-      console.log("++++++++++++++++++++++++++++++++++++++++", summon_id)
       this.$vs.loading();
       this.$store.dispatch('summons/sendMessage', summon_id)
         .then((response) => {
