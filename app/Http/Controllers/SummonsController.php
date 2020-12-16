@@ -354,7 +354,7 @@ class SummonsController extends Controller
     {
         $contact = Contact::find($contact_id);
 
-        print_r($contact);
+        // print_r($contact);
 
         $history_details = array();
 
