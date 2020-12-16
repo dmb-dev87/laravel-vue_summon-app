@@ -21,12 +21,12 @@ class GroupsSeeder extends Seeder
         Group::firstOrCreate([        
             'user_id' => 1,
             'name' => 'Sales Team',
-            'contact_list' => '1,2,6',
+            'contact_list' => '1,2',
         ]);
         Group::firstOrCreate([        
             'user_id' => 1,
             'name' => 'Management Team',
-            'contact_list' => '1,4,6',
+            'contact_list' => '1,4',
         ]);
         Group::firstOrCreate([        
             'user_id' => 1,
