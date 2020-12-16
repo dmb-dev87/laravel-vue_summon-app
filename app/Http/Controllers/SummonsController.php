@@ -214,51 +214,51 @@ class SummonsController extends Controller
             {
                 $contact = Contact::find($contact_id);
 
-                if ($contact->email && $contact->email_val1)
+                if ($contact['email'] && $contact['email_val1'])
                 {
-                    Mail::to($contact->email)->send(new SummonMail($contact, $summon, $user));
+                    Mail::to($contact['email'])->send(new SummonMail($contact, $summon, $user));
                 }
 
-                if ($contact->email2 && $contact->email_val2)
+                if ($contact['email2'] && $contact['email_val2'])
                 {
-                    Mail::to($contact->email2)->send(new SummonMail($contact, $summon, $user));
+                    Mail::to($contact['email2'])->send(new SummonMail($contact, $summon, $user));
                 }
 
-                // if ($contact->phone_number1)
-                // {
-                //     if ($contact->phone_sms1)
-                //     {
-                //         $this->send_sms($contact->phone_number1, $message);
-                //     }
-                //     if ($contact->phone_whatsapp1)
-                //     {
-                //         $this->send_whatsapp($contact->phone_number1, $message);
-                //     }
-                // }
+                if ($contact['phone_number1'])
+                {
+                    if ($contact['phone_sms1'])
+                    {
+                        $this->send_sms($contact['phone_number1'], $message);
+                    }
+                    if ($contact['phone_whatsapp1'])
+                    {
+                        $this->send_whatsapp($contact['phone_number1'], $message);
+                    }
+                }
 
-                // if ($contact->phone_number2)
-                // {
-                //     if ($contact->phone_sms2)
-                //     {
-                //         $this->send_sms($contact->phone_number2, $message);
-                //     }
-                //     if ($contact->phone_whatsapp2)
-                //     {
-                //         $this->send_whatsapp($contact->phone_number2, $message);
-                //     }
-                // }
+                if ($contact['phone_number2'])
+                {
+                    if ($contact['phone_sms2'])
+                    {
+                        $this->send_sms($contact['phone_number2'], $message);
+                    }
+                    if ($contact['phone_whatsapp2'])
+                    {
+                        $this->send_whatsapp($contact['phone_number2'], $message);
+                    }
+                }
 
-                // if ($contact->phone_nmuber2)
-                // {
-                //     if ($contact->phone_sms3)
-                //     {
-                //         $this->send_sms($contact->phone_number3, $message);
-                //     }
-                //     if ($contact->phone_whatsapp3)
-                //     {
-                //         $this->send_whatsapp($contact->phone_number3, $message);
-                //     }
-                // }
+                if ($contact['phone_nmuber2'])
+                {
+                    if ($contact['phone_sms3'])
+                    {
+                        $this->send_sms($contact['phone_number3'], $message);
+                    }
+                    if ($contact['phone_whatsapp3'])
+                    {
+                        $this->send_whatsapp($contact['phone_number3'], $message);
+                    }
+                }
             }
 
             $arr = array("id" => $summon_id, "sent" => true, "message" => "Summon message send successfully.");
@@ -358,47 +358,47 @@ class SummonsController extends Controller
 
         $history_details = array();
 
-        if ($contact->email && $contact->email_val1)
+        if ($contact['email'] && $contact['email_val1'])
         {
             $email1_history = ['type' => 'Email1', 'email' => History::STATUS_UNREAD];
             array_push($history_details, $email1_history);
         }
 
-        if ($contact->email2 && $contact->email_val2)
+        if ($contact['email2'] && $contact['email_val2'])
         {
             $email2_history = ['type' => 'Email2', 'email' => History::STATUS_UNREAD];
             array_push($history_details, $email2_history);
         }
 
-        if ($contact->phone_number1)
+        if ($contact['phone_number1'])
         {
             $phone_history1 = array();
 
-            array_push($phone_history1, ['type' => 'voice', 'status' => $contact->phone_voice1 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history1, ['type' => 'sms', 'status' => $contact->phone_sms1 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history1, ['type' => 'whatsapp', 'status' => $contact->phone_whatsapp1 ? History::STATUS_UNREAD : '']);
+            array_push($phone_history1, ['type' => 'voice', 'status' => $contact['phone_voice1'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history1, ['type' => 'sms', 'status' => $contact['phone_sms1'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history1, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp1'] ? History::STATUS_UNREAD : '']);
 
             array_push($history_details, ['type' => 'Phone1', 'phone' => $phone_history1]);
         }
 
-        if ($contact->phone_number2)
+        if ($contact['phone_number2'])
         {
             $phone_history2 = array();
 
-            array_push($phone_history2, ['type' => 'voice', 'status' => $contact->phone_voice2 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history2, ['type' => 'sms', 'status' => $contact->phone_sms2 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history2, ['type' => 'whatsapp', 'status' => $contact->phone_whatsapp2 ? History::STATUS_UNREAD : '']);
+            array_push($phone_history2, ['type' => 'voice', 'status' => $contact['phone_voice2'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history2, ['type' => 'sms', 'status' => $contact['phone_sms2'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history2, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp2'] ? History::STATUS_UNREAD : '']);
 
             array_push($history_details, ['type' => 'Phone2', 'phone' => $phone_history2]);
         }
 
-        if ($contact->phone_number3)
+        if ($contact['phone_number3'])
         {
             $phone_history3 = array();
 
-            array_push($phone_history3, ['type' => 'voice', 'status' => $contact->phone_voice3 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history3, ['type' => 'sms', 'status' => $contact->phone_sms3 ? History::STATUS_UNREAD : '']);
-            array_push($phone_history3, ['type' => 'whatsapp', 'status' => $contact->phone_whatsapp3 ? History::STATUS_UNREAD : '']);
+            array_push($phone_history3, ['type' => 'voice', 'status' => $contact['phone_voice3'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history3, ['type' => 'sms', 'status' => $contact['phone_sms3'] ? History::STATUS_UNREAD : '']);
+            array_push($phone_history3, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp3'] ? History::STATUS_UNREAD : '']);
 
             array_push($history_details, ['type' => 'Phone3', 'phone' => $phone_history3]);
         }
