@@ -276,7 +276,7 @@ class SummonsController extends Controller
         return $arr;
     }
 
-    protected function send_sms($phone_number, $message)
+    public function send_sms($phone_number, $message)
     {
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
@@ -288,7 +288,7 @@ class SummonsController extends Controller
                 ['from' => $twilio_number, 'body' => $message]);
     }
 
-    protected function send_whatsapp($phone_number, $message)
+    public function send_whatsapp($phone_number, $message)
     {
         $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
@@ -302,7 +302,7 @@ class SummonsController extends Controller
                 ["from" => "whatsapp:".$user->phone_number1, "body" => $message]);
     }
 
-    protected function get_contact_ids($summon)
+    public function get_contact_ids($summon)
     {  
         $contact_ids = array();
 
@@ -333,7 +333,7 @@ class SummonsController extends Controller
         return $contact_ids;
     }
 
-    protected function create_history($summon)
+    public function create_history($summon)
     {
         $contact_ids = $this->get_contact_ids($summon);
 
@@ -350,11 +350,11 @@ class SummonsController extends Controller
         }
     }
 
-    protected function create_init_history($contact_id)
+    public function create_init_history($contact_id)
     {
         $contact = Contact::find($contact_id);
 
-        // print_r($contact);
+        print_r($contact);
 
         $history_details = array();
 
