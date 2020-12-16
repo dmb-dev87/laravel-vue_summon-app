@@ -181,7 +181,7 @@ class SummonsController extends Controller
 
             $summon->save();
 
-            $this->create_history($summon);
+            // $this->create_history($summon);
 
             $summon->location_name = $summon->location->name;
             $summon->end_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
