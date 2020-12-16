@@ -32,10 +32,10 @@ Location: {{ $location_name }}
 
 Due Datetime: {{ $due_datetime }}
 
+Thank you
+
 @component('mail::button', ['url' => $action_url])
 Response
 @endcomponent
-
-Thank you
 
 @endcomponent
