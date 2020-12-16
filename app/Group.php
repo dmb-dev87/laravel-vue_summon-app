@@ -10,6 +10,7 @@ class Group extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'del_flag'
+        'contact_list',
+        'del_flag',
     ];
 }

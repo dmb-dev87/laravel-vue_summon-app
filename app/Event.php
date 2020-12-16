@@ -15,9 +15,11 @@ class Event extends Model
         'location_id',
         'contact_list',
         'group_list',
-        'due_date',        
+        'start_date',
+        'end_date',        
         'message',
-        'del_flag'
+        'is_sent',
+        'del_flag',
     ];
 
     public function location()

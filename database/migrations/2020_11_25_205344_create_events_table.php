@@ -20,10 +20,10 @@ class CreateEventsTable extends Migration
             $table->string('contact_list')->nullable();
             $table->string('group_list')->nullable();
             $table->timestamp('start_date')->useCurrent();
-            $table->timestamp('end_date')->useCurrent();
-            $table->tinyinteger('del_flag')->default(0);
+            $table->timestamp('end_date')->useCurrent();            
             $table->string('message')->nullable();
             $table->boolean('is_sent')->default('0');
+            $table->tinyinteger('del_flag')->default(0);
             $table->timestamps();
         });
     }

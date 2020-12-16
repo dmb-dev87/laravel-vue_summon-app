@@ -12,9 +12,12 @@ class Summon extends Model
         'location_id',
         'contact_list',
         'group_list',
-        'due_date',        
+        'summon_type',
+        'start_date',
+        'end_date',
+        'del_flag',
         'message',
-        'del_flag'
+        'is_sent',
     ];
 
     public function location()

@@ -17,9 +17,9 @@ class ContactsSeeder extends Seeder
             'name' => 'Chris Steve',
             'email'=>'chris1@admin.com',
             'email2' => 'chris2@admin.com',
-            'phone_number1' => '1111111111',
-            'phone_number2' => '2222222222',
-            'phone_number3' => '3333333333',
+            'phone_number1' => '+13152150723',
+            'phone_number2' => '+2222222222',
+            'phone_number3' => '+3333333333',
         ]);
 
         Contact::firstOrCreate([
@@ -27,9 +27,9 @@ class ContactsSeeder extends Seeder
             'name' => 'Donnette Charania',
             'email'=>'donnette@charania.com',
             'email2' => 'donnette2@charania.com',
-            'phone_number1' => '1111111111',
-            'phone_number2' => '2222222222',
-            'phone_number3' => '3333333333',
+            'phone_number1' => '+1111111111',
+            'phone_number2' => '+2222222222',
+            'phone_number3' => '+3333333333',
         ]);
 
         Contact::firstOrCreate([
@@ -37,9 +37,9 @@ class ContactsSeeder extends Seeder
             'name' => 'Rubi Ortwein',
             'email'=>'rubi@ortwein.com',
             'email2' => 'rubi2@ortwein.com',
-            'phone_number1' => '1111111111',
-            'phone_number2' => '2222222222',
-            'phone_number3' => '3333333333',
+            'phone_number1' => '+1111111111',
+            'phone_number2' => '+2222222222',
+            'phone_number3' => '+3333333333',
         ]);
 
         Contact::firstOrCreate([
@@ -47,9 +47,9 @@ class ContactsSeeder extends Seeder
             'name' => 'Ardith Duffett',
             'email'=>'ardith@duffett.com',
             'email2' => 'ardith2@duffett.com',
-            'phone_number1' => '1111111111',
-            'phone_number2' => '2222222222',
-            'phone_number3' => '3333333333',
+            'phone_number1' => '+1111111111',
+            'phone_number2' => '+2222222222',
+            'phone_number3' => '+3333333333',
         ]);
 
         Contact::firstOrCreate([
@@ -57,9 +57,9 @@ class ContactsSeeder extends Seeder
             'name' => 'Antone Berman',
             'email'=>'antone@berman.com',
             'email2' => 'antone2@berman.com',
-            'phone_number1' => '1111111111',
-            'phone_number2' => '2222222222',
-            'phone_number3' => '3333333333',
+            'phone_number1' => '+1111111111',
+            'phone_number2' => '+2222222222',
+            'phone_number3' => '+3333333333',
         ]);
     }
 }

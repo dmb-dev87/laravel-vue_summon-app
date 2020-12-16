@@ -19,6 +19,7 @@ class CreateSummonsTable extends Migration
             $table->foreignId('location_id');
             $table->string('contact_list')->nullable();
             $table->string('group_list')->nullable();
+            $table->string('summon_type')->default('text');
             $table->timestamp('start_date')->useCurrent();
             $table->timestamp('end_date')->useCurrent();
             $table->tinyinteger('del_flag')->default(0);

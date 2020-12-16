@@ -24,14 +24,15 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'phone_number1',
         'phone_number2',
         'phone_number3',
-        'password',
-        'permission_id',
-        'status',
         'email_verified_at',
         'email_verified',
         'email_verification_token',
         'verification_code',
-        'del_flag'
+        'password',
+        'role_name',
+        'languages',
+        'status',
+        'del_flag',
     ];
 
     /**
