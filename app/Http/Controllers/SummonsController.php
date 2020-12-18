@@ -340,7 +340,7 @@ class SummonsController extends Controller
                 ->where('contact_id', '=', $contact['id'])
                 ->where('summon_id', '=', $summon['id'])
                 ->where('main_type', '=', $main_type)
-                ->get();
+                ->first();
 
         try
         {
