@@ -18,7 +18,9 @@ class CreateHistoriesTable extends Migration
             $table->foreignId('summon_id');            
             $table->foreignId('user_id');
             $table->foreignId('contact_id');
-            $table->string('history_detail', 1024);
+            $table->string('main_type', 50);                        // main_type: MAIL or PHONE
+            $table->string('sub_type', 50)->nullable();             // sub_type: SMS, VOICE, WHATSAPP
+            $table->string('status', 50);                           // status: SEND, NOTSEND, READ, NUREAD
             $table->timestamps();
         });
     }

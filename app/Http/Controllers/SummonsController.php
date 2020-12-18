@@ -181,7 +181,7 @@ class SummonsController extends Controller
 
             $summon->save();
 
-            $this->create_history($summon);
+            $this->create_init_histories($summon);
 
             $summon->location_name = $summon->location->name;
             $summon->end_date_str = date("d/m/Y h:i A", strtotime($summon->end_date));
@@ -216,23 +216,23 @@ class SummonsController extends Controller
 
                 if ($contact['email'] && $contact['email_val1'])
                 {
-                    Mail::to($contact['email'])->send(new SummonMail($contact, $summon, $user));
+                    $this->send_email($contact['email'], $contact, $summon, $user, History::MAIN_TYPE_EMAIL1);
                 }
 
                 if ($contact['email2'] && $contact['email_val2'])
                 {
-                    Mail::to($contact['email2'])->send(new SummonMail($contact, $summon, $user));
+                    $this->send_email($contact['email2'], $contact, $summon, $user, History::MAIN_TYPE_EMAIL2);
                 }
 
                 if ($contact['phone_number1'])
                 {
                     if ($contact['phone_sms1'])
                     {
-                        $this->send_sms($contact['phone_number1'], $message);
+                        $this->send_sms($contact['phone_number1'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE1);
                     }
                     if ($contact['phone_whatsapp1'])
                     {
-                        $this->send_whatsapp($contact['phone_number1'], $message);
+                        $this->send_whatsapp($contact['phone_number1'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE1);
                     }
                 }
 
@@ -240,11 +240,11 @@ class SummonsController extends Controller
                 {
                     if ($contact['phone_sms2'])
                     {
-                        $this->send_sms($contact['phone_number2'], $message);
+                        $this->send_sms($contact['phone_number2'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE2);
                     }
                     if ($contact['phone_whatsapp2'])
                     {
-                        $this->send_whatsapp($contact['phone_number2'], $message);
+                        $this->send_whatsapp($contact['phone_number2'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE2);
                     }
                 }
 
@@ -252,11 +252,11 @@ class SummonsController extends Controller
                 {
                     if ($contact['phone_sms3'])
                     {
-                        $this->send_sms($contact['phone_number3'], $message);
+                        $this->send_sms($contact['phone_number3'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE3);
                     }
                     if ($contact['phone_whatsapp3'])
                     {
-                        $this->send_whatsapp($contact['phone_number3'], $message);
+                        $this->send_whatsapp($contact['phone_number3'], $message, $summon_id, $user->id, $contact_id, History::MAIN_TYPE_PHONE3);
                     }
                 }
             }
@@ -276,19 +276,35 @@ class SummonsController extends Controller
         return $arr;
     }
 
-    public function send_sms($phone_number, $message)
+    protected function send_sms($phone_number, $message, $summon_id, $user_id, $contact_id, $main_type)
     {
         $account_sid = getenv("TWILIO_SID");
         $auth_token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_number = getenv("TWILIO_NUMBER");
 
-        $client = new Client($account_sid, $auth_token);
+        try
+        {
+            $client = new Client($account_sid, $auth_token);
         
-        $client->messages->create($phone_number, 
-                ['from' => $twilio_number, 'body' => $message]);
+            $client->messages->create($phone_number, 
+                    ['from' => $twilio_number, 'body' => $message]);
+
+            $status = History::STATUS_UNREAD;
+        }
+        catch(Exception $ex)
+        {
+            $status = History::STATUS_FAILED;
+        }
+
+        $history = History::where('user_id', '=', $user_id)
+                ->where('contact_id', '=', $contact_id)
+                ->where('summon_id', '=', $summon_id)
+                ->where('main_type', '=', $main_type)
+                ->where('sub_type', '=', History::SUB_TYPE_SMS)
+                ->update(['status' => $status]);
     }
 
-    public function send_whatsapp($phone_number, $message)
+    protected function send_whatsapp($phone_number, $message, $summon_id, $user_id, $contact_id, $main_type)
     {
         $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
@@ -298,11 +314,46 @@ class SummonsController extends Controller
 
         $twilio = new Client($account_sid, $auth_token);
 
-        $message = $twilio->messages->create("whatsapp:".$phone_number, // to
+        try
+        {
+            $message = $twilio->messages->create("whatsapp:".$phone_number, // to
                 ["from" => "whatsapp:".$user->phone_number1, "body" => $message]);
+
+            $status = History::STATUS_UNREAD;
+        }
+        catch(Exception $ex)
+        {
+            $status = History::STATUS_FAILED;
+        }
+
+        $history = History::where('user_id', '=', $user_id)
+                ->where('contact_id', '=', $contact_id)
+                ->where('summon_id', '=', $summon_id)
+                ->where('main_type', '=', $main_type)
+                ->where('sub_type', '=', History::SUB_TYPE_WHATSAPP)
+                ->update(['status' => $status]);
     }
 
-    public function get_contact_ids($summon)
+    protected function send_email($email_addr, $contact, $summon, $user, $main_type)
+    {
+        try
+        {
+            Mail::to($email_addr)->send(new SummonMail($contact, $summon, $user));
+            $status = History::STATUS_UNREAD;
+        }
+        catch(Exception $ex)
+        {
+            $status = History::STATUS_FAILED;
+        }
+
+        $history = History::where('user_id', '=', $user['id'])
+                ->where('contact_id', '=', $contact['id'])
+                ->where('summon_id', '=', $summon['id'])
+                ->where('main_type', '=', $main_type)
+                ->update(['status' => $status]);
+    }
+
+    protected function get_contact_ids($summon)
     {  
         $contact_ids = array();
 
@@ -333,74 +384,316 @@ class SummonsController extends Controller
         return $contact_ids;
     }
 
-    public function create_history($summon)
+    protected function create_init_histories($summon)
     {
         $contact_ids = $this->get_contact_ids($summon);
 
         foreach($contact_ids as $contact_id)
         {
-            $history = new History;
+            $contact = Contact::find($contact_id);
 
-            $history->summon_id = $summon->id;
-            $history->user_id = $summon->user_id;
-            $history->contact_id = $contact_id;            
-            $history->history_detail = $this->create_init_history($contact_id);
+            if ($contact['email'] && $contact['email_val1']) 
+            {
+                $this->create_history(
+                    $summon->id, 
+                    $summon->user_id, 
+                    $contact_id, 
+                    History::MAIN_TYPE_EMAIL1, 
+                    null, 
+                    History::STATUS_UNSEND);
+            }
 
-            $history->save();            
+            if ($contact['email1'] && $contact['email_val2'])
+            {
+                $this->create_history(
+                    $summon->id, 
+                    $summon->user_id, 
+                    $contact_id, 
+                    History::MAIN_TYPE_EMAIL2, 
+                    null, 
+                    History::STATUS_UNSEND);
+            }
+
+            if ($contact['phone_number1'])
+            {
+                if ($contact['phone_voice1'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE1, 
+                        History::SUB_TYPE_VOICE, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_sms1'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE1, 
+                        History::SUB_TYPE_SMS, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_whatsapp1'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE1, 
+                        History::SUB_TYPE_WHATSAPP, 
+                        History::STATUS_UNSEND);
+                }
+            }
+
+            if ($contact['phone_number2'])
+            {
+                if ($contact['phone_voice2'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE2,
+                        History::SUB_TYPE_VOICE, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_sms2'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE2, 
+                        History::SUB_TYPE_SMS, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_whatsapp2'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE2, 
+                        History::SUB_TYPE_WHATSAPP, 
+                        History::STATUS_UNSEND);
+                }
+            }
+
+            if ($contact['phone_number3'])
+            {
+                if ($contact['phone_voice3'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE3, 
+                        History::SUB_TYPE_VOICE, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_sms3'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE3, 
+                        History::SUB_TYPE_SMS, 
+                        History::STATUS_UNSEND);
+                }
+
+                if ($contact['phone_whatsapp3'])
+                {
+                    $this->create_history(
+                        $summon->id, 
+                        $summon->user_id, 
+                        $contact_id, 
+                        History::MAIN_TYPE_PHONE3, 
+                        History::SUB_TYPE_WHATSAPP, 
+                        History::STATUS_UNSEND);
+                }
+            }
         }
     }
 
-    public function create_init_history($contact_id)
+    protected function create_history($summon_id, $user_id, $contact_id, $main_type, $sub_type, $status)
     {
-        $contact = Contact::find($contact_id);
+        $history = new History;
+
+        $history->summon_id = $summon_id;
+        $history->user_id = $user_id;
+        $history->contact_id = $contact_id;
+        $history->main_type = $main_type;
+        $history->sub_type = $sub_type;
+        $history->status = History::STATUS_UNSEND;
+
+        $history->save();
+
+        return $history;
+    }
+
+    public function getHistories($summon_id)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        $userId = $user->id;
+
+        $summon = Summon::find($summon_id);
+        
+        $contact_ids = $this->get_contact_ids($summon);
 
         $history_details = array();
 
+        foreach($contact_ids as $contact_id)
+        {
+            $contact = Contact::find($contact_id);
+
+            $history_detail = $this->get_history_detail($summon_id, $userId, $contact);
+            array_push($history_details, ['contact_name' => $contact->name, 'history_detail' => $history_detail]);
+        }
+
+        return $history_details;
+    }
+
+    protected function get_history_detail($summon_id, $user_id, $contact)
+    {
+        $contact_id = $contact->id;
+
+        $history_detail = array();
+
         if ($contact['email'] && $contact['email_val1'])
         {
-            $email1_history = ['type' => 'Email1', 'email' => History::STATUS_UNREAD];
-            array_push($history_details, $email1_history);
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_EMAIL1)
+                            ->first();
+
+            $email1_history = ['type' => 'Email1', 'email' => $history['status']];
+            array_push($history_detail, $email1_history);
         }
 
         if ($contact['email2'] && $contact['email_val2'])
         {
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_EMAIL2)
+                            ->first();
+
             $email2_history = ['type' => 'Email2', 'email' => History::STATUS_UNREAD];
-            array_push($history_details, $email2_history);
+            array_push($history_detail, $email2_history);
         }
 
         if ($contact['phone_number1'])
         {
             $phone_history1 = array();
 
-            array_push($phone_history1, ['type' => 'voice', 'status' => $contact['phone_voice1'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history1, ['type' => 'sms', 'status' => $contact['phone_sms1'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history1, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp1'] ? History::STATUS_UNREAD : '']);
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE1)
+                            ->where('sub_type', '=', History::SUB_TYPE_VOICE)
+                            ->first();
 
-            array_push($history_details, ['type' => 'Phone1', 'phone' => $phone_history1]);
+            array_push($phone_history1, ['type' => 'voice', 'status' => $contact['phone_voice1'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE1)
+                            ->where('sub_type', '=', History::SUB_TYPE_SMS)
+                            ->first();
+
+            array_push($phone_history1, ['type' => 'sms', 'status' => $contact['phone_sms1'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE1)
+                            ->where('sub_type', '=', History::SUB_TYPE_WHATSAPP)
+                            ->first();
+
+            array_push($phone_history1, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp1'] ? $history->status : '']);
+
+            array_push($history_detail, ['type' => 'Phone1', 'phone' => $phone_history1]);
         }
 
         if ($contact['phone_number2'])
         {
             $phone_history2 = array();
 
-            array_push($phone_history2, ['type' => 'voice', 'status' => $contact['phone_voice2'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history2, ['type' => 'sms', 'status' => $contact['phone_sms2'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history2, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp2'] ? History::STATUS_UNREAD : '']);
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE2)
+                            ->where('sub_type', '=', History::SUB_TYPE_VOICE)
+                            ->first();
 
-            array_push($history_details, ['type' => 'Phone2', 'phone' => $phone_history2]);
+            array_push($phone_history2, ['type' => 'voice', 'status' => $contact['phone_voice2'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE2)
+                            ->where('sub_type', '=', History::SUB_TYPE_SMS)
+                            ->first();
+
+            array_push($phone_history2, ['type' => 'sms', 'status' => $contact['phone_sms2'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE2)
+                            ->where('sub_type', '=', History::SUB_TYPE_WHATSAPP)
+                            ->first();
+
+            array_push($phone_history2, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp2'] ? $history->status : '']);
+
+            array_push($history_detail, ['type' => 'Phone2', 'phone' => $phone_history2]);
         }
 
         if ($contact['phone_number3'])
         {
             $phone_history3 = array();
 
-            array_push($phone_history3, ['type' => 'voice', 'status' => $contact['phone_voice3'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history3, ['type' => 'sms', 'status' => $contact['phone_sms3'] ? History::STATUS_UNREAD : '']);
-            array_push($phone_history3, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp3'] ? History::STATUS_UNREAD : '']);
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE3)
+                            ->where('sub_type', '=', History::SUB_TYPE_VOICE)
+                            ->first();
 
-            array_push($history_details, ['type' => 'Phone3', 'phone' => $phone_history3]);
+            array_push($phone_history3, ['type' => 'voice', 'status' => $contact['phone_voice3'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE3)
+                            ->where('sub_type', '=', History::SUB_TYPE_SMS)
+                            ->first();
+
+            array_push($phone_history3, ['type' => 'sms', 'status' => $contact['phone_sms3'] ? $history->status : '']);
+
+            $history = History::where('summon_id', '=', $summon_id)
+                            ->where('user_id', '=', $user_id)
+                            ->where('contact_id', '=', $contact_id)
+                            ->where('main_type', '=', History::MAIN_TYPE_PHONE3)
+                            ->where('sub_type', '=', History::SUB_TYPE_WHATSAPP)
+                            ->first();
+
+            array_push($phone_history3, ['type' => 'whatsapp', 'status' => $contact['phone_whatsapp3'] ? $history->status : '']);
+
+            array_push($history_detail, ['type' => 'Phone3', 'phone' => $phone_history3]);
         }
 
-        return json_encode($history_details);
+        return $history_detail;
     }
 }

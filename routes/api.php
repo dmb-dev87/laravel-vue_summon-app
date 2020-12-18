@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/summons/voice/save', 'SummonsController@saveVoicemail');    
 
     // Histories
-    Route::get('/histories/{summon_id}', 'HistoriesController@getHistories');
+    Route::get('/histories/{summon_id}', 'SummonsController@getHistories');
 
     // Calendar-Event
     Route::get('/events', 'EventsController@getList');

@@ -8,6 +8,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 use App\History;
+use App\Contact;
 
 class HistoriesController extends Controller
 {
@@ -24,7 +25,6 @@ class HistoriesController extends Controller
         foreach($histories as $history)
         {
             $history->contact_name = $history->contact->name;
-            $history->history_detail = json_decode($history->history_detail);
         }
         return $histories;
     }
