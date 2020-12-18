@@ -62,7 +62,6 @@ export default {
 		this.$store.dispatch('summons/fetchHistories', this.summon_id)
 			.then((response) => {
 				this.histories = response.data
-				console.log("+++++++++++++++++++", this.histories)
 			})
 			.catch((err) => {
 				console.error(err)

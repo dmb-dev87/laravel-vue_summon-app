@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     checkLogin () {
-      // If user is already logged in notify
       if (this.$store.state.auth.isUserLoggedIn()) {
         this.$vs.notify({
           title: 'Login Attempt',

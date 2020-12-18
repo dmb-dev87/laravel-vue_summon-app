@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/email-verify', 'VerifyController@verifyEmail');
 Route::get('/email-verify/resend', 'Auth\VerificationController@resendVerify')->name('resend');
+Route::get('/histories/mail-response/{history_id}', 'HistoriesController@emailResponse');
+
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', 'AuthController@register');
@@ -67,10 +69,10 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('/summons/send/{id}', 'SummonsController@sendSummonMessage');
     Route::post('/summons/voice/record', 'SummonsController@recordVoicemail');
     Route::post('/summons/voice/response', 'SummonsController@responseVoiceCall');
-    Route::get('/summons/voice/save', 'SummonsController@saveVoicemail');    
-
+    Route::get('/summons/voice/save', 'SummonsController@saveVoicemail');
+    
     // Histories
-    Route::get('/histories/{summon_id}', 'SummonsController@getHistories');
+    Route::get('/histories/{summon_id}', 'SummonsController@getHistories');    
 
     // Calendar-Event
     Route::get('/events', 'EventsController@getList');

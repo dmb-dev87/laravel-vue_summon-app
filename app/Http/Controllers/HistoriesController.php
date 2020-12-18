@@ -28,4 +28,14 @@ class HistoriesController extends Controller
         }
         return $histories;
     }
+
+    public function emailResponse($history_id)
+    {
+        History::where('id', '=', $history_id)
+                ->update(['status' => History::STATUS_READ] );
+
+        $history = History::find($history_id);
+
+        return $history;
+    }
 }

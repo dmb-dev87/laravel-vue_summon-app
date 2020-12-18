@@ -336,21 +336,23 @@ class SummonsController extends Controller
 
     protected function send_email($email_addr, $contact, $summon, $user, $main_type)
     {
+        $history = History::where('user_id', '=', $user['id'])
+                ->where('contact_id', '=', $contact['id'])
+                ->where('summon_id', '=', $summon['id'])
+                ->where('main_type', '=', $main_type)
+                ->get();
+
         try
         {
-            Mail::to($email_addr)->send(new SummonMail($contact, $summon, $user));
+            Mail::to($email_addr)->send(new SummonMail($contact, $summon, $user, $history));
             $status = History::STATUS_UNREAD;
         }
         catch(Exception $ex)
         {
             $status = History::STATUS_FAILED;
         }
-
-        $history = History::where('user_id', '=', $user['id'])
-                ->where('contact_id', '=', $contact['id'])
-                ->where('summon_id', '=', $summon['id'])
-                ->where('main_type', '=', $main_type)
-                ->update(['status' => $status]);
+        
+        $history->update(['status' => $status]);
     }
 
     protected function get_contact_ids($summon)

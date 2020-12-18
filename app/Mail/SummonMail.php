@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 
 use App\Contact;
 use App\Summon;
+use App\History;
 use App\User;
 
 class SummonMail extends Mailable
@@ -18,18 +19,20 @@ class SummonMail extends Mailable
     public Contact $contact;
     public Summon $summon;
     public User $user;
+    public History $history;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Contact $contact, Summon $summon, User $user)
+    public function __construct(Contact $contact, Summon $summon, User $user, History $history)
     {
         //
         $this->contact = $contact;
         $this->summon = $summon;
         $this->user = $user;
+        $this->history = $history;
     }
 
     /**
@@ -41,7 +44,7 @@ class SummonMail extends Mailable
     {
         $location_name = $this->summon->location->name;
         $due_date_str = date("d/m/Y h:i A", strtotime($this->summon->end_date));
-        $action_url = url('/summons/mail-response/'.$this->contact->id.'/'.$this->summon->id);
+        $action_url = url('/summon/mail-response/', $this->history->id);
 
         return $this->from($this->user->email)
                     ->markdown('emails.summon', 

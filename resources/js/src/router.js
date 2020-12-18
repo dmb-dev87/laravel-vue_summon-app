@@ -30,6 +30,20 @@ const router = new Router({
           }
         },
         {
+          path: '/summon_history/:id',
+          name: 'summon-history',
+          component: () => import('@/views/apps/summon/summon-history/SummonHistories.vue'),
+          meta: {
+            breadcrumb: [
+              { title: 'Home', url: '/' },
+              { title: 'Summon History', active: true }
+            ],
+            pageTitle: 'Summon History',
+            rule: 'user',
+            authRequired: true
+          }
+        },
+        {
           path: '/calendar',
           name: 'calendar-simple-calendar',
           component: () => import('@/views/apps/calendar/SimpleCalendar.vue'),
@@ -95,21 +109,7 @@ const router = new Router({
             rule: 'user',
             authRequired: true
           }
-        },
-        {
-          path: '/summon_history/:id',
-          name: 'summon-history',
-          component: () => import('@/views/apps/summon/summon-history/SummonHistories.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Summon History', active: true }
-            ],
-            pageTitle: 'Summon History',
-            rule: 'user',
-            authRequired: true
-          }
-        },
+        },        
         {
           path: '/activate',
           name: 'activate-user',
@@ -148,6 +148,14 @@ const router = new Router({
           path: '/callback',
           name: 'auth-callback',
           component: () => import('@/views/Callback.vue'),
+          meta: {
+            rule: 'user'
+          }
+        },
+        {
+          path: '/mail-response/:history_id',
+          name: 'mail-response',
+          component: () => import('@/views/apps/summon/mail-response/MailResponse.vue'),
           meta: {
             rule: 'user'
           }

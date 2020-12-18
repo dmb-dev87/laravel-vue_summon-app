@@ -89,9 +89,21 @@ export default {
           }
           resolve(response)
         })
-        .catch((error) =>{
+        .catch((error) => {
           reject(error)
         })
     })
   },  
+  emailResponse ({ commit }, history_id ) {
+    console.log("+++++++++++++++++++", history_id)
+    return new Promise((resolve, reject) => {
+      axios.get(`/api/histories/mail-response/${history_id}`)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+  }
 }
