@@ -44,7 +44,7 @@ class SummonMail extends Mailable
     {
         $location_name = $this->summon->location->name;
         $due_date_str = date("d/m/Y h:i A", strtotime($this->summon->end_date));
-        $action_url = url('/summon/mail-response/', $this->history_id);
+        $action_url = url('/summon/mail-response', $this->history_id);
 
         return $this->from($this->user->email)
                     ->markdown('emails.summon', 
