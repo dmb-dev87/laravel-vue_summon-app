@@ -26,7 +26,7 @@ class SummonMail extends Mailable
      *
      * @return void
      */
-    public function __construct(Contact $contact, Summon $summon, User $user, $history)
+    public function __construct(Contact $contact, Summon $summon, User $user, $history_id)
     {
         //
         $this->contact = $contact;
