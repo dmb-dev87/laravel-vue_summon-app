@@ -289,7 +289,7 @@ class SummonsController extends Controller
             $client->messages->create($phone_number, 
                     ['from' => $twilio_number, 'body' => $message]);
 
-            $status = History::STATUS_UNREAD;
+            $status = History::STATUS_SEND;
         }
         catch(Exception $ex)
         {
