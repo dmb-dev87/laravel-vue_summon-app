@@ -344,7 +344,7 @@ class SummonsController extends Controller
 
         try
         {
-            Mail::to($email_addr)->send(new SummonMail($contact, $summon, $user, $history));
+            Mail::to($email_addr)->send(new SummonMail($contact, $summon, $user, $history['id']));
             $status = History::STATUS_UNREAD;
         }
         catch(Exception $ex)
