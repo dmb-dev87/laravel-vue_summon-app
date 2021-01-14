@@ -278,9 +278,9 @@ class SummonsController extends Controller
 
     protected function send_sms($phone_number, $message, $summon_id, $user_id, $contact_id, $main_type)
     {
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_number = getenv("TWILIO_NUMBER");
+        $account_sid = env('TWILIO_SID');
+        $auth_token = env('TWILIO_AUTH_TOKEN');
+        $twilio_number = env('TWILIO_NUMBER');
 
         try
         {

@@ -14,7 +14,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //
-        $this->addUser('super_admin', 'Super Admin', 'super_admin@admin.com', 'super_admin2@admin.com', '+1111111111', '+2222222222', '+33333333333', bcrypt('dev1121!'), 'Admin', 'Activate');
+        $this->addUser('super_admin', 'Super Admin', 'summon@bfginternational.com', 'super_admin2@admin.com', '+1111111111', '+2222222222', '+33333333333', bcrypt('dev1121!'), 'Admin', 'Activate');
         $this->addUser('johny_01', 'John Steve', 'john1@admin.com', 'john2@admin.com', '+1111111111', '+2222222222', '+33333333333', bcrypt('dev1121!'), 'User', 'Activate');
         $this->addUser('chris_01', 'Chris Steve', 'chris1@admin.com', 'chris2@admin.com', '+1111111111', '+2222222222', '+33333333333', bcrypt('dev1121!'), 'User', 'Activate');
         $this->addUser('demodulation463', 'Rubi Ortwein', 'rubi@ortwein.com', 'rubi2@ortwein.com', '+1111111111', '+2222222222', '+33333333333', bcrypt('dev1121!'), 'User', 'Activate');
