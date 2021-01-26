@@ -106,14 +106,14 @@ class SummonsController extends Controller
         $receiver_number = $user->phone_number1;
         $receiver_number = "+13152150723";
 
-        // $response_url = url('/').'/api/summons/voice/response';
-        $response_url = getenv("APP_URL").'/api/summons/voice/response';
+        $response_url = url('/').'/api/summons/voice/response';
 
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_number = getenv("TWILIO_NUMBER");
+        $account_sid = \config('twilio.twilio_sid');
+        $auth_token = \config('twilio.twilio_auth_token');
+        $twilio_number = \config('twilio.twilio_number');
 
         $twilio = new Client($account_sid, $auth_token);
+
         $call = $twilio->calls->create(
             $receiver_number,
             $twilio_number,
@@ -126,7 +126,6 @@ class SummonsController extends Controller
         $response = new VoiceResponse();
 
         $save_url = url('/').'/api/summons/voice/save';
-        // $save_url = getenv("APP_URL").'/api/summons/voice/save';
 
         $response->say('Please leave a message at the beep. Press the star key when finished');
         $response->record(['maxLength' => 30, 'finishOnKey' => '*', 'action' => $save_url, 'method' => 'GET']);
@@ -174,7 +173,7 @@ class SummonsController extends Controller
 
             $summon->start_date = Carbon::parse($item['start_date']);
             $summon->end_date = Carbon::parse($item['end_date']);
-            // $summon->end_date = Carbon::createFromFormat('d/m/Y h:i A', $item['end_date']);
+
             $summon->message = $item['message'];
 
             $summon->is_sent = false;
@@ -278,9 +277,9 @@ class SummonsController extends Controller
 
     protected function send_sms($phone_number, $message, $summon_id, $user_id, $contact_id, $main_type)
     {
-        $account_sid = env('TWILIO_SID');
-        $auth_token = env('TWILIO_AUTH_TOKEN');
-        $twilio_number = env('TWILIO_NUMBER');
+        $account_sid = \config('twilio.twilio_sid');
+        $auth_token = \config('twilio.twilio_auth_token');
+        $twilio_number = \config('twilio.twilio_number');
 
         try
         {
@@ -309,8 +308,8 @@ class SummonsController extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $userId = $user->id;
 
-        $account_sid = getenv("TWILIO_SID");
-        $auth_token = getenv("TWILIO_AUTH_TOKEN");
+        $account_sid = \config('twilio.twilio_sid');
+        $auth_token = \config('twilio.twilio_auth_token');
 
         $twilio = new Client($account_sid, $auth_token);
 
